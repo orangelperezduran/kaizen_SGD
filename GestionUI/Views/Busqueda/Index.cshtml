@@ -1,0 +1,338 @@
+﻿@model GestionUI.Models.ExpedienteModel
+@using DataLibrary.BusinessLogic;
+@using Microsoft.AspNet.Identity;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Seleccionar búsqueda</h2>
+
+
+@* Búsequeda dentro de las oficinas que tenga admitido modo: oficina, serie/subserie, tipo de identificación,
+    identificación, folios, observaciones, búsqueda en subserie, tipo de identificación, identificación y observaciones *@
+
+
+<form class="form-inline">
+
+    <select class="form-control col-md-2" id="VersionTRD" }>
+        @foreach (var item in TRDLogic.GetAllVersiones())
+        {
+            if (!TRDLogic.IsModificacion(item))
+            {
+                <option class="list-group-item" value="@item">@item</option>
+            }
+        }
+    </select>
+    &nbsp;
+    <input type="button" onclick="CambiarVersion()" value="Ver version de TRD" class="btn btn-primary col-md-2 align-content-center" />
+</form>
+<hr />
+
+<form action="/Busqueda/Index?version=@TempData["version"]" method="post" enctype="multipart/form-data">
+    <div class="row col-md-12">
+
+        <div class="col-md-6 ">
+            @{List<SelectListItem> x = new List<SelectListItem>();
+                x = TRDLogic.GetOficinas(User.Identity.GetUserId(), (int)TempData["version"]);
+                x.Add(new SelectListItem() { Text = "Seleccione una oficina", Value = "", Selected = true });}
+            @Html.LabelFor(model => model.oficina, htmlAttributes: new { @class = "" })
+            @Html.DropDownListFor(model => model.oficina, x, new { @class = "form-control col-md-10" })
+            @Html.ValidationMessageFor(model => model.oficina, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group col-md-6 ">
+            @Html.LabelFor(model => model.serie, htmlAttributes: new { @class = "" })
+            @Html.DropDownListFor(model => model.serie, new List<SelectListItem>() { new SelectListItem() { Text = "Seleccione una serie" } }, new { @class = "form-control col-md-10" })
+            @Html.ValidationMessageFor(model => model.serie, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="row col-md-12">
+
+        <div class="form-group col-md-6">
+            @Html.LabelFor(model => model.subserie, htmlAttributes: new { @class = "control-label" })
+            @Html.DropDownListFor(model => model.subserie, new List<SelectListItem>() { new SelectListItem() { Text = "Seleccione una subserie" } }, new { @class = "form-control col-md-10" })
+            @Html.ValidationMessageFor(model => model.subserie, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group col-md-6">
+            @Html.LabelFor(model => model.ano, htmlAttributes: new { @class = "control-label" })
+            @{
+                x = new List<SelectListItem>();
+                x.Add(new SelectListItem() { Text = "Seleccione un ano", Selected = true });
+                for (int i = 1900; i < 2100; i++)
+                {
+                    x.Add(new SelectListItem() { Text = i.ToString(), Value = i.ToString() });
+                }
+            }
+            @Html.DropDownListFor(model => model.ano, x, new { @class = "form-control col-md-10" })
+            @Html.ValidationMessageFor(model => model.ano, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <br />
+
+    <hr />
+
+    <div class="col-12">
+        <div class="input-group">
+            @Html.EditorFor(model => model.busqueda, new { htmlAttributes = new { @class = "form-control col-12", @placeholder = "Búsqueda general" } })
+            <div class="input-group-prepend">
+                <button type="submit" value="submit" class="btn btn-primary btn-sm rounded-right"><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+@if (TempData["oficina"] != null)
+{
+    <div class="table table-responsive">
+        <table id="">
+            <thead>
+                <tr>
+                    <th>Accion</th>
+                    <th>Oficina productora</th>
+                    <th>Serie-Subserie</th>
+                    <th>tipo de identificación</th>
+                    <th>identificación</th>
+                    <th>Folios</th>
+                    <th>Observaciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var oficina in TempData["oficina"] as List<SelectListItem>)
+                {
+                    foreach (var seriet in TRDLogic.GetSeries(User.Identity.GetUserId(),
+                        (int)TempData["version"], int.Parse(oficina.Value), (int)TempData["serie"]))
+                    {
+                        foreach (var subseriet in TRDLogic.GetSubseries(User.Identity.GetUserId(),
+                            (int)TempData["version"], int.Parse(oficina.Value), int.Parse(seriet.Value), (int)TempData["subserie"],Model.busqueda))
+                        {
+                            if (Model != null && Model.ano > 1900)
+                            {
+                                foreach (var exp in ExpedienteLogic.GetExpedientes(subseriet.trd_id, Model.ano, Model.busqueda))
+                                {
+                                    string radicado=" ";
+                                    if (exp.consecutivo_radicado != null)
+                                    {
+                                        
+                                        var rad = RadicacionLogic.GetRadicado((int)exp.ano, (int)exp.consecutivo_radicado);
+                                        radicado = "Radicado: "+rad.numero_radicado.ToString();
+                                    }
+                                    
+                                    <tr>
+                                        <td><a href="/Busqueda/Busqueda/@exp.id_trd?exp_id=@exp.id"> Ver expediente</a></td>
+                                        <td>@oficina.Text</td>
+                                        <td>@seriet.Text-@subseriet.nombre</td>
+                                        <td>@subseriet.identificacion</td>
+                                        <td>
+                                            @exp.identificacion @radicado
+                                        </td>
+                                        <td>@exp.folios</td>
+                                        <td>@exp.observaciones</td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                foreach (var exp in ExpedienteLogic.GetExpedientes(subseriet.trd_id, Model.busqueda))
+                                {
+                                    string radicado=" ";
+                                    if (exp.consecutivo_radicado != null)
+                                    {
+                                        
+                                        var rad = RadicacionLogic.GetRadicado((int)exp.ano, (int)exp.consecutivo_radicado);
+                                        radicado = "Radicado: "+rad.numero_radicado.ToString();
+                                    }
+                                    
+                                    <tr>
+                                        <td><a href="/Busqueda/Busqueda/@exp.id_trd?exp_id=@exp.id"> Ver expediente</a></td>
+                                        <td>@oficina.Text</td>
+                                        <td>@seriet.Text-@subseriet.nombre</td>
+                                        <td>@subseriet.identificacion</td>
+                                        <td>
+                                            @exp.identificacion @radicado
+                                        </td>
+                                        <td>@exp.folios</td>
+                                        <td>@exp.observaciones</td>
+                                    </tr>
+                                }                        
+                            }
+                        }
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+
+
+
+<script>
+    function CambiarVersion() {
+        var el = document.getElementById('VersionTRD');
+        var text = el.options[el.selectedIndex].innerHTML;
+        window.location.replace('/Busqueda/Index/' + text);
+    }
+
+    $(document).ready(function () {
+        var dID = $("#oficina").val();
+
+        @{int serie = 0; }
+        @try
+        {
+            if (Model != null)
+            {
+                serie = Model.serie;
+            }
+        }
+        catch (Exception) { }
+        $.getJSON('/Documento/GetSeries', { id: dID, version:@TempData["version"], serie:@serie },
+            function (data) {
+                var select = $("#serie");
+                select.empty();
+                select.append($('<option/>', {
+                    text: "Seleccione una serie"
+                }));
+                $.each(data, function (index, itemData) {
+                    select.append($('<option/>', {
+                        value: itemData.Value,
+                        text: itemData.Text,
+                        selected: itemData.Selected
+                    }));
+
+                });
+                subserie();
+            });
+
+        function subserie() {
+            dID = $("#serie").val();
+            @{int subserie = 0; }
+        @try
+        {
+            if (Model != null)
+            {
+                subserie = Model.subserie;
+            }
+
+        }
+        catch (Exception) { }
+            if (dID != "Seleccione una serie") {
+                $.getJSON("/Documento/GetSubseries", {
+                 id: dID, version:@TempData["version"],oficina: $("#oficina").val(),subserie:@subserie
+             },
+                    function (data) {
+                        var select = $("#subserie");
+                        select.empty();
+                        select.append($('<option/>', {
+                            text: "Seleccione una subserie"
+                        }));
+                        $.each(data, function (index, itemData) {
+
+                            select.append($('<option/>', {
+                                value: itemData.Value,
+                                text: itemData.Text,
+                                selected: itemData.Selected
+                            }));
+                        });
+                     tipologia();
+                 });
+            }
+        }
+
+        function tipologia() {
+            dID = $("#subserie").val();
+            @{int tipo = 0; }
+            @try
+            {
+                if (Model != null)
+                {
+                    tipo = Model.id_tipologia;
+                }
+
+            }
+            catch (Exception) { }
+            if (dID != "Seleccione una subserie") {
+                $.getJSON("/Documento/GetTipologias", {
+                    id: dID, version:@TempData["version"], oficina: $("#oficina").val(), serie: $("#serie").val(), tipologia:@tipo
+                    },
+                    function (data) {
+                        var select = $("#id_tipologia");
+                        select.empty();
+                        select.append($('<option/>', {
+                            text: "Seleccione una tipologia"
+                        }));
+                        $.each(data, function (index, itemData) {
+                            select.append($('<option/>', {
+                                value: itemData.Value,
+                                text: itemData.Text,
+                                selected: itemData.Selected
+                            }));
+                        });
+                 });
+        }
+        }
+    });
+    //on the run
+    $(document).ready(function () {
+         $("#oficina").change(function () {
+             var dID= $(this).val();
+             $.getJSON("/Documento/GetSeries", { id: dID,version:@TempData["version"] },
+                    function (data) {
+                        var select = $("#serie");
+                        select.empty();
+                        select.append($('<option/>', {
+                            text: "Seleccione una serie"
+                        }));
+                        $.each(data, function (index, itemData) {
+                            select.append($('<option/>', {
+                                value: itemData.Value,
+                                text: itemData.Text
+                            }));
+                        });
+                 });
+         });
+    });
+    $(document).ready(function () {
+         $("#serie").change(function () {
+             var dID = $(this).val();
+             $.getJSON("/Documento/GetSubseries", {
+                 id: dID, version:@TempData["version"],oficina: $("#oficina").val()
+             },
+                    function (data) {
+                        var select = $("#subserie");
+                        select.empty();
+                        select.append($('<option/>', {
+                            text: "Seleccione una subserie"
+                        }));
+                        $.each(data, function (index, itemData) {
+                            select.append($('<option/>', {
+                                value: itemData.Value,
+                                text: itemData.Text
+                            }));
+                        });
+                 });
+         });
+    });
+    $(document).ready(function () {
+         $("#subserie").change(function () {
+             var dID = $(this).val();
+             $.getJSON("/Documento/GetTipologias", {
+                 id: dID, version:@TempData["version"],oficina: $("#oficina").val(),serie: $("#serie").val()
+             },
+                    function (data) {
+                        var select = $("#id_tipologia");
+                        select.empty();
+                        select.append($('<option/>', {
+                            text: "Seleccione una tipologia"
+                        }));
+                        $.each(data, function (index, itemData) {
+                            select.append($('<option/>', {
+                                value: itemData.Value,
+                                text: itemData.Text
+                            }));
+                        });
+                 });
+         });
+    });
+</script>

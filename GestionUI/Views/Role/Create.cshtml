@@ -1,0 +1,210 @@
+﻿@model GestionUI.Models.RoleModel
+@using DataLibrary.BusinessLogic;
+@using Microsoft.AspNet.Identity;
+@{
+    ViewBag.Title = "Agregar";
+    Layout = null;
+    var roles = RoleManager.CargarRoles();
+    var version =(int) TempData["version"];
+    if (TRDLogic.IsModificacion(version))
+    {
+        version = version - 1;
+    }    
+}
+
+
+
+
+    <form id="formulario">
+
+
+        @Html.AntiForgeryToken()
+
+        <div class="">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "col-form-label" })
+                <div class="">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control col-12" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <button class="col-12 btn btn-primary text-left p-1" type="button" data-toggle="collapse"
+                    data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                <div class="form-inline">
+                    <div class="col-8">
+                        Permisos de roles
+                    </div>
+                    <div class="text-right col-4"><i class="fas fa-caret-down"></i>       </div>
+                </div>
+            </button>
+            <div class="p-1"></div>
+            <div class="collapse bg-light" id="navbarToggleExternalContent">
+                <div class="form">
+                    @Html.LabelFor(model => model.aprobarTRD, htmlAttributes: new { @class = "control-label col-11 " })
+                    <div class="form-check form-check-inline">
+                        @Html.EditorFor(model => model.aprobarTRD, new { htmlAttributes = new { @class = "form-check-input" } })
+                    </div>
+                </div>
+                <div class="form">
+                    @Html.LabelFor(model => model.modificarTRD, htmlAttributes: new { @class = "control-label col-11" })
+                    <div class="form-check form-check-inline">
+                        @Html.EditorFor(model => model.modificarTRD, new { htmlAttributes = new { @class = "form-check-input" } })
+                        @Html.ValidationMessageFor(model => model.modificarTRD, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form">
+                    @Html.LabelFor(model => model.role_manager, htmlAttributes: new { @class = "control-label col-11" })
+                    <div class="form-check form-check-inline">
+                        @Html.EditorFor(model => model.role_manager, new { htmlAttributes = new { @class = "form-check-input" } })
+                        @Html.ValidationMessageFor(model => model.role_manager, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                @if (RoleManager.IsUserManager(User.Identity.GetUserId()))
+                {
+                    <div class="form">
+                        @Html.LabelFor(model => model.user_manager, htmlAttributes: new { @class = "control-label col-11" })
+                        <div class="form-check form-check-inline">
+                            @Html.EditorFor(model => model.user_manager, new { htmlAttributes = new { @class = "form-check-input", @onclick = "UserManager()" } })
+                            @Html.ValidationMessageFor(model => model.user_manager, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+                }
+
+            </div>
+            <button class="col-12 btn btn-primary text-left p-1" type="button" data-toggle="collapse" data-target="#ToggleRoles" style="display:none"
+                    aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation" id="UserManagerButton">
+                <div class="form-inline">
+                    <div class="col-8">
+                        ¿A qué roles puede agregar modificar usuarios este nuevo rol?
+                    </div>
+                    <div class="text-right col-4"><i class="fas fa-caret-down"></i>       </div>
+                </div>
+            </button>
+
+            <div class="collapse bg-light p-1" id="ToggleRoles">
+                @foreach (var role in roles)
+                {
+                    if (RoleManager.AutorizedRole(User.Identity.GetUserId(), role.id.ToString()))
+                    {
+                        <div class="form">
+                            <label for="chkbx @role.id" class="control-label col-11">@role.name</label>
+                            <div class="form-check form-check-inline">
+                                <input type="checkbox" name="Roles" value="@role.id" class="form-check-input" id="chkbx @role.id" />
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+
+            <div class="p-1"></div>
+            <button class="col-12 btn btn-primary text-left p-1" type="button" data-toggle="collapse" data-target="#ToggleOficinas"
+                    aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                <div class="form-inline">
+                    <div class="col-8">
+                        Oficinas
+                    </div>
+                    <div class="text-right col-4"><i class="fas fa-caret-down"></i>       </div>
+                </div>
+            </button>
+
+            <div class="collapse bg-light p-1" id="ToggleOficinas">
+                @foreach (var oficina in TRDLogic.GetOficinas(User.Identity.GetUserId(), version))
+                {
+                    <div class="form p-1">
+                        <button class="col-12 btn btn-info text-left" type="button" data-toggle="collapse" data-target="#Toggleoficina_@oficina.Value"
+                                aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation" style="background-color:#db9352;border-color:#e6ae75">
+                            <div class="form-row">
+                                <div class="col-8">
+                                    @oficina.Text
+                                </div>
+                                <div class="text-right col-4"><i class="fas fa-caret-down"></i>       </div>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="collapse bg-light p-1" id="Toggleoficina_@oficina.Value">
+                        @foreach (var serie in TRDLogic.GetSeries(User.Identity.GetUserId(), version, int.Parse(oficina.Value)))
+                        {
+                            <div class="form p-1">
+                                <button class="col-12 btn btn-outline-info text-left" type="button" data-toggle="collapse" data-target="#ToggleSerie_@serie.Value"
+                                        aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation" style="background-color:#fad1a9;border-color:#fad1a9;color:white">
+                                    <div class="form-row">
+                                        <div class="col-8">
+                                            @serie.Text
+                                        </div>
+                                        <div class="text-right col-4"><i class="fas fa-caret-down"></i>       </div>
+                                    </div>
+                                </button>
+                            </div>
+                            <div class="collapse bg-light p-1" id="ToggleSerie_@serie.Value">
+                                @foreach (var subserie in TRDLogic.GetSubseries(User.Identity.GetUserId(), version, int.Parse(oficina.Value), int.Parse(serie.Value)))
+                                {
+                                    <div class="form">
+                                        <label for="chkbx @subserie.trd_id" class="control-label col-11">@subserie.nombre</label>
+                                        <div class="form-check form-check-inline">
+                                            <input type="checkbox" name="subseries" value="@subserie.trd_id"
+                                                   class="form-check-input" id="chkbx @subserie.trd_id" />
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </div>
+
+                }
+            </div>
+            <hr />
+            <p>
+                <div class="text-center p-1">
+                    <input type="submit" id="btnSubmit" value="Agregar rol" class="btn btn-success col-6" />
+                </div>
+            </p>
+
+        </div>
+</form>
+
+
+<script>
+    function UserManager() {
+        var x = document.getElementById('user_manager');
+        var y = document.getElementById('UserManagerButton');
+
+        if (x.checked) {
+            y.style.display = "block";
+        } else {
+            y.style.display = "none";;
+        }
+    }
+</script>
+
+<script>
+        $(document).ready(function () {
+            $("#btnSubmit").click(function () {
+                var data = $("#formulario").serialize();
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Role/Create",
+                    data: data,
+                    success: function (data) {
+                        if (data != null && data.success) {
+                            alert("Se ha agregado rol correctamente");
+                            window.location.replace("/Role/Index");
+
+                        } else {
+                            alert(data.error);
+                        }
+                    },
+                    error: function () {
+
+                    }
+                })
+            })
+
+        })
+
+</script>
+

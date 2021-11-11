@@ -1,0 +1,396 @@
+﻿@model GestionUI.Models.VirtualizarModel
+@using DataLibrary.BusinessLogic;
+@using Microsoft.AspNet.Identity;
+@using GestionUI.Controllers;
+
+@{
+    ViewBag.Title = "Digitalizar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger"><strong>Alert! </strong>@TempData["ErrorMessage"].ToString()</div>
+}
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success"><strong>Success! </strong>@TempData["SuccessMessage"].ToString()</div>    
+}
+<form action="Digitalizar?version=@TempData["version"]" method="post" enctype="multipart/form-data">
+
+
+    @Html.AntiForgeryToken()
+
+    <h4>Digitalización</h4>
+    <hr />
+    <label class="col-form-label">Por favor seleccione la version que desea ver:</label>
+    <div class="form-row form-inline">
+
+        <select class="form-control col-md-3" id="VersionTRD" }>
+            @foreach (var item in TRDLogic.GetAllVersiones())
+            {
+                if (!TRDLogic.IsModificacion(item))
+                {
+                    <option class="list-group-item" value="@item">@item</option>
+                }
+            }
+        </select>
+        &ensp;
+        <input type="button" onclick="CambiarVersion()" value="Cambiar version de TRD" class="btn btn-primary col-md-3 align-content-center" />
+    </div>
+    <hr />
+
+    <div class="form">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="row col-md-12">
+
+            <div class="col-md-6 ">
+                @Html.LabelFor(model => model.oficina, htmlAttributes: new { @class = "" })
+                @Html.DropDownListFor(model => model.oficina, TRDLogic.GetOficinas(User.Identity.GetUserId(), (int)TempData["version"]), new { @class = "form-control col-md-10" })
+                @Html.ValidationMessageFor(model => model.oficina, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-md-6 ">
+                @Html.LabelFor(model => model.serie, htmlAttributes: new { @class = "" })
+                @Html.DropDownListFor(model => model.serie, new List<SelectListItem>() { new SelectListItem() { Text = "Seleccione una serie" } }, new { @class = "form-control col-md-10" })
+                @Html.ValidationMessageFor(model => model.serie, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row col-md-12">
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.subserie, htmlAttributes: new { @class = "control-label" })
+                @Html.DropDownListFor(model => model.subserie, new List<SelectListItem>() { new SelectListItem() { Text = "Seleccione una subserie" } }, new { @class = "form-control col-md-10" })
+                @Html.ValidationMessageFor(model => model.subserie, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.id_tipologia, htmlAttributes: new { @class = "control-label" })
+                @Html.DropDownListFor(model => model.id_tipologia, new List<SelectListItem>() { new SelectListItem() { Text = "Seleccione una tipologia" } }, new { @class = "form-control col-md-10" })
+                @Html.ValidationMessageFor(model => model.id_tipologia, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row col-md-12">
+            <div class="form-group col-md-6">
+                <label>Subir Documento:</label>
+                <div class="col-12">
+                    @Html.TextBoxFor(model => model.file, new { @class = "custom-file-input ", @type = "file", id = "customFile" })
+                    @Html.LabelFor(model => model.file, new { @class = "custom-file-label col-md-10", @for = "customFile" })
+                </div>
+
+                @Html.ValidationMessageFor(model => model.file, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <hr />
+        <div class="row col-md-12">
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.ano, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.DropDownListFor(model => model.ano, new List<SelectListItem>() {new SelectListItem() { Text = "Año" },
+               new SelectListItem() { Text = "2000",Value="2000" },
+               new SelectListItem() { Text = "2001",Value="2001" },
+               new SelectListItem() { Text = "2002",Value="2002" },
+               new SelectListItem() { Text = "2003",Value="2003" },
+               new SelectListItem() { Text = "2004",Value="2004" },
+               new SelectListItem() { Text = "2005",Value="2005" },
+               new SelectListItem() { Text = "2006",Value="2006" },
+               new SelectListItem() { Text = "2007",Value="2007" },
+               new SelectListItem() { Text = "2008",Value="2008" },
+               new SelectListItem() { Text = "2009",Value="2009" },
+               new SelectListItem() { Text = "2010",Value="2010" },
+               new SelectListItem() { Text = "2011",Value="2011" },
+               new SelectListItem() { Text = "2012",Value="2012" },
+               new SelectListItem() { Text = "2013",Value="2013" },
+               new SelectListItem() { Text = "2014",Value="2014" },
+               new SelectListItem() { Text = "2015",Value="2015" },
+               new SelectListItem() { Text = "2016",Value="2016" },
+               new SelectListItem() { Text = "2017",Value="2017" },
+               new SelectListItem() { Text = "2018",Value="2018" },
+            new SelectListItem() { Text = "2019",Value="2019" },
+            new SelectListItem() { Text = "2020",Value="2020" },
+               new SelectListItem() { Text = "2021",Value="2021" },
+            new SelectListItem() { Text = "2022",Value="2022" },
+            new SelectListItem() { Text = "2023",Value="2023" },
+            new SelectListItem() { Text = "2024",Value="2024" },
+            new SelectListItem() { Text = "2025",Value="2025" },
+            new SelectListItem() { Text = "2026",Value="2026" },
+            new SelectListItem() { Text = "2027",Value="2027" },
+            new SelectListItem() { Text = "2028",Value="2028" },
+            new SelectListItem() { Text = "2029",Value="2029" },
+            new SelectListItem() { Text = "2030",Value="2030" }},
+new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ano, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group col-md-6 ">
+                @Html.LabelFor(model => model.folios, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.folios, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.folios, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group col-md-6" id="identificacion_div" style="display:none">
+                @Html.LabelFor(model => model.identificacion, htmlAttributes: new { @class = "control-label", @id = "identificacion_label" })
+                @Html.EditorFor(model => model.identificacion, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.identificacion, "", new { @class = "text-danger" })
+            </div>
+
+
+        </div>
+
+        
+        <div class="row col-md-12">
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.observaciones, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.observaciones, new { htmlAttributes = new { @class = "form-control col-md-10" } })
+                @Html.ValidationMessageFor(model => model.observaciones, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.observacionesexp, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.observacionesexp, new { htmlAttributes = new { @class = "form-control col-md-10" } })
+                @Html.ValidationMessageFor(model => model.observacionesexp, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group form-row col-md-6">
+
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.interno)
+                    @Html.ValidationMessageFor(model => model.interno, "", new { @class = "text-danger" })
+                </div>
+                @Html.LabelFor(model => model.interno, "Es un expediente completo", htmlAttributes: new { @class = "control-label col-md-6" })
+            </div>
+        </div>
+
+        <br />
+
+        <div class="form-group">
+            <div class="col-md-12">
+                <input type="submit" class="btn btn-success col-12" value="Digitalizar" onclick="Agregar()" />
+            </div>
+        </div>
+    </div>
+
+</form>
+
+
+
+
+<script>
+    function CambiarVersion() {
+        var el = document.getElementById('VersionTRD');
+        var text = el.options[el.selectedIndex].innerHTML;
+
+        window.location.replace('/Documeto/Digitalizar?ver=' + text);
+
+    }
+    //iniciando
+    $(document).ready(function () {
+        var dID = $("#oficina").val();
+
+        @{int serie = 0; }
+        @try
+        {
+            if (Model != null)
+            {
+                serie = Model.serie;
+            }
+        }
+        catch (Exception) { }
+        $.getJSON("../Documento/GetSeries", { id: dID, version:@TempData["version"], serie:@serie },
+            function (data) {
+                var select = $("#serie");
+                select.empty();
+                select.append($('<option/>', {
+                    text: "Seleccione una serie"
+                }));
+                $.each(data, function (index, itemData) {
+                    select.append($('<option/>', {
+                        value: itemData.Value,
+                        text: itemData.Text,
+                        selected: itemData.Selected
+                    }));
+
+                });
+                subserie();
+            });
+
+        function subserie() {
+            dID = $("#serie").val();
+            @{int subserie = 0; }
+        @try
+        {
+            if (Model != null)
+            {
+                subserie = Model.subserie;
+            }
+        }
+        catch (Exception) { }
+            if (dID != "Seleccione una serie") {
+             $.getJSON("../Documento/GetSubseries", {
+                 id: dID, version:@TempData["version"],oficina: $("#oficina").val(),subserie:@subserie
+             },
+                    function (data) {
+                        var select = $("#subserie");
+                        select.empty();
+                        select.append($('<option/>', {
+                            text: "Seleccione una subserie"
+                        }));
+                        $.each(data, function (index, itemData) {
+
+                            select.append($('<option/>', {
+                                value: itemData.Value,
+                                text: itemData.Text,
+                                selected: itemData.Selected
+                            }));
+                        });
+                        tipologia();
+                 });
+                
+            }
+
+        }
+
+        function tipologia() {
+            dID = $("#subserie").val();
+            @{int tipo = 0; }
+            @try
+            {
+                if (Model != null)
+                {
+                    tipo = Model.id_tipologia;
+                }
+            }
+            catch (Exception) { }
+        if (dID != "Seleccione una subserie") {
+            $.getJSON("../Documento/GetTipologias", {
+                id: dID, version:@TempData["version"], oficina: $("#oficina").val(), serie: $("#serie").val(), tipologia:@tipo
+             },
+                    function (data) {
+                        var select = $("#id_tipologia");
+                        select.empty();
+                        select.append($('<option/>', {
+                            text: "Seleccione una tipologia"
+                        }));
+                        $.each(data, function (index, itemData) {
+                            select.append($('<option/>', {
+                                value: itemData.Value,
+                                text: itemData.Text,
+                                selected: itemData.Selected
+                            }));
+                        });
+                });
+            $.getJSON("../Documento/GetOrganizacionText", {
+                 id: dID
+             },
+                 function (data) {
+                    if (data.id_organizacion == 2 || data.id_organizacion == 4) {
+                         document.getElementById("identificacion_div").style.display = "block";
+                         document.getElementById("identificacion_label").innerHTML = data.identificacion+":";
+                     }
+                     if (data.id_organizacion == 3) {
+                         document.getElementById("identificacion_div").style.display = "block";
+                         document.getElementById("identificacion_label").innerHTML = "Radicado:";
+                     }
+
+                     if(data.id_organizacion == 1) {
+                          $("#identificacion").val("");
+                         document.getElementById("identificacion_div").style.display = "none";
+                     }           
+                 });
+        }
+        }
+    });
+    //on the run
+    $(document).ready(function () {
+         $("#oficina").change(function () {
+             var dID= $(this).val();
+             $.getJSON("../Documento/GetSeries", { id: dID,version:@TempData["version"] },
+                    function (data) {
+                        var select = $("#serie");
+                        select.empty();
+                        select.append($('<option/>', {
+                            text: "Seleccione una serie"
+                        }));
+                        $.each(data, function (index, itemData) {
+                            select.append($('<option/>', {
+                                value: itemData.Value,
+                                text: itemData.Text
+                            }));
+                        });
+                 });
+         });
+    });
+    $(document).ready(function () {
+         $("#serie").change(function () {
+             var dID = $(this).val();
+             $.getJSON("../Documento/GetSubseries", {
+                 id: dID, version:@TempData["version"],oficina: $("#oficina").val()
+             },
+                    function (data) {
+                        var select = $("#subserie");
+                        select.empty();
+                        select.append($('<option/>', {
+                            text: "Seleccione una subserie"
+                        }));
+                        $.each(data, function (index, itemData) {
+                            select.append($('<option/>', {
+                                value: itemData.Value,
+                                text: itemData.Text
+                            }));
+                        });
+                 });
+            
+         });
+    });
+    $(document).ready(function () {
+         $("#subserie").change(function () {
+             var dID = $(this).val();
+             $.getJSON("../Documento/GetTipologias", {
+                 id: dID, version:@TempData["version"],oficina: $("#oficina").val(),serie: $("#serie").val()
+             },
+                    function (data) {
+                        var select = $("#id_tipologia");
+                        select.empty();
+                        select.append($('<option/>', {
+                            text: "Seleccione una tipologia"
+                        }));
+                        $.each(data, function (index, itemData) {
+                            select.append($('<option/>', {
+                                value: itemData.Value,
+                                text: itemData.Text
+                            }));
+                        });
+                 });
+             console.log(dID);
+             $.getJSON("../Documento/GetOrganizacionText", {
+                 id: dID
+             },
+                 
+                 function (data) {
+                    if (data.id_organizacion == 2 || data.id_organizacion == 4) {
+                         document.getElementById("identificacion_div").style.display = "block";
+                         document.getElementById("identificacion_label").innerHTML = data.identificacion+":";
+                     }
+                     if (data.id_organizacion == 3) {
+                         document.getElementById("identificacion_div").style.display = "block";
+                         document.getElementById("identificacion_label").innerHTML = "Radicado:";
+                     }
+
+                     if(data.id_organizacion == 1) {
+                          $("#identificacion").val("");
+                         document.getElementById("identificacion_div").style.display = "none";
+                     }           
+                 });
+             
+         });
+    });
+</script>
+@*//bootstrapt script*@
+<script>
+    $(".custom-file-input").on("change", function () {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+</script>

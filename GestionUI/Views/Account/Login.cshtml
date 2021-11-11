@@ -1,0 +1,142 @@
+﻿@using GestionUI.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Iniciar sesión";
+    Layout = null;
+}
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/jqueryui")
+
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Login</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Custom styles for this template-->
+    @*<link href="css/sb-admin-2.min.css" rel="stylesheet">*@
+
+</head>
+<style type="text/css">
+    .bg-dark{
+        background-image:url("/Content/images/Fondo_Logeo.png");
+        background-size: cover;
+
+    }
+    .bg-orange{
+        background-image:url("/Content/images/Naranja.png");
+        background-size: cover;
+
+    }
+    #Repetir_cuadr_cula_1 {
+		position: absolute;
+		width: 241px;
+		height: 92px;
+		left: 119px;
+		overflow: hidden;
+	}
+	#Repetir_cuadr_cula_1_0 {
+		position: absolute;
+		width: 241px;
+		height: 92px;
+		left: 0px;
+		top: 0px;
+		overflow: visible;
+	}
+    #Logo_Head {
+        position: absolute;
+        width: 241px;
+        left: 0px;
+        top: 0px;
+        overflow: visible;
+    }
+</style>
+<body class="bg-dark">
+    <div id="Repetir_cuadr_cula_1">
+        <div id="Repetir_cuadr_cula_1_0">
+            <img id="Logo_Head" src="/Content/images/Logo_Head.png" />
+        </div>
+    </div>
+    <div class="container col-lg-5">
+
+        <!-- Outer Row -->
+        <div class="row justify-content-center">
+            <div class="col-xl-10 col-lg-12 col-md-9 d-inline-block">
+                <div class="o-hidden rounded-top h-100">
+                    <div class="card-body p-0 h-100">
+                        <div class="row h-100">
+                            <div class="col-lg-12 bg-orange text-center">
+                                    <img id="Logo_animar" src="~/Content/images/Logo-2.gif" style="max-height:100%;max-width:100%" />                          
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-xl-10 col-lg-12 col-md-9 h-50">
+
+                <div class="card o-hidden border-0">
+                    <div class="card-body p-0">
+                        <div class="row">
+
+                            <div class="col-lg-12">
+                                <div class="p-4">
+                                    <div class="text-center">
+                                        <h1 class="h2 mb-4" style="font-family:'Tw Cen MT';color:#713712; font-weight:bold">INGRESO</h1>
+                                    </div>
+                                    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "user", role = "form" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                        <div class="form-group">
+                                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control form-control-user col-12", @placeholder = "Ingrese el correo o el usuario" })
+                                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.PasswordFor(m => m.Password, new { @class = "form-control form-control-user col-12", @placeholder = "Ingrese la contraseña" })
+                                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-offset-2 col-md-10">
+                                                <div class="custom-control custom-checkbox small">
+                                                    @Html.CheckBoxFor(m => m.RememberMe, new { @class = "custom-control-input " })
+                                                    @Html.LabelFor(m => m.RememberMe, new { @class = "custom-control-label" , @style="font-family:'Tw Cen MT';font-size:12pt"})
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <input type="submit" value="Iniciar sesión" class="btn btn-user btn-block col-12" style="background-color:#713712; color:white;font-family:'Tw Cen MT';font-size:16pt" />
+                                        <hr>
+                                        <div class="small text-center">
+                                            @Html.ActionLink("¿Ha olvidado su contraseña?", "ForgotPassword",null,new {  @style="font-family:'Tw Cen MT';font-size:14pt"})
+                                        </div>
+
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    </div>
+
+</body>
+
+</html>

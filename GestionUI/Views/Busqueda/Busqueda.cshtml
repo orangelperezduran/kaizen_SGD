@@ -1,0 +1,251 @@
+﻿@using GestionUI.Controllers;
+@using DataLibrary.BusinessLogic;
+@{
+    ViewBag.Title = "Busqueda";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Expedientes</h2>
+
+<hr />
+
+
+@if (TempData["id_orgranizacion"] != null)
+{
+    if ((int)TempData["id_orgranizacion"] == 2)
+    {
+
+        <div class="form form-inline">
+            @foreach (var exp in ExpedienteLogic.GetExpedientes((int)TempData["id_trd"]))
+            {
+                <form action="/Busqueda/Busequeda?exp_id=@exp.id" class="col-md-4">
+                    <button class="btn btn-primary col-12">
+                        <i class="fas fa-folder"></i> @exp.identificacion (@exp.folios)
+                    </button>
+                </form>
+
+            }
+
+        </div>
+
+
+    }
+    else
+    {
+
+        <div class="form form-inline">
+
+            @foreach (var exp in ExpedienteLogic.GetExpedientesAño((int)TempData["id_trd"]))
+            {
+                <form action="/Busqueda/Busqueda/@TempData["id_trd"]?ano=@exp.ano" method="post" class="col-md-4">
+
+                    <button class="btn btn-primary col-12">
+                        <i class="fas fa-folder"></i> @exp.ano (@exp.folios)
+                    </button>
+                </form>
+
+            }
+
+
+        </div>
+    }
+}
+
+@if (TempData["identificacion"] != null)
+{
+    foreach (var exp in ExpedienteLogic.GetExpediente((int)TempData["identificacion"]))
+    {
+        <table class="table-responsive">
+            <tr>
+                <td class="font-weight-bold">
+                    Año:
+                </td>
+                <td>
+                    @exp.ano &nbsp;
+                </td>
+                @{string radicado = "";}
+                @if (exp.consecutivo_radicado != null)
+                {
+                    var rad = RadicacionLogic.GetRadicado((int)exp.ano, (int)exp.consecutivo_radicado);
+                    radicado = rad.numero_radicado.ToString();
+                }
+                <td class="font-weight-bold">
+                    Consecutivo de radicado: @radicado  &nbsp;
+                </td>
+
+                <td>
+                    @radicado   &nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td class="font-weight-bold">Idetntificación: </td>
+                <td>@exp.identificacion</td>
+            </tr>
+            <tr>
+                <td class="font-weight-bold">
+                    Fecha creación:
+                </td>
+                <td>
+                    @exp.f_creacion  &nbsp;
+                </td>
+                <td class="font-weight-bold">
+                    Fecha cierre:
+                </td>
+                <td>
+                    @exp.f_cierre  &nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td class="font-weight-bold">
+                    Usuario de creación:
+                </td>
+                <td>
+                    @exp.usuario_creacion  &nbsp;
+                </td>
+                <td class="font-weight-bold">
+                    Usuario de cierre:
+                </td>
+                <td>
+                    @exp.usuario_cierre  &nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td class="font-weight-bold">
+                    Folios:
+                </td>
+                <td>
+                    @exp.folios  &nbsp;
+                </td>
+                <td class="font-weight-bold">
+                    Observaciones:
+                </td>
+                <td>
+                    @exp.observaciones
+                </td>
+            </tr>
+        </table>
+        if (exp.usuario_cierre == null)
+        {
+            <button class="btn btn-warning" onclick="Eliminar(@TempData["identificacion"])">Cerrar expediente</button>
+        }
+        <br />
+        <br />
+    }
+
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>Tipologia</th>
+                <th>Año</th>
+                <th>Consecutivo radicado</th>
+                <th>Consecutivo al cual se le responde</th>
+                <th>Folios</th>
+                <th>Fecha de subida</th>
+                <th>Usuario</th>
+                <th>Observaciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var doc in DocumentoLogic.GetDocumentos((int)TempData["identificacion"]))
+            {
+                <tr>
+                    <td>
+                        @{string dir = HttpUtility.UrlEncode(@Encript.Crypt(doc.direccion)); }
+                        <a href="/Documento/Doc?id=@dir" target="_blank">
+                            @doc.tipologia
+                        </a>
+                    </td>
+                    <td>
+                        @doc.ano
+                    </td>
+                    @{string radicado = "";}
+                @if (doc.cons_radicado != null)
+                {
+                    var rad = RadicacionLogic.GetRadicado((int)doc.ano, (int)doc.cons_radicado);
+                    radicado = rad.numero_radicado.ToString();
+                }
+                    <td>
+                        @radicado
+                    </td>
+                    <td>
+                        @if (doc.respuesta == null)
+                        {
+                        <a href="/Documento/Radicar?radicado=@radicado" target="_blank">
+                            responder radicado
+                        </a>
+                        }
+                        else
+                        {
+                            <a>@doc.respuesta</a>
+                        }
+                    </td>
+                    <td>
+                        @doc.folios
+                    </td>
+                    <td>
+                        @doc.f_subida
+                    </td>
+                    <td>
+                        @doc.usuarioID
+                    </td>
+                    <td>
+                        @doc.observaciones
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+}
+
+@if (TempData["ano"] != null)
+{
+    <div class="form form-inline">
+        @foreach (var exp in ExpedienteLogic.GetExpedientes((int)TempData["id_trd"], (int)TempData["ano"]))
+        {
+            if (exp.identificacion == null && exp.consecutivo_radicado == null)
+            {
+                <form action="/Busqueda/Busqueda/@TempData["id_trd"]?exp_id=@exp.id" method="post" class="col-md-4">
+                    <button class="btn btn-primary col-12">
+                        <i class="fas fa-folder"></i> @exp.ano (@exp.folios)
+                    </button>
+                </form>
+            }
+            else
+            {
+                if (exp.identificacion == null)
+                {
+
+                    <form action="/Busqueda/Busqueda/@TempData["id_trd"]?exp_id=@exp.id" method="post" class="col-md-4">
+                        <button class="btn btn-primary col-12">
+                            <i class="fas fa-folder"></i>Consecutivo @exp.consecutivo_radicado (@exp.folios)
+                        </button>
+                    </form>
+                }
+                else
+                {
+                    <form action="/Busqueda/Busqueda/@TempData["id_trd"]?exp_id=@exp.id" method="post" class="col-md-4">
+                        <button class="btn btn-primary col-12">
+                            <i class="fas fa-folder"></i> @exp.identificacion (@exp.folios)
+                        </button>
+                    </form>
+                }
+            }
+
+
+        }
+    </div>
+}
+
+
+<script>
+    function Eliminar(linea) {
+        var x = confirm("¿Está seguro de querer cerrar el expediente?");
+        if (x == true) {
+            $.post("/Busqueda/Delete/" + linea)
+            window.location.reload();
+        }
+    }
+</script>
+
+

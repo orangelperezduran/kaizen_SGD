@@ -1,0 +1,319 @@
+﻿@model GestionUI.Models.VirtualizarModel
+@using DataLibrary.BusinessLogic;
+@using Microsoft.AspNet.Identity;
+@using GestionUI.Controllers;
+
+@{
+    ViewBag.Title = "Actos Administrativos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger"><strong>Alert! </strong>@TempData["ErrorMessage"].ToString()</div>
+}
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success"><strong>Success! </strong>@TempData["SuccessMessage"].ToString()</div>    
+}
+<form action="Digitalizar?version=@TempData["version"]" method="post" enctype="multipart/form-data">
+
+
+    @Html.AntiForgeryToken()
+
+    <h4>Actos Administrativos </h4>
+    <hr />
+    
+
+    <div class="form">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="row col-md-12">
+
+            <div class="col-md-6 ">
+                @Html.LabelFor(model => model.oficina,"Oficina", htmlAttributes: new { @class = "" })
+                @Html.DropDownListFor(model => model.oficina, new List<SelectListItem>() { new SelectListItem() { Text = "DESPACHO DEL ALCALDE" } }, new { @class = "form-control col-md-10" })
+                @Html.ValidationMessageFor(model => model.oficina, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-md-6 ">
+                @Html.LabelFor(model => model.serie, htmlAttributes: new { @class = "" })
+                @Html.DropDownListFor(model => model.serie, new List<SelectListItem>() { new SelectListItem() { Text = "Actos administrativos" } }, new { @class = "form-control col-md-10" })
+                @Html.ValidationMessageFor(model => model.serie, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row col-md-12">
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.subserie,"Escoja Acto administrativo", htmlAttributes: new { @class = "control-label" })
+                @Html.DropDownListFor(model => model.subserie, new List<SelectListItem>() { new SelectListItem() { Text = "DECRETOS" } }, new { @class = "form-control col-md-10" })
+                @Html.ValidationMessageFor(model => model.subserie, "", new { @class = "text-danger" })
+            </div>
+            
+        </div>
+        <hr />
+
+        <p>Acto Administrativo a subir:  <b>001</b></p>
+        <hr />
+        <div class="row col-md-12">
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.fecha, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.fecha, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.fecha, "", new { @class = "text-danger" })
+
+
+            </div>
+            <div class="form-group col-md-12">
+                <label class="control-label" for="Asunto">Asunto del acto administrativo:</label>
+                <textarea class="form-control col-md-10 text-box multi-line" id="Asunto" name="observaciones"></textarea>
+
+            </div>
+            <div class="form-group col-md-6">
+                <label class="control-label">Nombre del emisor: </label><input class="form-control text-box single-line ui-autocomplete-input col-md-10" />
+
+            </div>
+            <div class="form-group col-md-6">
+                <label class="control-label">Proyectado por: </label><input class="form-control text-box single-line ui-autocomplete-input col-md-10" />
+
+            </div>
+            <div class="form-group col-md-6">
+                <label class="control-label">Revisado por: </label><input class="form-control text-box single-line ui-autocomplete-input col-md-10" />
+
+            </div>
+            <div class="form-group col-md-6 ">
+                @Html.LabelFor(model => model.folios, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.folios, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.folios, "", new { @class = "text-danger" })
+            </div>
+
+
+
+        </div>
+
+        
+        
+
+        <br />
+
+        <div class="form-group">
+            <div class="col-md-12">
+                <input type="submit" class="btn btn-success col-12" value="Registrar consecutivo" onclick="Agregar()" />
+            </div>
+        </div>
+    </div>
+
+</form>
+
+
+
+
+<script>
+    function CambiarVersion() {
+        var el = document.getElementById('VersionTRD');
+        var text = el.options[el.selectedIndex].innerHTML;
+
+        window.location.replace('/Documeto/Digitalizar?ver=' + text);
+
+    }
+    //iniciando
+    $(document).ready(function () {
+        var dID = $("#oficina").val();
+
+        @{int serie = 0; }
+        @try
+        {
+            serie = Model.serie;
+        }
+        catch (Exception) { }
+        $.getJSON("../Documento/GetSeries", { id: dID, version:@TempData["version"], serie:@serie },
+            function (data) {
+                var select = $("#serie");
+                select.empty();
+                select.append($('<option/>', {
+                    text: "Seleccione una serie"
+                }));
+                $.each(data, function (index, itemData) {
+                    select.append($('<option/>', {
+                        value: itemData.Value,
+                        text: itemData.Text,
+                        selected: itemData.Selected
+                    }));
+
+                });
+                subserie();
+            });
+
+        function subserie() {
+            dID = $("#serie").val();
+            @{int subserie = 0; }
+        @try
+        {
+            subserie = Model.subserie;
+        }
+        catch (Exception) { }
+            if (dID != "Seleccione una serie") {
+             $.getJSON("../Documento/GetSubseries", {
+                 id: dID, version:@TempData["version"],oficina: $("#oficina").val(),subserie:@subserie
+             },
+                    function (data) {
+                        var select = $("#subserie");
+                        select.empty();
+                        select.append($('<option/>', {
+                            text: "Seleccione una subserie"
+                        }));
+                        $.each(data, function (index, itemData) {
+
+                            select.append($('<option/>', {
+                                value: itemData.Value,
+                                text: itemData.Text,
+                                selected: itemData.Selected
+                            }));
+                        });
+                        tipologia();
+                 });
+                
+            }
+
+        }
+
+        function tipologia() {
+            dID = $("#subserie").val();
+            @{int tipo = 0; }
+            @try
+        {
+            tipo = Model.id_tipologia;
+        }
+        catch (Exception) { }
+        if (dID != "Seleccione una subserie") {
+            $.getJSON("../Documento/GetTipologias", {
+                id: dID, version:@TempData["version"], oficina: $("#oficina").val(), serie: $("#serie").val(), tipologia:@tipo
+             },
+                    function (data) {
+                        var select = $("#id_tipologia");
+                        select.empty();
+                        select.append($('<option/>', {
+                            text: "Seleccione una tipologia"
+                        }));
+                        $.each(data, function (index, itemData) {
+                            select.append($('<option/>', {
+                                value: itemData.Value,
+                                text: itemData.Text,
+                                selected: itemData.Selected
+                            }));
+                        });
+                });
+            $.getJSON("../Documento/GetOrganizacionText", {
+                 id: dID
+             },
+                 function (data) {
+                    if (data.id_organizacion == 2 || data.id_organizacion == 4) {
+                         document.getElementById("identificacion_div").style.display = "block";
+                         document.getElementById("identificacion_label").innerHTML = data.identificacion+":";
+                     }
+                     if (data.id_organizacion == 3) {
+                         document.getElementById("identificacion_div").style.display = "block";
+                         document.getElementById("identificacion_label").innerHTML = "Radicado:";
+                     }
+
+                     if(data.id_organizacion == 1) {
+                          $("#identificacion").val("");
+                         document.getElementById("identificacion_div").style.display = "none";
+                     }           
+                 });
+        }
+        }
+    });
+    //on the run
+    $(document).ready(function () {
+         $("#oficina").change(function () {
+             var dID= $(this).val();
+             $.getJSON("../Documento/GetSeries", { id: dID,version:@TempData["version"] },
+                    function (data) {
+                        var select = $("#serie");
+                        select.empty();
+                        select.append($('<option/>', {
+                            text: "Seleccione una serie"
+                        }));
+                        $.each(data, function (index, itemData) {
+                            select.append($('<option/>', {
+                                value: itemData.Value,
+                                text: itemData.Text
+                            }));
+                        });
+                 });
+         });
+    });
+    $(document).ready(function () {
+         $("#serie").change(function () {
+             var dID = $(this).val();
+             $.getJSON("../Documento/GetSubseries", {
+                 id: dID, version:@TempData["version"],oficina: $("#oficina").val()
+             },
+                    function (data) {
+                        var select = $("#subserie");
+                        select.empty();
+                        select.append($('<option/>', {
+                            text: "Seleccione una subserie"
+                        }));
+                        $.each(data, function (index, itemData) {
+                            select.append($('<option/>', {
+                                value: itemData.Value,
+                                text: itemData.Text
+                            }));
+                        });
+                 });
+            
+         });
+    });
+    $(document).ready(function () {
+         $("#subserie").change(function () {
+             var dID = $(this).val();
+             $.getJSON("../Documento/GetTipologias", {
+                 id: dID, version:@TempData["version"],oficina: $("#oficina").val(),serie: $("#serie").val()
+             },
+                    function (data) {
+                        var select = $("#id_tipologia");
+                        select.empty();
+                        select.append($('<option/>', {
+                            text: "Seleccione una tipologia"
+                        }));
+                        $.each(data, function (index, itemData) {
+                            select.append($('<option/>', {
+                                value: itemData.Value,
+                                text: itemData.Text
+                            }));
+                        });
+                 });
+             console.log(dID);
+             $.getJSON("../Documento/GetOrganizacionText", {
+                 id: dID
+             },
+                 
+                 function (data) {
+                    if (data.id_organizacion == 2 || data.id_organizacion == 4) {
+                         document.getElementById("identificacion_div").style.display = "block";
+                         document.getElementById("identificacion_label").innerHTML = data.identificacion+":";
+                     }
+                     if (data.id_organizacion == 3) {
+                         document.getElementById("identificacion_div").style.display = "block";
+                         document.getElementById("identificacion_label").innerHTML = "Radicado:";
+                     }
+
+                     if(data.id_organizacion == 1) {
+                          $("#identificacion").val("");
+                         document.getElementById("identificacion_div").style.display = "none";
+                     }           
+                 });
+             
+         });
+    });
+</script>
+@*//bootstrapt script*@
+<script>
+    $(".custom-file-input").on("change", function () {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+</script>

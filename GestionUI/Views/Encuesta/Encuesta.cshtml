@@ -1,0 +1,556 @@
+﻿@model GestionUI.Models.EncuestaModel
+@using GestionUI.Models;
+
+@{
+    Layout = null;
+}
+
+<title>Encuesta Documental</title>
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/jqueryui")
+<link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+
+<meta charset="UTF-8" />
+
+<style>
+    body {
+        background: -webkit-linear-gradient(left, #b5521f, #b5521f);
+    }
+
+    .contact-form {
+        background: #fff;
+        width: 80%;
+    }
+
+        .contact-form .form-control {
+            border-radius: 1rem;
+        }
+
+    .contact-image {
+        text-align: center;
+    }
+
+        .contact-image img {
+            width: 15%;
+            margin-top: 3%;
+        }
+
+    .contact-form form {
+        padding: 14%;
+    }
+
+        .contact-form form .row {
+            margin-bottom: -7%;
+        }
+
+    .contact-form h3 {
+        margin-bottom: 8%;
+        margin-top: -10%;
+        text-align: center;
+        color: #0062cc;
+    }
+
+    .contact-form .btnContact {
+        width: 50%;
+        border: none;
+        border-radius: 1rem;
+        padding: 1.5%;
+        background: #dc3545;
+        font-weight: 600;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    .btnContactSubmit {
+        width: 50%;
+        border-radius: 1rem;
+        padding: 1.5%;
+        color: #fff;
+        background-color: #0062cc;
+        border: none;
+        cursor: pointer;
+    }
+
+    .btn-squared-default {
+        width: 125px !important;
+        height: 125px !important;
+        font-size: 10px;
+    }
+
+        .btn-squared-default:hover {
+            border: 3px solid white;
+            font-weight: 800;
+        }
+
+    .btn-squared-default-plain {
+        width: 100px !important;
+        height: 100px !important;
+        font-size: 10px;
+    }
+
+        .btn-squared-default-plain:hover {
+            border: 0px solid white;
+        }
+</style>
+
+<div class="container contact-form">
+
+    <div class="form-inline">
+        <div style="text-align:left !important">
+            <a href="/Encuesta/oficina?entidad=@HttpUtility.UrlEncode(Model.Entidad)" class="btn btn-primary" style="border-radius:50%"> <i class="fas fa-angle-left fa-3x"></i></a>
+        </div>
+        <div class="contact-image col-11">
+            <img src="~/Content/images/Logo_color.png" />
+        </div>
+    </div>
+    <div>
+        <form method="post" action="BaseDeDatos" class="pt-2 mt-5 pb-0 m-0">
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.Entidad, new { Value = Model.Entidad })
+            @Html.HiddenFor(model => model.Oficina, new { Value = Model.Oficina })
+            <button type="submit" class="btn btn-info" value="Informe">Descargar Base de datos de la oficina</button>
+        </form>
+        <form method="post" action="TRD" class="pt-2 mt-5 pb-0 m-0">
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.Entidad, new { Value = Model.Entidad })
+            @Html.HiddenFor(model => model.Oficina, new { Value = Model.Oficina })
+            @Html.HiddenFor(model => model.CodigOficina, new { Value = Model.CodigOficina })
+            <button type="submit" class="btn btn-success" value="Informe">Descargar TRD de la oficina</button>
+        </form>
+        <form method="post" action="CCD" class="pt-2 mt-5 pb-0 m-0">
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.Entidad, new { Value = Model.Entidad })
+            @Html.HiddenFor(model => model.Oficina, new { Value = Model.Oficina })
+            <button type="submit" class="btn btn-success" value="Informe">Descargar CCD de la oficina</button>
+        </form>
+    </div>
+    
+    <form method="post" class="pb-0 pt-4">
+        @Html.AntiForgeryToken()
+        <h3 style="font-family:'Tw Cen MT';color:#713712; font-weight:bold" class="mb-4 mt-1">ENCUESTA DOCUMENTAL</h3>
+        <h4 style="font-family:'Tw Cen MT';color:#713712; font-weight:bold; text-align:center">Asuntos documentales</h4>
+        <label style="font-family:'Tw Cen MT';color:#713712; font-weight:bold; font-size:14pt">Entidad: <label style="font-family:'Tw Cen MT';color:black;font-weight:normal">@Model.Entidad</label> </label><br />
+        <label style="font-family:'Tw Cen MT';color:#713712; font-weight:bold; font-size:14pt">Oficina: <label style="font-family:'Tw Cen MT';color:black;font-weight:normal">@Model.Oficina</label> </label><br />
+        <label style="font-family:'Tw Cen MT';color:#713712; font-weight:bold; font-size:14pt">Cófigo oficina: <label style="font-family:'Tw Cen MT';color:black;font-weight:normal">@Model.CodigOficina</label> </label><br />
+        <label style="font-family:'Tw Cen MT';color:#713712; font-weight:bold; font-size:14pt">Encargado: <label style="font-family:'Tw Cen MT';color:black;font-weight:normal">@Model.Encargado</label> </label><br />
+        <label style="font-family:'Tw Cen MT';color:#713712; font-weight:bold; font-size:14pt">Cargo del encargado: <label style="font-family:'Tw Cen MT';color:black;font-weight:normal">@Model.cargo</label> </label><br />
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger"><strong>Alerta! </strong>@TempData["ErrorMessage"].ToString()</div>
+        }
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success"><strong>Éxito! </strong>@TempData["SuccessMessage"].ToString()</div>
+        }
+        @Html.HiddenFor(model => model.Entidad, new { Value = Model.Entidad })
+        @Html.HiddenFor(model => model.Oficina, new { Value = Model.Oficina })
+        @Html.HiddenFor(model => model.Encargado, new { Value = Model.Encargado })
+        @Html.HiddenFor(model => model.cargo, new { Value = Model.cargo })
+        @Html.HiddenFor(model => model.CodigOficina, new { Value = Model.CodigOficina })
+        <div class="form-row">
+            <p>
+                <div class="pr-1" style="text-align:center">
+                    @Html.LabelFor(model => model.Serie, "Serie: ", htmlAttributes: new { @class = "col-form-label" })
+                    @Html.EditorFor(model => model.Serie, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Serie, "", new { @class = "text-danger" })
+                </div>
+                <div class="pr-1" style="text-align:center">
+                    @Html.LabelFor(model => model.subserie, "Subserie: ", htmlAttributes: new { @class = "col-form-label" })
+                    @Html.EditorFor(model => model.subserie, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.subserie, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-2 col-4" style="text-align:center">
+                    @Html.LabelFor(model => model.Gestion, "AG: ", htmlAttributes: new { @class = "col-form-label" })
+                    <center> @Html.EditorFor(model => model.Gestion, new { htmlAttributes = new { @class = "form-control" } })</center>
+                    @Html.ValidationMessageFor(model => model.Gestion, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-2 col-4" style="text-align:center">
+                    @Html.LabelFor(model => model.Archivo, "AC: ", htmlAttributes: new { @class = "col-form-label" })
+                    <center> @Html.EditorFor(model => model.Archivo, new { htmlAttributes = new { @class = "form-control" } })</center>
+                    @Html.ValidationMessageFor(model => model.Archivo, "", new { @class = "text-danger" })
+                </div>
+                <div class="pr-1" style="text-align:center">
+                    @Html.LabelFor(model => model.Soporte, "Soporte: ", htmlAttributes: new { @class = "col-form-label" })
+                    @Html.EditorFor(model => model.Soporte, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Soporte, "", new { @class = "text-danger" })
+                </div>
+                <div class="pr-1" style="text-align:center">
+                    @Html.LabelFor(model => model.DisposicionFinal, "Disposición final: ", htmlAttributes: new { @class = "col-form-label" })
+                    @Html.DropDownListFor(model => model.DisposicionFinal, new List<SelectListItem>{
+                                new SelectListItem() {Text = "Conservación Total", Value="CT"},
+                                new SelectListItem() {Text = "Conservación Total/Reproducción por medio técnico", Value="CT/M"},
+                                new SelectListItem() {Text = "Eliminación", Value="E"},
+                                new SelectListItem() {Text = "Selección", Value="S"},
+                                new SelectListItem() {Text = "Selección/Reproducción por medio técnico", Value="S/M"},
+                                new SelectListItem() {Text = "Selección/Reproducción por medio técnico/Eliminación", Value="S/M/E"},
+                                new SelectListItem() {Text = "Reproducción por medio técnico/Eliminación", Value="M/E"},
+               }, htmlAttributes: new { @class = "form-control" })
+
+                    @Html.ValidationMessageFor(model => model.DisposicionFinal, "", new { @class = "text-danger" })
+                </div>
+                <div class="pr-1" style="text-align:center">
+                    @Html.LabelFor(model => model.Proceso, "Proceso: ", htmlAttributes: new { @class = "col-form-label" })
+                    @Html.DropDownListFor(model => model.Proceso, new List<SelectListItem> {
+                   new SelectListItem() {Text = "Proceso Estratégico", Value="Proceso Estratégico"},
+                   new SelectListItem() {Text = "Proceso Misional", Value="Proceso Misional"},
+                   new SelectListItem() {Text = "Proceso de Apoyo", Value="Proceso de Apoyo"},
+               new SelectListItem() {Text = "Proceso de seguimiento contro y mejora", Value="Proceso de seguimiento contro y mejora"},}, htmlAttributes: new { @class = "form-control col-12" })
+
+                    @Html.ValidationMessageFor(model => model.Proceso, "", new { @class = "text-danger" })
+                </div>
+                <div class="pr-1" style="text-align:center">
+                    @Html.LabelFor(model => model.Sistema, "Sistema de información: ", htmlAttributes: new { @class = "col-form-label" })
+                    @Html.DropDownListFor(model => model.Sistema, new List<SelectListItem> { }, htmlAttributes: new { @class = "form-control" })
+
+                    @Html.ValidationMessageFor(model => model.Sistema, "", new { @class = "text-danger" })
+                </div>
+                <div class="pr-1 col-md-4" style="text-align:center">
+                    @Html.LabelFor(model => model.Rol, "Rol sobre la información: ", htmlAttributes: new { @class = "col-form-label" })
+                    @Html.DropDownListFor(model => model.Rol, new List<SelectListItem> {
+                   new SelectListItem() {Text = "Propietario", Value="Propietario"},
+                   new SelectListItem() {Text = "Custodio", Value="Custodio"},
+                   new SelectListItem() {Text = "Usuario", Value="Usuario"},}, htmlAttributes: new { @class = "form-control col-12" })
+
+                    @Html.ValidationMessageFor(model => model.Rol, "", new { @class = "text-danger" })
+                </div>
+                <div class="pr-1 col-md-4" style="text-align:center">
+                    @Html.LabelFor(model => model.Clasificacion, "Clasificación de la información: ", htmlAttributes: new { @class = "col-form-label" })
+                    @Html.DropDownListFor(model => model.Clasificacion, new List<SelectListItem> {
+                   new SelectListItem() {Text = "Pública clasificada", Value="Pública clasificada"},
+                   new SelectListItem() {Text = "Pública reservada", Value="Pública reservada"},}, htmlAttributes: new { @class = "form-control col-12" })
+
+                    @Html.ValidationMessageFor(model => model.Clasificacion, "", new { @class = "text-danger" })
+                </div>
+            </p>
+
+        </div>
+        <hr />
+        <h5 style="font-family:'Tw Cen MT';color:#713712; font-weight:bold">Tipologías</h5>
+        <div class="form-row">
+            <div id="tipo">
+                <div class="form-inline p-1">
+                    <input type="text" name="Tipologias" class="form-control mr-1" />
+                    <label class="pl-2" style="font-family:'Tw Cen MT';color:#713712; font-weight:bold"> Formato: </label>
+                    <div class="p-2">  <input type="text" name="formato" class="form-control mr-1" /></div>
+                    <div class="p-2"><input type="checkbox" name="Orig" value="0" class="form-control mr-1" />O</div> <br />
+                    <div class="p-2"><input type="checkbox" name="Cop" value="0" class="form-control mr-1" />C</div>
+                    <input type="button" onclick="AddTextBox()" value="+" class="btn btn-primary" style="border-radius:50%;font-family:Tw Cen MT; font-weight:bold">
+                </div>
+
+                @Html.ValidationMessageFor(model => model.Tipologias, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <hr />
+        <div class="col-12">
+            @Html.LabelFor(model => model.Observaciones, "Observaciones:", htmlAttributes: new { @class = "col-form-label" })
+            @Html.EditorFor(model => model.Observaciones, new { htmlAttributes = new { @class = "form-control col-12" } })
+            @Html.ValidationMessageFor(model => model.Observaciones, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-12">
+            @Html.LabelFor(model => model.recomendaciones, "Recomendaciones:", htmlAttributes: new { @class = "col-form-label" })
+            @Html.EditorFor(model => model.recomendaciones, new { htmlAttributes = new { @class = "form-control col-12" } })
+            @Html.ValidationMessageFor(model => model.recomendaciones, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-inline">
+            <div class="form-row col-12">
+                <div class="col-12">
+                    <div class="form-row">
+                        @Html.LabelFor(model => model.SeriesModificadas, "Series modificadas:", htmlAttributes: new { @class = "col-form-label" })
+                    </div>
+                    <div class="form-row">
+                        @Html.EditorFor(model => model.SeriesModificadas, new { htmlAttributes = new { @class = "form-control col-12" } })
+                        @Html.ValidationMessageFor(model => model.SeriesModificadas, "", new { @class = "text-danger" })
+                    </div>
+
+                </div>
+                <div class="col-12">
+                    <div class="form-row">
+                        <label class="col-form-label">Funciones:</label>
+                    </div>
+                    <div class="form-row">
+                        <select id="FuncionC" class="form-control col-4">
+                            <option>0</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        @Html.LabelFor(model => model.Funcion, "Función relacionada:", htmlAttributes: new { @class = "col-form-label" })
+                    </div>
+                    <div class="form-row">
+                        @Html.EditorFor(model => model.Funcion, new { htmlAttributes = new { @class = "form-control col-12" } })
+                        @Html.ValidationMessageFor(model => model.Funcion, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-row">
+                        @Html.LabelFor(model => model.Procedimiento, "Procedimiento:", htmlAttributes: new { @class = "col-form-label" })
+                    </div>
+                    <div class="form-row">
+                        @Html.EditorFor(model => model.Procedimiento, new { htmlAttributes = new { @class = "form-control col-12" } })
+                        @Html.ValidationMessageFor(model => model.Procedimiento, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <input type="submit" value="Registrar" id="Registrar" class="btn btn-primary col-sm-12" />
+    </form>
+    <form action="/encuesta/Informe" method="post" class="pt-0 m-0">
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.Entidad, new { Value = Model.Entidad })
+        @Html.HiddenFor(model => model.Oficina, new { Value = Model.Oficina })
+        @Html.HiddenFor(model => model.Encargado, new { Value = Model.Encargado })
+        @Html.HiddenFor(model => model.cargo, new { Value = Model.cargo })
+        @Html.HiddenFor(model => model.CodigOficina, new { Value = Model.CodigOficina })
+        <div class="form-row">
+            @Html.LabelFor(model => model.FechaInforme, "Fecha del informe:", htmlAttributes: new { @class = "col-form-label" })
+        </div>
+        <div class="form-row">
+            @Html.EditorFor(model => model.FechaInforme, new { htmlAttributes = new { @class = "form-control col-12" } })
+            @Html.ValidationMessageFor(model => model.FechaInforme, "", new { @class = "text-danger" })
+        </div>
+
+        <br />
+        <input type="submit" value="Informe" id="Informe" class="btn btn-secondary col-sm-12" />
+        <hr />
+
+    </form>
+
+    <table class="table  table-responsive col-12">
+        <thead >
+            <tr class="d-flex">
+                <th scope="col" class="col-3" >Serie</th>
+                <th scope="col" class="col-3">Subserie</th>
+                <th scope="col" class="col-4">Tipología</th>
+                <th scope="col" class="col-2">Acciones</th>
+            </tr>
+        </thead>
+        <tbody class="tab-content">
+            @{
+                string serie = "",serieb="", subserie = "";
+            }
+            @foreach (var x in TempData["List"] as List<EncuestaModel>)
+            {
+                if (Model.Entidad == x.Entidad && Model.Oficina == x.Oficina)
+                {
+                    <tr class="d-flex">
+                        @if (serie != x.Serie)
+                        {
+                            <td class="col-3">@x.Serie</td>
+                            serie = x.Serie;
+                        }
+                        else
+                        {
+                            <td class="col-3"></td>
+                        }
+                        @if (subserie != x.subserie)
+                        {
+                            <td class="col-3">@x.subserie</td>
+
+                        }
+                        else
+                        {
+                            <td class="col-3"></td>
+                        }
+                        <td class="col-4">@x.tipologia</td>
+                        <td class="col-2">
+                            <button class="btn btn-danger" onclick="if (confirm('Desea eliminar la fila')) {Eliminar('@x.Entidad','@x.Oficina','@x.Serie','@x.subserie','@x.tipologia' )} ">Eliminar</button>
+                            @if (subserie != x.subserie || (subserie=="" && x.subserie=="" && serieb != x.Serie))
+                            {
+                                <button class="btn btn-warning" onclick="Editar('@x.Entidad','@x.Oficina','@x.Serie','@x.subserie') ">Editar</button>
+                                subserie = x.subserie;
+                                serieb = x.Serie;
+                            }
+                        </td>
+
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+
+</div>
+
+<div class="modal fade " id="myModal1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">EDITAR REGISTRO</h3>
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+
+            </div>
+            <div class="modal-body" id="myModalBodyDiv1">
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    var cont = 0;
+    function getDynamicTextbox(value) {
+        return '<div class="form-inline p-1"><input type="text" name="Tipologias" class="form-control mr-1" /><label class="pl-2" style="font-family:Tw Cen MT;color:#713712; font-weight:bold"> Formato: </label> <div class="p-2">' +
+            '<input type="text" name="formato" class="form-control mr-1" /></div > <div class="p-2"><input type="checkbox" name="Orig" value="' + value + '" class="form-control mr-1" />O</div>' +
+            '<div class="p-2"><input type="checkbox" name="Cop" value="' + value + '" class="form-control mr-1" />C</div><input type = "button" onclick = "RemoveTextBox(this)" value = "-" class="btn btn-primary" style = "border-radius:50%;font-family:Tw Cen MT; font-weight:bold" /></div >';
+    }
+    function AddTextBox() {
+        var div = document.createElement('div');
+        cont = cont + 1;
+        div.innerHTML = getDynamicTextbox(cont);
+        document.getElementById("tipo").appendChild(div);
+    }
+    function RemoveTextBox(div) {
+        cont = cont - 1;
+        document.getElementById("tipo").removeChild(div.parentNode.parentNode);
+    }
+
+    function Eliminar(a,b,c,d,e) {
+        $.ajax({
+            type: "POST",
+            contentType: "application/jason; charset=utf-8",
+            url: '/Encuesta/Eliminar',
+            data: "{'entidad':'" +a + "','oficina':'" +b+"','serie':'" +c+"','subserie':'" +d+"','tipologia':'" +e+"'}",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                location.reload();
+            },
+            error: function (response) {
+            },
+            failure: function (response) {
+            }
+        })
+    }
+
+    function Editar(a,b,c,d) {
+        var x = $("#myModalBodyDiv1");
+        var y = $("#myModal1");
+        x.load("/Encuesta/Editar?entidad=" + encodeURI(a) + "&Oficina=" +  encodeURI(b) + "&Serie=" +  encodeURI(c)
+            + "&Subserie=" +  encodeURI(d), function () {
+            y.modal("show")
+        });
+    }
+
+    $(document).ready(function () {
+        $('#Serie').autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/jason; charset=utf-8",
+                    url: '/Encuesta/Serie',
+                    data: "{'Prefix':'" + request.term + "','oficina':'"+@Model.CodigOficina+"'}",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return {
+                                label: item.CodigoSerie+'-'+item.Serie,
+                                val: item.CodigoSerie
+                            }
+                        }))
+                    },
+                    error: function (response) {
+                    },
+                    failure: function (response) {
+                    }
+                })
+            },
+        });
+    });
+    $(document).ready(function () {
+        $('#subserie').autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/jason; charset=utf-8",
+                    url: '/Encuesta/Subserie',
+                    data: "{'Prefix':'" + request.term + "','oficina':'"+@Model.CodigOficina+"','codserie':'"+$('#Serie').val()+"'}",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return {
+                                label: item.CodigoSubserie + '-' + item.subserie,
+                                val: item.Procedimiento,
+                            };
+                        }))
+                    },
+                    error: function (response) {
+                        console.log(response);
+                    },
+                    failure: function (response) {
+                        console.log(response);
+                    }
+                })
+            },
+            select: function (e, i) {
+                $("#Procedimiento").val(i.item.val);
+            },
+        });
+    });
+    $(document).ready(function () {
+        $.ajax({
+            type: "POST",
+            contentType: "application/jason; charset=utf-8",
+            url: '/Encuesta/Funcion',
+            data: "{'oficina':'" +@Model.CodigOficina+"', 'entidad':'@Model.Entidad'}",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                var HTML = "";
+                $.each(data, function (i, value) {
+                    HTML = HTML + "<option value='" + value.Funcion + "'>" + value.CodigoSerie + "</option>";
+                });
+                $('#FuncionC').append(HTML);
+            },
+            error: function (response) {
+            },
+            failure: function (response) {
+            }
+        })
+    });
+    $(document).ready(function () {
+        $.ajax({
+            type: "POST",
+            contentType: "application/jason; charset=utf-8",
+            url: '/Encuesta/Sistemas',
+            data: "{'oficina':'" +@Model.CodigOficina+"'}",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                var HTML = "";
+                $.each(data, function (i, value) {
+                    HTML = HTML + "<option value='" + value.Funcion + "'>" + value.Funcion + "</option>";
+                });
+                $('#Sistema').append(HTML);
+            },
+            error: function (response) {
+                console.log(response);
+            },
+            failure: function (response) {
+                console.log(response);
+            }
+        })
+    });
+    $(document).ready(function () {
+        $('#FuncionC').change(function () {
+            var x = $('#Funcion').val();
+            var y = $('#FuncionC').val();
+
+            console.log($('#FuncionC').val());
+            if (x == "") {
+                $('#Funcion').val(x + y);
+            }
+            else {
+                $('#Funcion').val(x+'\n'+y);
+            }
+        });
+    });
+
+    
+
+</script>

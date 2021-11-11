@@ -1,0 +1,290 @@
+﻿
+@{
+    Layout = null;
+    ViewBag.Title = "Bienvenido";
+}
+
+<!DOCTYPE html>
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/jqueryui")
+<link href="~/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Bienvenido</title>
+</head>
+<style>
+    .parallax {
+        /* The image used */
+        background-image: url("/Content/images/Foto_Sara.png");
+        /* Set a specific height */
+        /* Create the parallax scrolling effect */
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    .blanco {
+        /* The image used */
+        background-image: url("/Content/images/Serparador-b2.png");
+        /* Set a specific height */
+        background-position: bottom;
+
+        background-repeat: no-repeat;
+        webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        min-width:100%;
+        height:100%;
+    }
+     .naranja {
+        /* The image used */
+        background-image: url("/Content/images/Separador_Naranja.jpg");
+        /* Set a specific height */
+        background-position: bottom;
+
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        min-width:100%;
+        height:100%;
+    }
+     .cuadro_naranja{
+         background-image: url('/Content/images/Recurso 16.jpg');
+        /* Set a specific height */
+        background-position: bottom;
+
+
+        background-size: 100%;
+        min-width:100%;
+        height:100%;
+     }
+     .modal-dialog {
+      max-width: 800px;
+      margin: 30px auto;
+  }
+
+
+
+.modal-body {
+  position:relative;
+  padding:0px;
+}
+.close {
+  position:absolute;
+  right:-30px;
+  top:0;
+  z-index:999;
+  font-size:2rem;
+  font-weight: normal;
+  color:#fff;
+  opacity:1;
+}
+</style>
+<body class="p-0">
+    <div id="content-wrapper" class="d-flex flex-column overflow-hidden">
+        <div id="content">
+            <!-- Topbar -->
+            <nav class="navbar navbar-expand navbar-light bg-light topbar static-top shadow">
+                <a class="pl-md-5 pl-sm-0"></a>
+                <a class="pl-md-5 pl-sm-0"></a>
+                <a class="navbar-brand">
+                    <img class="" src="~/Content/images/Logo_color.png" style="        max-height: 100%;
+        max-width: 100%
+" />
+                </a>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown no-arrow mx-1 ">
+                        <a href="#" style=" color: #e09c4b; font-family: 'Tw Cen MT'; font-size: 27pt; font-weight: bold">INICIO</a>
+                        <a class="pr-md-4 pr-sm-0"></a>
+                        <a class="pr-md-4 pr-sm-0"></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <div class="parallax">
+        <div class="pt-5 pb-5"></div>
+        <div class="figure-img p-md-2 p-sm-5 col-10 mx-auto d-block">
+            <img class="rounded mx-auto d-block " src="~/Content/images/Logo_blanco.png" style="max-height:67%;max-width:67%" />
+        </div>
+        <div class="blanco col-12 m-0">
+            <br />
+            <br />
+            <br />
+            <a role="button" href="~/Account/Login" class="btn btn-user mx-auto d-block col-md-4 col-sm-6" style="background-color:#E09C4B; color:white;font-family:'Tw Cen MT';font-size:35pt;border-radius:10rem;font-weight:bolder">INGRESA</a>
+            <br />
+            <br />
+            <br />
+            <br />
+            <table class=" col-12 p-0 m-0">
+
+                <tbody>
+                    <tr>
+                        <td width="20%">
+                        </td>
+                        <td width="30%" height="100%" class="">
+                            <div class="figure-img mx-auto d-block form-inline">
+                                <a class="btn btn-user col-12 mx-auto d-block video-btn" href="#" style="border-radius:50%;height:60%;width:60%" data-toggle="modal" data-src="/Content/videos/Sara.mp4" data-target="#myModal">
+                                    <img src="~/Content/images/Play.png"
+                                         style="height:100%;width:100%" />
+                                </a>
+                            </div>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+            <br />
+            <br />
+            <br />
+        </div>
+        <div class="p-0 m-0" style="background-color:white">
+            <table class=" col-12 p-0 m-0">
+
+                <tbody>
+                    <tr>
+                        <td width="20%">
+                        </td>
+                        <td width="30%" height="100%" class="">
+                            <p class="" style="color:#713712;font-family:'Tw Cen MT'; font-size:20pt;text-align:center">
+                                <b>SARA</b> estandariza los procedimientos y actividades en gestión de la información, priorizando la racionalización administrativa de la información y el manejo óptimo de las comunicaciones.
+                            </p>
+                        </td>
+                        <td width="50%">
+                            <img class="mx-auto d-block " src="~/Content/images/IlustraciónSara.png" style="max-height:67%;max-width:67%" />
+                        </td>
+
+                    </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+        <div class="naranja col-12 m-0">
+            <br />
+            <br />
+            <table class=" col-12 p-0 m-0">
+
+                <tbody>
+                    <tr>
+                        <td width="15%">
+                        </td>
+                        <td width="30%" height="100%" class="">
+                            <br />
+                            <p class="" style="color:#713712;font-family:'Tw Cen MT'; font-size:30pt;text-align:center">
+                                <b>¿QUIERES SABER MÁS?</b>
+                            </p>
+                            <a role="button" href="http://www.eblaconsultorias.com" target="_blank" class="btn btn-user btn-block d-block col-md-12 " style="background-color:#E09C4B; color:white;font-family:'Tw Cen MT';font-size:20pt;border-radius:10rem;font-weight:bolder">VER SITIO</a>
+                        </td>
+                        <td width="50%">
+                        </td>
+
+                    </tr>
+
+                </tbody>
+            </table>
+            <br />
+            <br />
+        </div>
+        <div class="cuadro_naranja col-12 m-0">
+            <br />
+            <br />
+            <table class=" col-12 p-0 m-0">
+
+                <tbody>
+                    <tr>
+                        <td width="25%" align="center">
+                            <img src="~/Content/images/Logo_blanco.png" style="max-height:50%;max-width:50%" />
+                        </td>
+                        <td width="25%" height="100%" align="center">
+                            <p class="col-12" style="font-family:'Tw Cen MT';color:white">Desarrollado por:</p>
+                            <img src="~/Content/images/Logo_Ebla.png" style="max-height:50%;max-width:50%" />
+                            <img src="~/Content/images/Logo_Data.png" style="max-height:50%;max-width:50%" />
+                        </td>
+                        <td width="25%" height="100%" align="center">
+                            <p class="col-12" style="font-family:'Tw Cen MT';color:white">Diseñado por:</p>
+                            <img src="~/Content/images/Logo_Jorge.png" style="max-height:50%;max-width:50%" />
+                        </td>
+                        <td width="25%" align="center">
+                            <p class="col-12" style="font-family:'Tw Cen MT';color:white">www.eblaconsultorias.com <i class="fas fa-globe-americas"></i></p>
+                            <p class="col-12" style="font-family:'Tw Cen MT';color:white">soporte@eblaconsultorias.com <i class="fas fa-envelope"></i></p>
+                            <p class="col-12" style="font-family:'Tw Cen MT';color:white">(+57) 315 666 9636 <i class="fas fa-phone"></i></p>
+                            <p class="col-12" style="font-family:'Tw Cen MT';color:white">(+57) 315 226 3195 <i class="fas fa-phone"></i></p>
+                        </td>
+
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+
+                <div class="modal-body">
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <!-- 16:9 aspect ratio -->
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe class="embed-responsive-item" src="" id="video" allowscriptaccess="always" allow="autoplay"></iframe>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+
+<script>
+   $(document).ready(function() {
+
+// Gets the video src from the data-src on each button
+
+var $videoSrc;  
+$('.video-btn').click(function() {
+    $videoSrc = $(this).data( "src" );
+});
+console.log($videoSrc);
+
+  
+  
+// when the modal is opened autoplay it  
+$('#myModal').on('shown.bs.modal', function (e) {
+    
+// set the video src to autoplay and not to show related video. Youtube related video is like a box of chocolates... you never know what you're gonna get
+$("#video").attr('src',$videoSrc + "?autoplay=1&amp;modestbranding=1&amp;showinfo=0" ); 
+})
+  
+
+
+// stop playing the youtube video when I close the modal
+$('#myModal').on('hide.bs.modal', function (e) {
+    // a poor man's stop video
+    $("#video").attr('src',''); 
+}) 
+    
+    
+
+
+  
+  
+// document ready  
+});
+</script>
+</html>
+

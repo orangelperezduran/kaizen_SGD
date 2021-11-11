@@ -1,0 +1,843 @@
+﻿@model GestionUI.Models.TablaDeRetencion
+
+@{
+    ViewBag.Title = "Crear TRD";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@* Script autocompletar *@
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#NombreOficina').autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/jason; charset=utf-8",
+                    url: '/TablaDeRetencion/Oficina',
+                    data: "{'Prefix':'" + request.term + "'}",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return {
+                                label: item.NombreOficina,
+                                val: item.CodigoOficina
+
+                            }
+                        }))
+                    },
+                    error: function (response) {
+                        console.log(response.responseText);
+                    },
+                    failure: function (response) {
+                        console.log(response.responseText);
+                    }
+                })
+            },
+            select: function (e, i) {
+                $("#CodigoOficina").val(i.item.val);
+            },
+        });
+    });
+    $(document).ready(function () {
+        $('#NombreSerie').autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/jason; charset=utf-8",
+                    url: '/TablaDeRetencion/Serie',
+                    data: "{'Prefix':'" + request.term + "'}",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return {
+                                label: item.NombreSerie,
+                                val: item.CodigoSerie
+
+                            }
+                        }))
+                    },
+                    error: function (response) {
+                        console.log(response.responseText);
+                    },
+                    failure: function (response) {
+                        console.log(response.responseText);
+                    }
+                })
+            },
+            select: function (e, i) {
+                $("#CodigoSerie").val(i.item.val);
+            },
+        });
+    });
+    $(document).ready(function () {
+        $('#NombreSubserie').autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/jason; charset=utf-8",
+                    url: '/TablaDeRetencion/Subserie',
+                    data: "{'Prefix':'" + request.term + "'}",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            
+                            return {
+                                label: item.NombreSubserie,
+                                val: item.CodigoSubserie,
+                                gest: item.TiempoGestion,
+                                arch: item.TiempoArchivo,
+                                df: item.DisposicionFinal,
+                                obv: item.Observaciones,
+                                orga: item.Organizacion,
+                                identi:item.Identificacion
+                            }
+                            
+                        }))
+                    },
+                    error: function (response) {
+                        console.log(response.responseText);
+                    },
+                    failure: function (response) {
+                        console.log(response.responseText);
+                    }
+                })
+            },
+            select: function (e, i) {
+                $("#CodigoSubserie").val(i.item.val);
+                $("#TiempoGestion").val(i.item.gest);
+                $("#TiempoArchivo").val(i.item.arch);
+                $("#DisposicionFinal").val(i.item.df);
+                $("#Observaciones").val(i.item.obv);
+                $("#Organizacion").val(i.item.orga);
+                id_requerido();
+                $("#Identificacion").val(i.item.identi);
+            },
+        });
+    });
+
+    //codigos autocomplete
+
+    $(document).ready(function () {
+        $('#CodigoOficina').autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/jason; charset=utf-8",
+                    url: '/TablaDeRetencion/codOficina',
+                    data: "{'Prefix':'" + request.term + "'}",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return {
+                                label: item.CodigoOficina,
+                                val: item.NombreOficina
+
+                            }
+                        }))
+                    },
+                    error: function (response) {
+                        console.log(response.responseText);
+                    },
+                    failure: function (response) {
+                        console.log(response.responseText);
+                    }
+                })
+            },
+            select: function (e, i) {
+                $("#NombreOficina").val(i.item.val);
+            },
+        });
+    });
+    $(document).ready(function () {
+        $('#CodigoSerie').autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/jason; charset=utf-8",
+                    url: '/TablaDeRetencion/codSerie',
+                    data: "{'Prefix':'" + request.term + "'}",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return {
+                                label: item.CodigoSerie,
+                                val: item.NombreSerie
+
+                            }
+                        }))
+                    },
+                    error: function (response) {
+                        console.log(response.responseText);
+                    },
+                    failure: function (response) {
+                        console.log(response.responseText);
+                    }
+                })
+            },
+            select: function (e, i) {
+                $("#NombreSerie").val(i.item.val);
+            },
+        });
+    });
+    $(document).ready(function () {
+        $('#CodigoSubserie').autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/jason; charset=utf-8",
+                    url: '/TablaDeRetencion/codSubserie',
+                    data: "{'Prefix':'" + request.term + "'}",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return {
+                                label: item.CodigoSubserie,
+                                val: item.NombreSubserie,
+                                gest: item.TiempoGestion,
+                                arch: item.TiempoArchivo,
+                                df: item.DisposicionFinal,
+                                obv: item.Observaciones,
+                                orga: item.Organizacion,
+                                identi: item.Identificacion
+                            }
+                        }))
+                    },
+                    error: function (response) {
+                        console.log(response.responseText);
+                    },
+                    failure: function (response) {
+                        console.log(response.responseText);
+                    }
+                })
+            },
+            select: function (e, i) {
+                $("#NombreSubserie").val(i.item.val);
+                $("#TiempoGestion").val(i.item.gest);
+                $("#TiempoArchivo").val(i.item.arch);
+                $("#DisposicionFinal").val(i.item.df);
+                $("#Observaciones").val(i.item.obv);
+                $("#Organizacion").val(i.item.orga);
+                id_requerido();
+                $("#Identificacion").val(i.item.identi);
+            },
+        });
+    });
+</script>
+
+
+@using (Html.BeginForm("Create", "TablaDeRetencion", FormMethod.Post, Html.ViewData))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-row">
+        <div class="form-group col-lg-2">
+            @Html.LabelFor(model => model.NombreOficina, "Nombre de oficina:", htmlAttributes: new { @class = "col-form-label" })
+            <div class="col-xs-9">
+                @Html.EditorFor(model => model.NombreOficina, new { htmlAttributes = new { @class = "form-control", id = "NombreOficina" } })
+                @Html.ValidationMessageFor(model => model.NombreOficina, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group  col-lg-2">
+            @Html.LabelFor(model => model.CodigoOficina, "Codigo Oficina:", htmlAttributes: new { @class = "col-form-label" })
+            <div class="col-xs-9">
+                @Html.EditorFor(model => model.CodigoOficina, new { htmlAttributes = new { @class = "form-control col-lg-7", id = "CodigoOficina" } })
+                @Html.ValidationMessageFor(model => model.CodigoOficina, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group col-lg-2">
+            @Html.LabelFor(model => model.NombreSerie, "Nombre de serie:", htmlAttributes: new { @class = "col-form-label " })
+            <div class="col-xs-9">
+                @Html.EditorFor(model => model.NombreSerie, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NombreSerie, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group col-lg-2">
+            @Html.LabelFor(model => model.CodigoSerie, "Codigo de serie:", htmlAttributes: new { @class = "col-form-label" })
+            <div class="col-xs-9">
+                @Html.EditorFor(model => model.CodigoSerie, new { htmlAttributes = new { @class = "form-control col-lg-7" } })
+                @Html.ValidationMessageFor(model => model.CodigoSerie, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group col-lg-2">
+            @Html.LabelFor(model => model.NombreSubserie, "Nombre subserie:", htmlAttributes: new { @class = "col-form-label" })
+            <div class="col-xs-9">
+                @Html.EditorFor(model => model.NombreSubserie, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NombreSubserie, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group col-lg-2">
+            @Html.LabelFor(model => model.CodigoSubserie, "Codigo subserie:", htmlAttributes: new { @class = "col-form-label" })
+            <div class="col-xs-9">
+                @Html.EditorFor(model => model.CodigoSubserie, new { htmlAttributes = new { @class = "form-control col-lg-7" } })
+                @Html.ValidationMessageFor(model => model.CodigoSubserie, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group col-lg-2">
+            @Html.LabelFor(model => model.NombreTipologia, "Nombre tipologia:", htmlAttributes: new { @class = "col-form-label" })
+            <div class="col-xs-9">
+                @Html.EditorFor(model => model.NombreTipologia, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NombreTipologia, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group col-lg-2">
+            @Html.LabelFor(model => model.TiempoGestion, "Tiempo en gestion:", htmlAttributes: new { @class = "col-form-label" })
+            <div class="col-xs-9">
+                @Html.EditorFor(model => model.TiempoGestion, new { htmlAttributes = new { @class = "form-control col-lg-7" } })
+                @Html.ValidationMessageFor(model => model.TiempoGestion, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group col-lg-2">
+            @Html.LabelFor(model => model.TiempoArchivo, "Tiempo en archivo:", htmlAttributes: new { @class = "col-form-label" })
+            <div class="col-xs-9">
+                @Html.EditorFor(model => model.TiempoArchivo, new { htmlAttributes = new { @class = "form-control col-lg-7" } })
+                @Html.ValidationMessageFor(model => model.TiempoArchivo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group col-lg-2">
+            @Html.LabelFor(model => model.DisposicionFinal, "Disposicion final:", htmlAttributes: new { @class = "col-form-label" })
+            <div class="col-xs-9">
+                @Html.DropDownListFor(model => model.DisposicionFinal, new List<SelectListItem>{
+                            new SelectListItem() {Text = "Conservación Total", Value="CT"},
+                            new SelectListItem() {Text = "Conservación Total/Reproducción por medio técnico", Value="CT/M"},
+                            new SelectListItem() {Text = "Eliminación", Value="E"},
+                            new SelectListItem() {Text = "Selección", Value="S"},
+                            new SelectListItem() {Text = "Selección/Reproducción por medio técnico", Value="S/M"},
+           }, htmlAttributes: new { @class = "form-control" })
+
+                @Html.ValidationMessageFor(model => model.DisposicionFinal, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        
+        <div class="form-group col-lg-4">
+            @Html.LabelFor(model => model.Observaciones, "Observaciones:", htmlAttributes: new { @class = "col-form-label" })
+            <div class="col-xs-9">
+                @Html.EditorFor(model => model.Observaciones, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Observaciones, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <hr class="col-12"/>
+        <h5 class="col-12 over">Sistema de ordenación</h5>
+        <div class="form-group col-lg-4">
+            @Html.LabelFor(model => model.Organizacion, htmlAttributes: new { @class = "col-form-label" })
+            <div class="col-xs-9">
+                @Html.DropDownListFor(model => model.Organizacion, TempData["organizacion"] as List<SelectListItem>, htmlAttributes: new { @class = "form-control",@onchange="id_requerido()"})
+
+                @Html.ValidationMessageFor(model => model.Organizacion, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group col-lg-4" id="identificacion_div" style="display:none">
+            @Html.LabelFor(model => model.Identificacion, htmlAttributes: new { @class = "col-form-label" })
+            <div class="col-xs-9">
+                @Html.EditorFor(model => model.Identificacion, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Identificacion, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <hr class="col-12"/>
+    </div>
+    <input type="submit" value="Agregar elemento" class="btn btn-primary col-md-2" />
+
+    <input type="button" value="Imprimir TRD" id="btPrint" onclick="createPDF()" class="btn btn-warning col-md-2" />
+
+    <br />
+    <br />
+
+
+    List<int> nof = new List<int>(); List<int> nser = new List<int>(); List<int> nsub = new List<int>();
+        string scod = "", sof = "", sser = "", ssub = "";
+        int x = 0, y = 0, z = 0, cont = 0, csub = 0;
+        nof.Add(1); nser.Add(1); nsub.Add(1);
+        List<GestionUI.Models.TablaDeRetencion> data;
+        data = TempData["List"] as List<GestionUI.Models.TablaDeRetencion>;
+
+        foreach (GestionUI.Models.TablaDeRetencion TRD1 in data)
+        {
+
+            if (TRD1.NombreOficina != sof)
+            {
+                if (sof != "")
+                {
+                    x++;
+                    nof.Add(1);
+                }
+            }
+            else
+            {
+                nof[x]++;
+            }
+            if (TRD1.NombreSerie != sser)
+            {
+                if (sser != "")
+                {
+                    y++;
+                    nser.Add(1);
+                }
+            }
+            else
+            {
+                nser[y]++;
+            }
+            if (TRD1.NombreSubserie != ssub)
+            {
+                if (ssub != "")
+                {
+                    z++;
+                    nsub.Add(1);
+                }
+            }
+            else
+            {
+                nsub[z]++;
+            }
+            sof = @TRD1.NombreOficina;
+            ssub = @TRD1.NombreSubserie;
+            sser = @TRD1.NombreSerie;
+        }
+        
+    
+    if (data.Count != 0)
+    {
+
+        <div style="max-height:0px; visibility:hidden" id="tab">
+        @for (int o = 0; o < nof.Count; o++)
+        {
+            sser = ""; ssub = "";
+            <p style="page-break-before: always"> </p>
+            <center><h3>FORMATO DE TABLA DE RETENCIÓN DOCUMENTAL</h3></center>
+            <table style="border:0px; text-align:left">
+                <tr>
+                    <td style="border:0px; text-align:left"><b>ENTIDAD PRODUCTORA:</b> ALCALDÍA DE SAN MARTÍN</td>
+                </tr>
+                <tr>
+                    <td style="border:0px; text-align:left"><b>OFICINA PRODUCTORA:</b> @data[cont].NombreOficina</td>
+                </tr>
+            </table>
+
+            <br />
+            <table class="table table-bordered" id="tabla">
+                <thead>
+                    <tr>
+                        <th rowspan="2">CÓDIGO</th>
+                        <th rowspan="2">
+                            SERIES <br />
+                            SUBSERIES<br />
+                            TIPOS DOCUMENTALES
+                        </th>
+                        <th rowspan="2">SOPORTE O FORMATO</th>
+                        <th colspan="2">TIEMPOS DE RETENCION</th>
+                        <th colspan="4">DISPOSICIÓN FINAL</th>
+                        <th rowspan="2">PROCEDIMIENTO</th>
+                    </tr>
+                    <tr>
+                        <th>ARCHIVO GESTIÓN</th>
+                        <th>ARCHIVO CENTRAL</th>
+                        <th>CT</th>
+                        <th>E</th>
+                        <th>M</th>
+                        <th>S</th>
+                    </tr>
+                </thead>
+                <tbody class="tab-content" id="TRD">
+                    @for (x = 0; x < nof[o]; x++)
+                    {
+                        if (data[cont].NombreSerie != sser)
+                        {
+                            <tr>
+                                <td>@data[cont].CodigoOficina.@data[cont].CodigoSerie</td>
+                                <td>@data[cont].NombreSerie</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+
+                        }
+                        sser = data[cont].NombreSerie;
+                        if (data[cont].NombreSubserie != ssub)
+                        {
+                            int rowspan = nsub[csub] + 1;
+                            <tr>
+                                <td rowspan=@rowspan>@data[cont].CodigoOficina.@data[cont].CodigoSerie.@data[cont].CodigoSubserie</td>
+                                <td>@data[cont].NombreSubserie</td>
+                                <td></td>
+                                <td rowspan=@rowspan>@data[cont].TiempoGestion</td>
+                                <td rowspan=@rowspan>@data[cont].TiempoArchivo</td>
+                                @if (@data[cont].DisposicionFinal.Contains("CT"))
+                                {
+                                    <td rowspan=@rowspan>X</td>
+                                }
+                                else
+                                {
+                                    <td rowspan=@rowspan></td>
+                                }
+                                @if (@data[cont].DisposicionFinal.Contains("E"))
+                                {
+                                    <td rowspan=@rowspan>X</td>
+                                }
+                                else
+                                {
+                                    <td rowspan=@rowspan></td>
+                                }
+                                @if (@data[cont].DisposicionFinal.Contains("M"))
+                                {
+                                    <td rowspan=@rowspan>X</td>
+                                }
+                                else
+                                {
+                                    <td rowspan=@rowspan></td>
+                                }
+                                @if (@data[cont].DisposicionFinal.Contains("S"))
+                                {
+                                    <td rowspan=@rowspan>X</td>
+                                }
+                                else
+                                {
+                                    <td rowspan=@rowspan></td>
+                                }
+                                <td rowspan=@rowspan>@data[cont].Observaciones</td>
+                            </tr>
+                            if (ssub != "")
+                            {
+                                csub++;
+                            }
+                            
+                        }
+                        ssub = data[cont].NombreSubserie;
+                        <tr>
+                            <td>@data[cont].NombreTipologia</td>
+                            <td></td>
+                        </tr>
+                        cont++;
+                    }
+                </tbody>
+            </table>
+            <br />
+            <table style="border:0px; text-align:left">
+                <tr style="border:0px; text-align:left">
+                    <td style="border:0px; text-align:left"><b>CONVENCIONES:</b></td>
+                    <td colspan="2" style="border:0px; text-align:left"><b>FIRMAS RESPONSABLES</b></td>
+                </tr>
+                <tr>
+                    <td style="border:0px; text-align:left"></td>
+                    <td colspan="2" style="border:0px; text-align:left"></td>
+                </tr>
+                <tr>
+                    <td style="border:0px; text-align:left"><b>CT:</b> Conservación total</td>
+                    <td style="border:0px; text-align:left">Secretario General:</td>
+                    <td style="border:0px; text-align:left">______________________________</td>
+                </tr>
+                <tr>
+                    <td style="border:0px; text-align:left"><b>E:</b> Eliminación</td>
+                    <td style="border:0px; text-align:left">Jefe de archivo y gestión documental:</td>
+                    <td style="border:0px; text-align:left">______________________________</td>
+                </tr>
+                <tr>
+                    <td style="border:0px; text-align:left"><b>M:</b> Reproducción por medio técnico (microfilmación, digitalización, fotografía)</td>
+                    <td style="border:0px; text-align:left">Ciudad y fecha:</td>
+                    <td style="border:0px; text-align:left">______________________________</td>
+                </tr>
+                <tr>
+                    <td style="border:0px; text-align:left"><b>S:</b> Selección</td>
+                    <td style="border:0px; text-align:left"></td>
+                    <td style="border:0px; text-align:left"></td>
+                </tr>
+            </table>
+        }
+        </div>
+       
+        <div class="table-responsive">
+            @{
+                nof = new List<int>(); nser = new List<int>(); nsub = new List<int>();
+                scod = ""; sof = ""; sser = ""; ssub = "";
+                x = 0; y = 0; z = 0;
+                nof.Add(1); nser.Add(1); nsub.Add(1);
+                data = TempData["List"] as List<GestionUI.Models.TablaDeRetencion>;
+                foreach (GestionUI.Models.TablaDeRetencion TRD1 in data)
+                {
+
+                    if (TRD1.NombreOficina != sof)
+                    {
+                        if (sof != "")
+                        {
+                            x++;
+                            nof.Add(1);
+                        }
+                    }
+                    else
+                    {
+                        nof[x]++;
+                    }
+                    if (TRD1.NombreSerie != sser)
+                    {
+                        if (sser != "")
+                        {
+                            y++;
+                            nser.Add(1);
+                        }
+                    }
+                    else
+                    {
+                        nser[y]++;
+                    }
+                    if (TRD1.NombreSubserie != ssub)
+                    {
+                        if (ssub != "")
+                        {
+                            z++;
+                            nsub.Add(1);
+                        }
+                    }
+                    else
+                    {
+                        nsub[z]++;
+                    }
+                    sof = @TRD1.NombreOficina;
+                    ssub = @TRD1.NombreSubserie;
+                    sser = @TRD1.NombreSerie;
+                }
+            }
+            <table class="table table-bordered" id="tabla">
+                <thead>
+                    <tr>
+                        <th>Cod</th>
+                        <th>Nombre de Oficina</th>
+                        <th>Nombre de Serie</th>
+                        <th>Nombre de Subserie</th>
+                        <th>Tipología</th>
+                        <th>Gestion</th>
+                        <th>Archivo</th>
+                        <th>D.Final</th>
+                        <th>Observaciones</th>
+                        <th>Organizacion</th>
+                        <th>Editar/Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody class="tab-content" id="TRD">
+
+                    @{int i = 0; scod = ""; sof = ""; sser = ""; ssub = "";
+                        x = 0; y = 0; z = 0;}
+                    @foreach (GestionUI.Models.TablaDeRetencion TRD in data)
+                    {
+                        string temp = @TRD.CodigoOficina + "." + @TRD.CodigoSerie + "." + @TRD.CodigoSubserie;
+                        <tr>
+                            @if (nsub[z] == 0)
+                            {
+                                <td rowspan=@nsub[z+1]>@temp</td>
+                            }
+                            else
+                            {
+                                if (scod == "")
+                                {
+                                    <td rowspan=@nsub[z]>@temp</td>
+                                }
+                            }
+                            @if (nof[x] == 0)
+                            {
+                                x++;
+                                <td rowspan=@nof[x]>@TRD.NombreOficina</td>
+                                nof[x]--;
+                            }
+                            else
+                            {
+                                if (sof == "")
+                                {
+                                    <td rowspan=@nof[x]>@TRD.NombreOficina</td>
+                                }
+                                nof[x]--;
+                            }
+                            @if (nser[y] == 0)
+                            {
+                                y++;
+                                <td rowspan=@nser[y]>@TRD.NombreSerie</td>
+                                nser[y]--;
+                            }
+                            else
+                            {
+                                if (sser == "")
+                                {
+                                    <td rowspan=@nser[y]>@TRD.NombreSerie</td>
+                                }
+                                nser[y]--;
+                            }
+                            @if (nsub[z] == 0)
+                            {
+                                <td rowspan=@nsub[z+1]>@TRD.NombreSubserie</td>
+                            }
+                            else
+                            {
+                                if (ssub == "")
+                                {
+                                    <td rowspan=@nsub[z]>@TRD.NombreSubserie</td>
+                                }
+                            }
+                            <td>@TRD.NombreTipologia</td>
+                            @if (nsub[z] == 0)
+                            {
+                                z++;
+                                <td rowspan=@nsub[z]>@TRD.TiempoGestion</td>
+                                <td rowspan=@nsub[z]>@TRD.TiempoArchivo</td>
+                                <td rowspan=@nsub[z]>@TRD.DisposicionFinal</td>
+                                <td rowspan=@nsub[z]>@TRD.Observaciones</td>
+                                <td rowspan=@nsub[z]>@TRD.Organizacion_text</td>
+                                nsub[z]--;
+                            }
+                            else
+                            {
+                                if (ssub == "")
+                                {
+                                    <td rowspan=@nsub[z]>@TRD.TiempoGestion</td>
+                                    <td rowspan=@nsub[z]>@TRD.TiempoArchivo</td>
+                                    <td rowspan=@nsub[z]>@TRD.DisposicionFinal</td>
+                                    <td rowspan=@nsub[z]>@TRD.Observaciones</td>
+                                    <td rowspan=@nsub[z]>@TRD.Organizacion_text</td>
+                                }
+                                nsub[z]--;
+                            }
+                            <td>
+                                <button type="button" onclick="Editar(@i)" class="btn btn-warning"><i class="fas fa-pen"></i></button>
+                                &nbsp;
+                                <button type="button" onclick="Eliminar(@i)" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                            </td>
+
+                        </tr>
+                        sof = @TRD.NombreOficina;
+                        ssub = @TRD.NombreSubserie;
+                        sser = @TRD.NombreSerie;
+                        scod = temp;
+                        i = i + 1;
+
+                    }
+
+                </tbody>
+            </table>
+        </div>
+
+        <input type="submit" formaction="@Url.Action("AgregarTRD")" value="Agregar TRD" id="AgregarTRD" class="btn btn-primary col-sm-12" />
+    }
+
+
+    <br />
+    <br />
+
+}
+
+<div class="modal fade " id="myModal1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Editar campo</h3>
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+
+            </div>
+            <div class="modal-body" id="myModalBodyDiv1">
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+}
+
+<script type="text/javascript">
+
+
+
+    function id_requerido(){
+        var x = $("#Organizacion").val();
+        
+        if (x == 2 || x == 4) {
+            document.getElementById('identificacion_div').style.display = "block";
+        }
+        else {
+            document.getElementById('identificacion_div').style.display = "none";
+            $('#Identificacion').val("");
+        }
+    }
+
+    $(document).ready(function () {
+        var x = $("#Organizacion").val();
+        
+        if (x == 2 || x == 4) {
+            document.getElementById('identificacion_div').style.display = "block";
+        }
+        else {
+            document.getElementById('identificacion_div').style.display = "none";
+            $('#Identificacion').val("");
+        }
+        $("#AgregarTRD").on("click", function () {
+            $.post("/AgregarTRD")
+
+        });
+
+    });
+
+    function Editar(linea) {
+        var x = $("#myModalBodyDiv1");
+        var y = $("#myModal1");
+        id = linea;
+        x.load("/TablaDeRetencion/Edit/" + linea, function () {
+            y.modal("show")
+        });
+    }
+
+    function Eliminar(linea) {
+        var x = confirm("¿Esta seguro que desea eliminar esta linea?");
+        if (x == true) {
+            $.post("Delete/" + linea)
+            window.location.reload();
+        }
+    }
+
+
+
+    function createPDF() {
+        var sTable = document.getElementById('tab').innerHTML;
+
+        var style = "<style>";
+        style = style + "table {width: 100%;font: 17px Calibri;border-collapse:collapse}";
+        style = style + "table, th,td {border: solid 1px #DDD;";
+        style = style + "padding: 5px 5px;text-align: center;}";
+        style = style + ".custom-footer-page-number:after {  content: counter(page) ' DE ' counter(pages);}";
+        style = style + "</style>";
+
+        // CREATE A WINDOW OBJECT.
+        var win = window.open('', '', 'height=700,width=700');
+
+        win.document.write('<html><head>');
+        win.document.write(style);          // ADD STYLE INSIDE THE HEAD TAG.
+        win.document.write('</head>');
+        win.document.write('<body>');
+        win.document.write(sTable);         // THE TABLE CONTENTS INSIDE THE BODY TAG.
+        win.document.write('</body></html>');
+
+        win.document.close(); 	// CLOSE THE CURRENT WINDOW.
+
+        win.print();    // PRINT THE CONTENTS.
+    }
+
+</script>
+

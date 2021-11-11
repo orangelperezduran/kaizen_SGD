@@ -1,0 +1,174 @@
+﻿@model GestionUI.Models.TablaDeRetencion
+
+
+
+    <form id="formulario">
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.NombreOficina, "Nombre de oficina:", htmlAttributes: new { @class = "col-form-label" })
+                <div>
+                    @Html.EditorFor(model => model.NombreOficina, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NombreOficina, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.CodigoOficina, "Codigo Oficina:", htmlAttributes: new { @class = "col-form-label" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.CodigoOficina, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.CodigoOficina, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="form-row ">
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.NombreSerie, htmlAttributes: new { @class = " col-form-label" })
+                <div>
+                    @Html.EditorFor(model => model.NombreSerie, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NombreSerie, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.CodigoSerie, htmlAttributes: new { @class = "col-form-label" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.CodigoSerie, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.CodigoSerie, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row ">
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.NombreSubserie, htmlAttributes: new { @class = "col-form-label" })
+                <div>
+                    @Html.EditorFor(model => model.NombreSubserie, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NombreSubserie, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.CodigoSubserie, htmlAttributes: new { @class = "col-form-label" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.CodigoSubserie, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.CodigoSubserie, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NombreTipologia, htmlAttributes: new { @class = "col-form-label" })
+            <div>
+                @Html.EditorFor(model => model.NombreTipologia, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NombreTipologia, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-row ">
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.TiempoGestion, htmlAttributes: new { @class = "col-form-label" })
+                <div>
+                    @Html.EditorFor(model => model.TiempoGestion, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TiempoGestion, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.TiempoArchivo, htmlAttributes: new { @class = "col-form-label" })
+                <div>
+                    @Html.EditorFor(model => model.TiempoArchivo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TiempoArchivo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row ">
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.DisposicionFinal, htmlAttributes: new { @class = "col-form-label" })
+                <div>
+                    @Html.DropDownListFor(model => model.DisposicionFinal, new List<SelectListItem>{
+                           new SelectListItem() {Text = "Conservación Total", Value="CT"},
+                           new SelectListItem() {Text = "Conservación Total/Reproducción por medio técnico", Value="CT/M"},
+                           new SelectListItem() {Text = "Eliminación", Value="E"},
+                           new SelectListItem() {Text = "Selección", Value="S"},
+                           new SelectListItem() {Text = "Selección/Reproducción por medio técnico", Value="CT"},
+               }, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.DisposicionFinal, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.Organizacion, htmlAttributes: new { @class = "col-form-label" })
+                <div class="col-xs-9">
+                    @Html.DropDownListFor(model => model.Organizacion, TempData["organizacion"] as List<SelectListItem>, htmlAttributes: new { @class = "form-control"
+                   , @onchange = "id_requerido()",@id="Organizacion1" })
+
+                    @Html.ValidationMessageFor(model => model.Organizacion, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group col-md-6" id="identificacion_div1" style="display:none">
+                @Html.LabelFor(model => model.Identificacion, htmlAttributes: new { @class = "col-form-label" })
+                <div class="col-xs-9">
+                    @Html.EditorFor(model => model.Identificacion, new { htmlAttributes = new { @class = "form-control",@id="Identificacion1" } })
+                    @Html.ValidationMessageFor(model => model.Identificacion, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.Observaciones, htmlAttributes: new { @class = "col-form-label" })
+                <div>
+                    @Html.EditorFor(model => model.Observaciones, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Observaciones, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <input type="submit" id="btnSubmit" value="Guardar cambios" class="btn btn-success col-md-12 h" onclick="" />
+    </form>
+
+
+
+    <script>
+        function id_requerido() {
+            
+            var x = $("#Organizacion1").val();
+            if (x == 2 || x == 5) {
+                document.getElementById('identificacion_div1').style.display = "block";
+            }
+            else {
+                document.getElementById('identificacion_div1').style.display = "none";
+                $('#Identificacion1').val("");
+            }
+        }
+
+        $(document).ready(function () { id_requerido() })
+
+        $(document).ready(function () {
+            $("#btnSubmit").click(function () {
+                var formdata = $("#formulario").serialize();
+                $.ajax({
+                    type: "POST",
+                    url: "/TablaDeRetencion/edit/" +@(Url.RequestContext.RouteData.Values["id"]),
+                    data: formdata,
+                    success: function(data) {
+                        if (data != null && data.success) {
+                            alert("Se ha modificado el registro exitosamente");
+                            window.location.replace("/TablaDeRetencion/create");
+                       
+                        } else {
+                            
+                            alert(data.error);
+                        }                       
+                    },
+                    error: function () {
+                         
+                    }
+                })
+            })
+
+        })
+    </script>
+
+
+

@@ -1,0 +1,57 @@
+30600;SUBDIRECCIÓN DE GESTION DOCUMENTAL;002;ACTAS;10;ACTAS  COMITÉ DE GESTION DOCUMENTAL;;;
+30600;SUBDIRECCIÓN DE GESTION DOCUMENTAL;002;ACTAS;36;ACTAS DE ELIMINACION DOCUMENTAL;;;
+30600;SUBDIRECCIÓN DE GESTION DOCUMENTAL;027;CIRCULARES;00;;Se somete a micrografía y posteriormente se elimina el soporte de papel.;;
+30600;SUBDIRECCIÓN DE GESTION DOCUMENTAL;028;CONTROLES;08;CONTRÓL DE PRÉSTAMOS;Serie de control, concluida la retención pierde valor. A mediada que se descargan los prestamos  se eliminan los  formatos;;
+30600;SUBDIRECCIÓN DE GESTION DOCUMENTAL;041;DERECHOS DE PETICIÓN;00;;Se somete a micrografía y posteriormente se elimina el soporte papel. Selección del 10% para transferir al archivo histórico.;;
+30600;SUBDIRECCIÓN DE GESTION DOCUMENTAL;043;CONSECUTIVOS;01;CONSECUTIVOS DE CORRESPONDENCIA;Se somete a micrografía y posteriormente e elimina el soporte papel. Los memorandos a que se refiere la Serie corresponden a los producidos por la oficina si tienen la función.;;
+30600;SUBDIRECCIÓN DE GESTION DOCUMENTAL;048;ESTADÍSTICAS;01;ESTADISTICAS DE GESTION;Serie con valor administrativo concluida la retención pierde valor. Conservación permanente en el archivo de gestión, si se encuentra en medio magnético;;
+30600;SUBDIRECCIÓN DE GESTION DOCUMENTAL;064;INVENTARIOS;05;INVENTARIOS DESCRIPTIVOS;Se somete a micrografía y posteriormente se elimina el soporte papel.;;
+30600;SUBDIRECCIÓN DE GESTION DOCUMENTAL;066;REGISTROS;14;REGISTROS DE CONTROL DE VALIJAS;Conservación permanente en el archivo de gestión, si se encuentra en medio magnético.;;
+30600;SUBDIRECCIÓN DE GESTION DOCUMENTAL;066;REGISTROS;15;REGISTROS DE CORRESPONDENCIA ENTREGADA A LA MANO;Conservación permanente en el archivo de gestión, si se encuentra en medio magnético.;;
+30600;SUBDIRECCIÓN DE GESTION DOCUMENTAL;066;REGISTROS;16;REGISTROS DE CORRESPONDENCIA ECON LICENCIA DE CRÉDITO;Conservación permanente en el archivo de gestión, si se encuentra en medio magnético.;;
+30600;SUBDIRECCIÓN DE GESTION DOCUMENTAL;066;REGISTROS;17;REGISTROS DE CORRESPONDENCIA ASIGNADA;Conservación permanente en el archivo de gestión, si se encuentra en medio magnético.;;
+30600;SUBDIRECCIÓN DE GESTION DOCUMENTAL;066;REGISTROS;20;REGISTROS DE CORRESPONDENCIA INTERNA DESPACHADA;Conservación permanente en el archivo de gestión, si se encuentra en medio magnético.;;
+30600;SUBDIRECCIÓN DE GESTION DOCUMENTAL;074;PLANES;09;PLAN INSTITUCIONAL DE ARCHIVOS;;;
+30600;SUBDIRECCIÓN DE GESTION DOCUMENTAL;082;PROGRAMAS;02;PROGRAMA DE GESTIÓN DOCUMENTAL;;;
+30600;SUBDIRECCIÓN DE GESTION DOCUMENTAL;101;TABLAS;01;TABLA DE RETENCIÓN DOCUMENTAL;;;
+30600;SUBDIRECCIÓN DE GESTION DOCUMENTAL;102;SUPERVISIÓN DE CONTRATOS;00;;Una vez cumplido el tiempo de retención transferir a contratación los originales y eliminar las copias;;
+30600;SUBDIRECCIÓN DE GESTION DOCUMENTAL;124;SISTEMA NACIONAL DE ARCHIVO;01;SISTEMA NACIONAL DE ARCHIVO- SECCIONAL;;;
+30600;SUBDIRECCIÓN DE GESTION DOCUMENTAL;124;SISTEMA NACIONAL DE ARCHIVO;02;SISTEMA NACIONAL DE ARCHIVO- NIVEL CENTRAL;;;
+30600;SUBDIRECCIÓN DE GESTION DOCUMENTAL;127;GESTIÓN;03;GESTIÓN DE COLECCIONES;;;
+30000;Dirección Ejecutiva;1;Acciones Constitucionales;2;Acciones de Tutela;
+30000;Dirección Ejecutiva;2;Actas;59;ACTAS DEL COMITE DE APOYO Y COORDINACION DEL MODELO LABORAL DE TELETRABAJO;
+30000;Dirección Ejecutiva;41;Derechos de Petición;0;;Se somete a micrografía y posteriormente se elimina el soporte papel. Selección del 10% para transferir al archivo histórico.
+30000;Dirección Ejecutiva;43;Consecutivos;1;CONSECUTIVOS DE CORRESPONDENCIA;Se somete a micrografía y posteriormente e elimina el soporte papel. Los memorandos a que se refiere la Serie corresponden a los producidos por la oficina si tienen la función.
+30000;Dirección Ejecutiva;53;Gastos;2;GASTOS RESERVADOS;Fundamento en la Ley 1097 de 2006, artículo 5, que establece : “LA información relacionada con gastos reservados gozará de reserva legal por un término de 20 años sin perjuicio de las investigaciones de orden penal disciplinario o fiscal” Se somete a imágenes.
+30000;Dirección Ejecutiva;66;Registros ;3;REGISTROS DE CORRESPONDENCIA;Conservación permanente en el archivo de gestión si se encuentra en medio magnético.
+30000;Dirección Ejecutiva;93;Resoluciones;1;RESOLUCIONES DE LA DIRECCIÓN EJECUTIVA;
+30000;Dirección Ejecutiva;119;Antecedentes Recursos de Apelación;0;;Se somete a micrografía y posteriormente se elimina el soporte papel.
+30120;DEPARTAMENTO DE BIENESTAR Y SALUD OCUPACIONAL;41;DERECHOS DE PETICIÓN;0;;Se somete a micrografía y posteriormente se elimina el soporte papel. Selección del 10% para transferir al archivo histórico.
+30120;DEPARTAMENTO DE BIENESTAR Y SALUD OCUPACIONAL;36;CRÉDITOS;1;CRÉDITOS HIPOTECARIOS;Una vez cancelado el crédito los soportes del mismo estarán un año más en el Archivo de Gestión.
+30120;DEPARTAMENTO DE BIENESTAR Y SALUD OCUPACIONAL;43;CONSECUTIVOS;1;CONSECUTIVOS DE CORRESPONDENCIA;Se somete a micrografía y posteriormente se elimina el soporte papel. Los memorandos a que se refiere la Serie corresponden a los producidos por el DBSO si tienen la función.
+30120;DEPARTAMENTO DE BIENESTAR Y SALUD OCUPACIONAL;61;INFORMES;28;INFORMES DE RIESGOS LABORALES;El periodo de retención en el Archivo de Gestión es hasta tanto sean actualizados los documentos. La conservación será en CD.
+30120;DEPARTAMENTO DE BIENESTAR Y SALUD OCUPACIONAL;66;REGISTROS;3;REGISTROS DE CORRESPONDENCIA;Se somete a micrografía y posteriormente se elimina el soporte papel. 
+30120;DEPARTAMENTO DE BIENESTAR Y SALUD OCUPACIONAL;82;PROGRAMAS;5;PROGRAMA BIENESTAR;
+30120;DEPARTAMENTO DE BIENESTAR Y SALUD OCUPACIONAL;82;PROGRAMAS;7;PROGRAMA DEL SISTEMA DE GESTIÓN DE LA SEGURIDAD Y SALUD EN EL TRABAJO- NIVEL CENTRAL;
+30120;DEPARTAMENTO DE BIENESTAR Y SALUD OCUPACIONAL;91;REPORTES;17;REPORTE HISTORIAL INDIVIDUAL ACCIDENTE DE TRABAJO Y ENFERMEDAD LABORAL;El tiempo de retención se contará a partir del último documento archivado, los cuales pierden su vigencia dado que el original se encuentra según la entidad correspondiente (ARL, EPS, IPS, Servidor). Estas carpetas pasaran a hacer parte de la Historia Ocupacional.
+30120;DEPARTAMENTO DE BIENESTAR Y SALUD OCUPACIONAL;118;CONDECORACIONES;1;CONDECORACIÓN LOW MURTRA;
+30110;DEPARTAMENTO DE ADMINISTRACIÓN DE PERSONAL;1;ACCIONES CONSTITUCIONALES;2;ACCIONES DE TUTELA;
+30110;DEPARTAMENTO DE ADMINISTRACIÓN DE PERSONAL;66;REGISTROS;3;REGISTROS DE CORRESPONDENCIA;Se somete a micrografía y posteriormente e elimina el soporte papel. 
+30110;DEPARTAMENTO DE ADMINISTRACIÓN DE PERSONAL;41;DERECHOS DE PETICIÓN;0;;Se somete a micrografía y posteriormente se elimina el soporte papel. Selección del 10% para transferir al archivo histórico.
+30110;DEPARTAMENTO DE ADMINISTRACIÓN DE PERSONAL;43;CONSECUTIVOS;1;CONSECUTIVOS DE CORRESPONDENCIA;Se somete a micrografía y posteriormente e elimina el soporte papel. Los memorandos a que se refiere la Serie corresponden a los producidos por la oficina si tienen la función.
+30110;DEPARTAMENTO DE ADMINISTRACIÓN DE PERSONAL;57;HISTORIAS LABORALES;0;;De acuerdo con el Decreto 1145 de 2004 Art.12.  
+30100;SUBDIRECCIÓN DE TALENTO HUMANO;1;ACCIONES CONSTITUCIONALES;2;ACCIONES DE TUTELA;
+30100;SUBDIRECCIÓN DE TALENTO HUMANO;2;ACTAS;50;ACTAS SESIONES DEL COMITÉ DE CONVIVENCIA LABORAL;
+30100;SUBDIRECCIÓN DE TALENTO HUMANO;11;AUTOS;1;AUTOS FISCAL GENERAL DE LA NACIÓN;
+30100;SUBDIRECCIÓN DE TALENTO HUMANO;11;AUTOS;2;AUTOS VICEFISCAL GENERAL DE LA NACIÓN;
+30100;SUBDIRECCIÓN DE TALENTO HUMANO;49;DIRECTIVAS FISCAL GENERAL DE LA NACIÓN;0;;
+30100;SUBDIRECCIÓN DE TALENTO HUMANO;43;CONSECUTIVOS;1;CONSECUTIVOS DE CORRESPONDENCIA;Se somete a micrografía y posteriormente e elimina el soporte papel. Los memorandos a que se refiere la Serie corresponden a los producidos por la oficina si tienen la función.
+30100;SUBDIRECCIÓN DE TALENTO HUMANO;52;EXPEDIENTES;13;EXPEDIENTES DE ACOSO LABORAL;Los procesos que por competencia pasen a otro Despacho o entidad asumirán la serie documental que se lleve y corresponda en cada uno de ellos de acuerdo con la respectiva tabla de retención documental.
+30100;SUBDIRECCIÓN DE TALENTO HUMANO;66;REGISTROS;3;REGISTROS DE CORRESPONDENCIA;Se somete a micrografía y posteriormente e elimina el soporte papel. 
+30100;SUBDIRECCIÓN DE TALENTO HUMANO;27;CIRCULARES;0;;Se somete a micrografía y posteriormente e elimina el soporte papel. 
+30100;SUBDIRECCIÓN DE TALENTO HUMANO;41;DERECHOS DE PETICIÓN;0;;Se somete a micrografía y posteriormente se elimina el soporte papel. Selección del 10% para transferir al archivo histórico.
+30100;SUBDIRECCIÓN DE TALENTO HUMANO;48;ESTADÍSTICAS;1;ESTADÍSTICAS DE GESTIÓN;Serie con valora administrativo concluida la retención pierde valor. Conservación permanente en el archivo de gestión, si se encuentra en medio magnético.
+30100;SUBDIRECCIÓN DE TALENTO HUMANO;66;REGISTROS;10;REGISTROS DE RESOLUCIONES;Conservación permanente en el archivo de gestión, si se encuentra en medio magnético.
+30100;SUBDIRECCIÓN DE TALENTO HUMANO;93;RESOLUCIONES;6;RESOLUCIONES DEL DESPACHO;A cargo de la Subdirección de Talento Humano según resolución 0-0787 del 9 abril de 2014.
+30100;SUBDIRECCIÓN DE TALENTO HUMANO;93;RESOLUCIONES;7;RESOLUCIONES DEL DESPACHO VICEFISCAL GENERAL DE LA NACIÓN;
+30100;SUBDIRECCIÓN DE TALENTO HUMANO;93;RESOLUCIONES;9;RESOLUCIONES DE LA SUBDIRECCIÓN DE TALENTO HUMANO;

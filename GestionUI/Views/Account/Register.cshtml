@@ -1,0 +1,66 @@
+﻿@model GestionUI.Models.RegisterViewModel
+    @using DataLibrary.BusinessLogic;
+@using Microsoft.AspNet.Identity;
+@{
+    ViewBag.Title = "Registro";
+    var roles = RoleManager.CargarRoles();
+}
+<style>
+    .form-control-dropdown {
+        font-size: 0.8rem;
+        border-radius: 10rem;
+        height:4em;
+
+    }
+
+</style>
+
+    <div class="container formcontrol-d">
+        <div class="row">
+            <div class="col-lg-5 d-none d-lg-block bg-register-image" style="background-size:100%; background-repeat:no-repeat"></div>
+            <div class="col-lg-7">
+                <div class="p-0">
+                    <div class="text-center">
+                        <h1 class="h4 text-gray-900 mb-4">Registra una cuenta</h1>
+                    </div>
+                    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "user", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary("", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control form-control-user col-12", @placeholder = "Ingrese su Correo electrónico" })
+                        </div>
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.identification, new { @class = "form-control form-control-user col-12", @placeholder = "Ingrese número de ID" })
+                        </div>
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.nombre, new { @class = "form-control form-control-user col-12", @placeholder = "Ingrese su Nombre" })
+                        </div>
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.apellido, new { @class = "form-control form-control-user col-12", @placeholder = "Ingrese su Apellido" })
+                        </div>
+                        <hr />
+                        <h5>Por favor escoja el rol o roles a los cuáles va a pertenecer el usuario</h5>
+                        <hr />
+                        foreach (var role in roles)
+                        {
+                            if (RoleManager.AutorizedRole(User.Identity.GetUserId(), role.id.ToString()))
+                            {
+                                <div class="form-check form-check-inline">
+                                    <input type="checkbox" name="Roles" value="@role.id" class="form-check-input" id="chkbx @role.id" />
+                                    <label for="chkbx @role.id" class="form-check-label">@role.name</label>
+                                </div>
+                            }
+                        }
+                        <hr />
+                        <input type="submit" class="btn btn-primary btn-block col-12" value="Registrarse" style="border-radius:10rem"/>
+                    }
+                </div>
+            </div>
+        </div>
+        
+        
+
+
+    </div>
+   

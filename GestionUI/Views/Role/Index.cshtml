@@ -1,0 +1,164 @@
+﻿@using DataLibrary.BusinessLogic;
+@{
+    ViewBag.Title = "Roles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<h2>Menú de roles</h2>
+<br />
+<hr />
+<div class="">
+    <div>
+        <h5>Seleccione la TRD a agregar o modificar:</h5>
+    </div>
+    <select class="form-control col-md-4" id="VersionTRD" }>
+        @foreach (var item in TRDLogic.GetAllVersiones())
+        {
+            if (!TRDLogic.IsModificacion(item))
+            {
+                <option class="list-group-item" value="@item">@item</option>
+            }
+        }
+    </select>
+    &nbsp;
+
+</div>
+<hr />
+<p>
+    <button class="btn btn-lg btn-success col-12" onclick="Agregar()"><i class="fas fa-plus-circle"></i> Agregar </button>
+</p>
+<div>
+    <table class="table table-bordered">
+        <thead>
+            <tr class="text-center">
+                <th>Rol</th>
+                <th>Aprueba TRD</th>
+                <th>Crea/Modifica TRD</th>
+                <th>Administra roles</th>
+                <th>Administra usuarios</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in RoleManager.CargarRoles())
+            {
+                <tr>
+                    <td>
+                        @item.name
+                    </td>
+                    @if (@item.aprobarTRD)
+                    {
+                        <td align="center">Sí</td>
+
+                    }
+                    else
+                    {
+                        <td align="center">No</td>
+                    }
+                    @if (@item.modificarTRD)
+                    {
+                        <td align="center">Sí</td>
+
+                    }
+                    else
+                    {
+                        <td align="center">No</td>
+                    }
+                    @if (@item.role_manager)
+                    {
+                        <td align="center">Sí</td>
+
+                    }
+                    else
+                    {
+                        <td align="center">No</td>
+                    }
+                    @if (@item.user_manager)
+                    {
+                        <td align="center">Sí</td>
+
+                    }
+                    else
+                    {
+                        <td align="center">No</td>
+                    }
+                    <td align="center">
+                       
+                        @if (item.id == 1)
+                        {
+                            
+                        }
+                        else
+                        {
+                             <button class="btn btn-warning" onclick="Editar(@item.id)"><i class="fas fa-pen"></i> Editar </button>
+                            <a class="btn btn-danger" href="#" onclick="Eliminar(@item.id)"><i class="fas fa-trash-alt"></i> Eliminar </a>
+                        }                        
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="modal fade " id="myModal1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title text-center">Agregar/Editar Rol</h3>
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+
+            </div>
+            <div class="modal-body" id="myModalBodyDiv1">
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script type="text/javascript">
+    function Agregar() {
+        var x = $("#myModalBodyDiv1");
+        var y = $("#myModal1");
+        var el = document.getElementById('VersionTRD');
+        if (el.options.length!=0) {
+            var text = el.options[el.selectedIndex].innerHTML;
+        }
+        x.load("/Role/Create/" + text, function () {
+            y.modal("show")
+        });
+    }
+
+    function Editar(id) {
+        var x = $("#myModalBodyDiv1");
+        var y = $("#myModal1");
+        x.load("/Role/Edit/"+id, function () {
+            y.modal("show")
+        });
+    }
+
+    function Eliminar(linea) {
+
+        var result = confirm('¿Esta seguro de querer eliminar el rol? Todos los usuarios de este grupo podrían quedar sin grupo');
+        if (result == true) {
+            $.ajax({
+                type: "POST",
+                url: "/Role/Delete/" + linea,
+                success: function () {
+                    alert("Se ha eliminado el registro exitosamente");
+                    window.location.replace("/Role/Index");
+                },
+                error: function () {
+
+                }
+            })
+        }
+    }
+
+</script>

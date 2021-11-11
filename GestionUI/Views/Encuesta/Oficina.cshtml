@@ -1,0 +1,170 @@
+﻿@model GestionUI.Models.EncuestaModel
+@{
+    Layout = null;
+}
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/jqueryui")
+<link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+<title>Oficina</title>
+<style>
+    body {
+        background: -webkit-linear-gradient(left, #b5521f, #b5521f);
+    }
+
+    .contact-form {
+        background: #fff;
+        width: 80%;
+    }
+
+        .contact-form .form-control {
+            border-radius: 1rem;
+        }
+
+    .contact-image {
+        text-align: center;
+    }
+
+        .contact-image img {
+            width: 15%;
+            margin-top: 3%;
+        }
+
+    .contact-form form {
+        padding: 14%;
+    }
+
+        .contact-form form .row {
+            margin-bottom: -7%;
+        }
+
+    .contact-form h3 {
+        margin-bottom: 8%;
+        margin-top: -10%;
+        text-align: center;
+        color: #0062cc;
+    }
+
+    .contact-form .btnContact {
+        width: 50%;
+        border: none;
+        border-radius: 1rem;
+        padding: 1.5%;
+        background: #dc3545;
+        font-weight: 600;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    .btnContactSubmit {
+        width: 50%;
+        border-radius: 1rem;
+        padding: 1.5%;
+        color: #fff;
+        background-color: #0062cc;
+        border: none;
+        cursor: pointer;
+    }
+
+    .btn-squared-default {
+        width: 125px !important;
+        height: 125px !important;
+        font-size: 10px;
+    }
+
+        .btn-squared-default:hover {
+            border: 3px solid white;
+            font-weight: 800;
+        }
+
+    .btn-squared-default-plain {
+        width: 100px !important;
+        height: 100px !important;
+        font-size: 10px;
+    }
+
+        .btn-squared-default-plain:hover {
+            border: 0px solid white;
+        }
+</style>
+
+
+<div class="container contact-form">
+    <div class="form-inline">
+        <div style="text-align:left !important">
+            <a href="/Encuesta/" class="btn btn-primary" style="border-radius:50%"> <i class="fas fa-angle-left fa-3x"></i></a>
+        </div>
+        <div class="contact-image col-11">
+            <img src="~/Content/images/Logo_color.png" />
+        </div>
+    </div>
+    <form method="post">
+        <h3 style="font-family:'Tw Cen MT';color:#713712; font-weight:bold">ESCOJA LA OFICINA PRODUCTORA</h3>
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger"><strong>Alerta! </strong>@TempData["ErrorMessage"].ToString()</div>
+        }
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success"><strong>Éxito! </strong>@TempData["SuccessMessage"].ToString()</div>
+        }
+        <div class="row">
+            <p>
+                @{string oficina = "a";}
+                @foreach (var temp in TempData["List"] as List<GestionUI.Models.EncuestaModel>)
+                {
+                    if (temp.Oficina != oficina && temp.Oficina != "" && Model.Entidad==temp.Entidad)
+                    {
+                        <a href="/Encuesta/Encuesta?entidad=@HttpUtility.UrlEncode(temp.Entidad)&oficina=@HttpUtility.UrlEncode(temp.Oficina)" class="btn btn-squared-default btn-primary">
+                            <i class="fas fa-desktop fa-5x"></i>
+                            <br />
+                            <b style="font-family:'Tw Cen MT';color:white; font-size:9pt">@temp.Oficina</b>
+                        </a>
+                        if (temp.Oficina != "")
+                        {
+                            oficina = temp.Oficina;
+
+                        }
+                        
+                    }
+
+                }
+                <a href="#" onclick="AgregarOficina()" class="btn btn-squared-default btn-outline-primary btn-group-vertical" style="align-items:center !important">
+                    <i class="fas fa-plus fa-5x"></i>
+                </a>
+            </p>
+
+        </div>
+    </form>
+</div>
+
+<div class="modal fade " id="myModal1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">AGREGAR OFICINA PRODUCTORA</h3>
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+
+            </div>
+            <div class="modal-body" id="myModalBodyDiv1">
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    function AgregarOficina() {
+        var x = $("#myModalBodyDiv1");
+        var y = $("#myModal1");
+        x.load("/Encuesta/AgregarOficina?entidad=" + '@HttpUtility.UrlEncode(@Model.Entidad)', function () {
+            y.modal("show")
+        });
+    }
+
+</script>

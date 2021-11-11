@@ -1,0 +1,53 @@
+1;ACUERDOS
+2;AFIS
+3;Ambito Virtual de Educación y Formación
+4;ARGIS
+5;BIBLIOTECA VIRTUAL
+6;BIT: Business Información Technology:
+7;BOLETAS DE VISITA DETENIDOS
+8;CAV COLOMBIA
+9;CENSO DELICTIVO
+10;CODIS
+11;CONVENIOS
+12;CORREO INSTITUCIONAL
+13;CRIF
+14;CVA
+15;Evaluación del desempeño - SAITH
+16;EVIDENTIX
+17;FEAB
+18;FISCALNET
+19;JURIDICO LEGAL
+20;KACTUS
+21;KAWAC
+22;MESA DE AYUDA - ARANDA
+23;PEF
+24;Portal Web Fiscalía General de la Nación
+25;PQR
+26;SAITH - RPIC
+27;SERVICIOS EN LINEA
+28;SIASEF
+29;SICNEXT
+30;SIDPA
+31;SIG- SECCIONALES
+32;SIG-CTI y Especializadas.
+33;SIJYP
+34;SIMOGA
+35;SIPRAIN
+36;SIRED
+37;SISAC
+38;SISPLAM
+39;Sistema de Gestión Documental - ORFEO .
+40;"Sistema de Información de Antecedentes y Anotaciones - SIAN -"
+41;Sistema de información de control de visitantes - SICVI
+42;"Sistema de Información Integrado Administrativo y Financiero - SIAF"
+43;Sistema de Información judicial de la Fiscalía - SIJUF -
+44;SISTEMA ELECTORAL ELECTRONICO
+45;SISTEMA GEOREFERENCIAL
+46;Sistema Penal Oral Acusatorio - SPOA -
+47;SIVOTO
+48;SRAF
+49;STARSISO
+50;SUSI
+51;SUSITEST
+52;TRD
+53;Otro

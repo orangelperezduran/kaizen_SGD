@@ -1,0 +1,191 @@
+﻿@model GestionUI.Models.ExpedienteModel
+@using DataLibrary.BusinessLogic;
+@using Microsoft.AspNet.Identity;
+@{
+    ViewBag.Title = "Inventario";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Inventario</h2>
+
+<form class="form-inline">
+
+    <select class="form-control col-md-2" id="VersionTRD" }>
+        @foreach (var item in TRDLogic.GetAllVersiones())
+        {
+            if (!TRDLogic.IsModificacion(item))
+            {
+                <option class="list-group-item" value="@item">@item</option>
+            }
+        }
+    </select>
+    &nbsp;
+    <input type="button" onclick="CambiarVersion()" value="Ver version de TRD" class="btn btn-primary col-md-2 align-content-center" />
+</form>
+<hr />
+
+
+@foreach (var oficina in TRDLogic.GetOficinas(User.Identity.GetUserId(), (int)TempData["version"]))
+{
+    <div class="form p-1">
+        <button class="col-12 btn btn-primary text-left" type="button" data-toggle="collapse" data-target="#ToggleSerie_@oficina.Value"
+                aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+            <div class="form-row">
+                <div class="col-8">
+                    @oficina.Text
+                </div>
+                <div class="text-right col-4"><i class="fas fa-caret-down"></i>       </div>
+            </div>
+        </button>
+    </div>
+    
+    <div class="collapse bg-light" id="ToggleSerie_@oficina.Value">
+        <button class="btn btn-warning col-12" onclick="createPDF(@oficina.Value,'@oficina.Text')">
+            <i class="fas fa-print"></i>&nbsp; inventario de la oficina
+        </button>
+        <div class="table table-responsive" id="tab_@oficina.Value">
+            <table id="">
+                <thead>
+                    <tr>
+                        <th>Oficina productora</th>
+                        <th>Nombre de la serie</th>
+                        <th>Fecha inicial</th>
+                        <th>Fecha final</th>
+                        <th>Folios</th>
+                        <th>Observaciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var serie in TRDLogic.GetSeries(User.Identity.GetUserId(), (int)TempData["version"], int.Parse(oficina.Value)))
+                    {
+                        foreach (var subserie in TRDLogic.GetSubseries(User.Identity.GetUserId(), (int)TempData["version"], int.Parse(oficina.Value), int.Parse(serie.Value)))
+                        {
+                            foreach (var exp in ExpedienteLogic.GetExpedientes(subserie.trd_id))
+                            {
+                                if (exp.id != 0)
+                                {
+                                    if (subserie.id_organizacion == 1 || subserie.id_organizacion == 3)
+                                    {
+                                        if (exp.consecutivo_radicado == null)
+                                        {
+                                            <tr>
+                                                <td>@oficina.Text</td>
+                                                <td>@subserie.nombre/@exp.ano</td>
+                                                <td>@exp.f_creacion</td>
+                                                <td>@exp.f_cierre</td>
+                                                <td>@exp.folios</td>
+                                                <td>@exp.observaciones</td>
+                                            </tr>
+                                        }
+                                        else
+                                        {
+                                            string radicado;
+                                            var rad = RadicacionLogic.GetRadicado((int)exp.ano, (int)exp.consecutivo_radicado);
+                                            if (rad.entrada)
+                                            {
+                                                if (rad.interno)
+                                                {
+                                                    radicado = (int)TempData["version"] + TRDLogic.GetOficina(int.Parse(oficina.Value))[0].codigo.ToString()
+                                                    + TRDLogic.GetSerie(int.Parse(serie.Value))[0].codigo.ToString() + subserie.codigo
+                                                    + "0" + "0" + rad.consecutivo.ToString("0000");
+                                                }
+                                                else
+                                                {
+                                                    radicado = (int)TempData["version"] + TRDLogic.GetOficina(int.Parse(oficina.Value))[0].codigo.ToString()
+                                                    + TRDLogic.GetSerie(int.Parse(serie.Value))[0].codigo.ToString() + subserie.codigo
+                                                    + "0" + "1" + rad.consecutivo.ToString("0000");
+                                                }
+                                            }
+                                            else
+                                            {
+                                                if (rad.interno)
+                                                {
+                                                    radicado = (int)TempData["version"] + TRDLogic.GetOficina(int.Parse(oficina.Value))[0].codigo.ToString()
+                                                    + TRDLogic.GetSerie(int.Parse(serie.Value))[0].codigo.ToString() + subserie.codigo
+                                                    + "1" + "0" + rad.consecutivo.ToString("0000");
+                                                }
+                                                else
+                                                {
+                                                    radicado = (int)TempData["version"] + TRDLogic.GetOficina(int.Parse(oficina.Value))[0].codigo.ToString()
+                                                    + TRDLogic.GetSerie(int.Parse(serie.Value))[0].codigo.ToString() + subserie.codigo
+                                                    + "1" + "1" + rad.consecutivo.ToString("0000");
+                                                }
+                                            }
+                                            <tr>
+                                                <td>@oficina.Text</td>
+                                                <td>@subserie.nombre/@exp.ano/@radicado</td>
+                                                <td>@exp.f_creacion</td>
+                                                <td>@exp.f_cierre</td>
+                                                <td>@exp.folios</td>
+                                                <td>@exp.observaciones</td>
+                                            </tr>
+                                        }
+                                    }
+                                    if (subserie.id_organizacion == 2)
+                                    {
+                                        <tr>
+                                            <td>@oficina.Text</td>
+                                            <td>@subserie.nombre/@exp.identificacion</td>
+                                            <td>@exp.f_creacion</td>
+                                            <td>@exp.f_cierre</td>
+                                            <td>@exp.folios</td>
+                                            <td>@exp.observaciones</td>
+                                        </tr>
+                                    }
+                                    if (subserie.id_organizacion == 4)
+                                    {
+                                        <tr>
+                                            <td>@oficina.Text</td>
+                                            <td>@subserie.nombre/@exp.ano/@exp.identificacion</td>
+                                            <td>@exp.f_creacion</td>
+                                            <td>@exp.f_cierre</td>
+                                            <td>@exp.folios</td>
+                                            <td>@exp.observaciones</td>
+                                        </tr>
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+}
+
+
+<script>
+    function CambiarVersion() {
+        var el = document.getElementById('VersionTRD');
+        var text = el.options[el.selectedIndex].innerHTML;
+        window.location.replace('/Documento/Inventario/' + text);
+    }
+
+    function createPDF(id,nombre) {
+        var sTable = document.getElementById('tab_' + id).innerHTML;
+
+        var style = "<style>";
+        style = style + "table {width: 100%;font: 17px Calibri;border-collapse:collapse}";
+        style = style + "table, th,td {border: solid 1px #DDD;";
+        style = style + "padding: 2px 3px;text-align: center;}";
+        style = style + "th {color: black;}";
+        style = style + "</style>";
+
+        // CREATE A WINDOW OBJECT.
+        var win = window.open('', '', 'height=700,width=700');
+
+        win.document.write('<html><head>');
+        win.document.write('<title>Inventario de oficina '+nombre+'</title>');   // <title> FOR PDF HEADER.
+        win.document.write(style);          // ADD STYLE INSIDE THE HEAD TAG.
+        win.document.write('</head>');
+        win.document.write('<body>');
+        win.document.write(sTable);         // THE TABLE CONTENTS INSIDE THE BODY TAG.
+        win.document.write('</body></html>');
+
+        win.document.close(); 	// CLOSE THE CURRENT WINDOW.
+
+        win.print();    // PRINT THE CONTENTS.
+    }
+</script>

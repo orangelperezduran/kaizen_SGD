@@ -1,0 +1,333 @@
+2019-08-15 17:14:48,555 [RoleController] INFO - El usuario System.Security.Claims.ClaimsPrincipalEliminó un Rol
+2019-08-15 17:14:52,596 [RoleController] INFO - El usuario System.Security.Claims.ClaimsPrincipalEliminó un Rol
+2019-08-15 17:15:09,632 [RoleController] INFO - El usuario System.Security.Claims.ClaimsPrincipalEliminó un Rol
+2019-08-15 17:17:17,834 [RoleController] INFO - El usuario davidsoto94@hotmail.com Eliminó un Rol
+2019-09-20 18:40:34,831 [RoleController] ERROR - MySql.Data.MySqlClient.MySqlException (0x80004005): Fatal error encountered during command execution. ---> MySql.Data.MySqlClient.MySqlException (0x80004005): Parameter '@version' must be defined.
+   en MySql.Data.MySqlClient.Statement.SerializeParameter(MySqlParameterCollection parameters, MySqlPacket packet, String parmName, Int32 parameterIndex)
+   en MySql.Data.MySqlClient.Statement.InternalBindParameters(String sql, MySqlParameterCollection parameters, MySqlPacket packet)
+   en MySql.Data.MySqlClient.Statement.BindParameters()
+   en MySql.Data.MySqlClient.PreparableStatement.Execute()
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteNonQuery()
+   en Dapper.SqlMapper.ExecuteCommand(IDbConnection cnn, CommandDefinition& command, Action`2 paramReader) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 2827
+   en Dapper.SqlMapper.ExecuteImpl(IDbConnection cnn, CommandDefinition& command) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 570
+   en Dapper.SqlMapper.Execute(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 443
+   en DataLibrary.DataAccess.MysqlDataAccess.SaveData[T](String sql, T data) en C:\Users\Owner\source\repos\GestionDocumental\DataLibrary\DataAccess\MysqlDataAccess.cs:línea 40
+   en DataLibrary.BusinessLogic.RoleManager.CrearRole(String nombre, Boolean AprobarTRD, Boolean ModificarTRD, Boolean isRoleManager, Boolean userManager) en C:\Users\Owner\source\repos\GestionDocumental\DataLibrary\BusinessLogic\RoleManager.cs:línea 66
+   en GestionUI.Controllers.RoleController.Create(RoleModel Role, Int32[] roles) en C:\Users\Owner\source\repos\GestionDocumental\GestionUI\Controllers\RoleController.cs:línea 53
+2019-09-20 18:41:26,664 [RoleController] INFO - El usuario davidsoto94@hotmail.com Eliminó un Rol
+2019-09-20 18:41:30,650 [RoleController] INFO - El usuario davidsoto94@hotmail.com Eliminó un Rol
+2019-09-20 18:45:24,107 [RoleController] INFO - El usuario davidsoto94@hotmail.com Eliminó un Rol
+2019-09-20 18:45:27,475 [RoleController] INFO - El usuario davidsoto94@hotmail.com Eliminó un Rol
+2019-09-20 18:46:32,396 [RoleController] ERROR - MySql.Data.MySqlClient.MySqlException (0x80004005): Fatal error encountered during command execution. ---> MySql.Data.MySqlClient.MySqlException (0x80004005): Parameter '@i' must be defined.
+   en MySql.Data.MySqlClient.Statement.SerializeParameter(MySqlParameterCollection parameters, MySqlPacket packet, String parmName, Int32 parameterIndex)
+   en MySql.Data.MySqlClient.Statement.InternalBindParameters(String sql, MySqlParameterCollection parameters, MySqlPacket packet)
+   en MySql.Data.MySqlClient.Statement.BindParameters()
+   en MySql.Data.MySqlClient.PreparableStatement.Execute()
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteNonQuery()
+   en Dapper.SqlMapper.ExecuteImpl(IDbConnection cnn, CommandDefinition& command) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 552
+   en Dapper.SqlMapper.Execute(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 443
+   en DataLibrary.DataAccess.MysqlDataAccess.SaveData[T](String sql, T data) en C:\Users\Owner\source\repos\GestionDocumental\DataLibrary\DataAccess\MysqlDataAccess.cs:línea 40
+   en DataLibrary.BusinessLogic.RoleManager.CrearRole(String nombre, Boolean AprobarTRD, Boolean ModificarTRD, Boolean isRoleManager, Boolean userManager) en C:\Users\Owner\source\repos\GestionDocumental\DataLibrary\BusinessLogic\RoleManager.cs:línea 42
+   en GestionUI.Controllers.RoleController.Create(RoleModel Role, Int32[] roles) en C:\Users\Owner\source\repos\GestionDocumental\GestionUI\Controllers\RoleController.cs:línea 53
+2019-09-20 18:49:28,728 [RoleController] INFO - El usuario davidsoto94@hotmail.com Eliminó un Rol
+2019-09-20 18:55:23,999 [RoleController] INFO - El usuario davidsoto94@hotmail.com Eliminó un Rol
+2019-09-20 18:56:08,832 [RoleController] INFO - El usuario davidsoto94@hotmail.com Eliminó un Rol
+2019-09-20 18:56:17,885 [RoleController] ERROR - MySql.Data.MySqlClient.MySqlException (0x80004005): Column 'Name' cannot be null
+   en MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   en MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32& affectedRows, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
+   en MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteNonQuery()
+   en Dapper.SqlMapper.ExecuteCommand(IDbConnection cnn, CommandDefinition& command, Action`2 paramReader) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 2827
+   en Dapper.SqlMapper.ExecuteImpl(IDbConnection cnn, CommandDefinition& command) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 570
+   en Dapper.SqlMapper.Execute(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 443
+   en DataLibrary.DataAccess.MysqlDataAccess.SaveData[T](String sql, T data) en C:\Users\Owner\source\repos\GestionDocumental\DataLibrary\DataAccess\MysqlDataAccess.cs:línea 40
+   en DataLibrary.BusinessLogic.RoleManager.CrearRole(String nombre, Boolean AprobarTRD, Boolean ModificarTRD, Boolean isRoleManager, Boolean userManager) en C:\Users\Owner\source\repos\GestionDocumental\DataLibrary\BusinessLogic\RoleManager.cs:línea 48
+   en GestionUI.Controllers.RoleController.Create(RoleModel Role, Int32[] roles) en C:\Users\Owner\source\repos\GestionDocumental\GestionUI\Controllers\RoleController.cs:línea 53
+2019-09-20 18:56:29,039 [RoleController] INFO - El usuario davidsoto94@hotmail.com Eliminó un Rol
+2019-09-20 22:26:59,341 [RoleController] ERROR - MySql.Data.MySqlClient.MySqlException (0x80004005): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'values' at line 1
+   en MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   en MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32& affectedRows, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
+   en MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteNonQuery()
+   en Dapper.SqlMapper.ExecuteCommand(IDbConnection cnn, CommandDefinition& command, Action`2 paramReader) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 2827
+   en Dapper.SqlMapper.ExecuteImpl(IDbConnection cnn, CommandDefinition& command) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 570
+   en Dapper.SqlMapper.Execute(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 443
+   en DataLibrary.DataAccess.MysqlDataAccess.SaveData[T](String sql, T data) en C:\Users\Owner\source\repos\GestionDocumental\DataLibrary\DataAccess\MysqlDataAccess.cs:línea 40
+   en DataLibrary.BusinessLogic.RoleManager.EditarRol(String nombre, Boolean AprobarTRD, Boolean ModificarTRD, Boolean isRoleManager, Boolean userManager) en C:\Users\Owner\source\repos\GestionDocumental\DataLibrary\BusinessLogic\RoleManager.cs:línea 108
+   en GestionUI.Controllers.RoleController.Edit(RoleModel Role, Int32[] roles, Int32 id) en C:\Users\Owner\source\repos\GestionDocumental\GestionUI\Controllers\RoleController.cs:línea 122
+2019-09-20 22:27:59,814 [RoleController] ERROR - MySql.Data.MySqlClient.MySqlException (0x80004005): Duplicate entry '1-38' for key 'PRIMARY'
+   en MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   en MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32& affectedRows, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
+   en MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteNonQuery()
+   en Dapper.SqlMapper.ExecuteCommand(IDbConnection cnn, CommandDefinition& command, Action`2 paramReader) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 2827
+   en Dapper.SqlMapper.ExecuteImpl(IDbConnection cnn, CommandDefinition& command) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 570
+   en Dapper.SqlMapper.Execute(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 443
+   en DataLibrary.DataAccess.MysqlDataAccess.SaveData[T](String sql, T data) en C:\Users\Owner\source\repos\GestionDocumental\DataLibrary\DataAccess\MysqlDataAccess.cs:línea 40
+   en DataLibrary.BusinessLogic.RoleManager.CrearRoleManagerRow(Int32 primario, Int32 secundario) en C:\Users\Owner\source\repos\GestionDocumental\DataLibrary\BusinessLogic\RoleManager.cs:línea 23
+   en GestionUI.Controllers.RoleController.Edit(RoleModel Role, Int32[] roles, Int32 id) en C:\Users\Owner\source\repos\GestionDocumental\GestionUI\Controllers\RoleController.cs:línea 137
+2019-09-20 22:46:30,482 [RoleController] ERROR - MySql.Data.MySqlClient.MySqlException (0x80004005): Duplicate entry '38-2' for key 'PRIMARY'
+   en MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   en MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32& affectedRows, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
+   en MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteNonQuery()
+   en Dapper.SqlMapper.ExecuteCommand(IDbConnection cnn, CommandDefinition& command, Action`2 paramReader) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 2827
+   en Dapper.SqlMapper.ExecuteImpl(IDbConnection cnn, CommandDefinition& command) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 570
+   en Dapper.SqlMapper.Execute(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 443
+   en DataLibrary.DataAccess.MysqlDataAccess.SaveData[T](String sql, T data) en C:\Users\Owner\source\repos\GestionDocumental\DataLibrary\DataAccess\MysqlDataAccess.cs:línea 40
+   en DataLibrary.BusinessLogic.RoleManager.CrearRoleManagerRow(Int32 primario, Int32 secundario) en C:\Users\Owner\source\repos\GestionDocumental\DataLibrary\BusinessLogic\RoleManager.cs:línea 23
+   en GestionUI.Controllers.RoleController.Edit(RoleModel Role, Int32[] roles, Int32 id) en C:\Users\Owner\source\repos\GestionDocumental\GestionUI\Controllers\RoleController.cs:línea 129
+2019-09-20 23:32:27,497 [RoleController] ERROR - MySql.Data.MySqlClient.MySqlException (0x80004005): Field 'fecha_aprobacion' doesn't have a default value
+   en MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   en MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32& affectedRows, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
+   en MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteNonQuery()
+   en Dapper.SqlMapper.ExecuteCommand(IDbConnection cnn, CommandDefinition& command, Action`2 paramReader) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 2827
+   en Dapper.SqlMapper.ExecuteImpl(IDbConnection cnn, CommandDefinition& command) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 570
+   en Dapper.SqlMapper.Execute(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 443
+   en DataLibrary.DataAccess.MysqlDataAccess.SaveData[T](String sql, T data) en C:\Users\Owner\source\repos\GestionDocumental\DataLibrary\DataAccess\MysqlDataAccess.cs:línea 40
+   en DataLibrary.BusinessLogic.TRDLogic.CrearAprobacion(Int32 version, String userID) en C:\Users\Owner\source\repos\GestionDocumental\DataLibrary\BusinessLogic\TRDLogic.cs:línea 79
+   en DataLibrary.BusinessLogic.RoleManager.EditarRol(String nombre, Boolean AprobarTRD, Boolean ModificarTRD, Boolean isRoleManager, Boolean userManager, Int32 id) en C:\Users\Owner\source\repos\GestionDocumental\DataLibrary\BusinessLogic\RoleManager.cs:línea 132
+   en GestionUI.Controllers.RoleController.Edit(RoleModel Role, Int32[] roles, Int32 id) en C:\Users\Owner\source\repos\GestionDocumental\GestionUI\Controllers\RoleController.cs:línea 122
+2019-09-23 12:43:47,726 [AccountController] ERROR - MySql.Data.MySqlClient.MySqlException (0x80004005): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+   en MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   en MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32& affectedRows, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
+   en MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteNonQuery()
+   en Dapper.SqlMapper.ExecuteCommand(IDbConnection cnn, CommandDefinition& command, Action`2 paramReader) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 2827
+   en Dapper.SqlMapper.ExecuteImpl(IDbConnection cnn, CommandDefinition& command) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 570
+   en Dapper.SqlMapper.Execute(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 443
+   en DataLibrary.DataAccess.MysqlDataAccess.SaveData[T](String sql, T data) en C:\Users\Owner\source\repos\GestionDocumental\DataLibrary\DataAccess\MysqlDataAccess.cs:línea 40
+   en DataLibrary.BusinessLogic.TRDLogic.EliminarAprobacion(Int32 version, String userID) en C:\Users\Owner\source\repos\GestionDocumental\DataLibrary\BusinessLogic\TRDLogic.cs:línea 125
+   en GestionUI.Controllers.AccountController.Edit(String user, Int32[] roles) en C:\Users\Owner\source\repos\GestionDocumental\GestionUI\Controllers\AccountController.cs:línea 169
+2019-09-24 01:26:57,385 [RoleController] ERROR - MySql.Data.MySqlClient.MySqlException (0x80004005): Unknown column 'subserie.nombre' in 'field list'
+   en MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   en MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32& affectedRows, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
+   en MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   en System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   en Dapper.SqlMapper.ExecuteReaderWithFlagsFallback(IDbCommand cmd, Boolean wasClosed, CommandBehavior behavior) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 1053
+   en Dapper.SqlMapper.<QueryImpl>d__138`1.MoveNext() en C:\projects\dapper\Dapper\SqlMapper.cs:línea 1081
+   en System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   en System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   en Dapper.SqlMapper.Query[T](IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Boolean buffered, Nullable`1 commandTimeout, Nullable`1 commandType) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 723
+   en DataLibrary.DataAccess.MysqlDataAccess.LoadData[T](String sql, Object data) en C:\Users\Owner\source\repos\GestionDocumental\DataLibrary\DataAccess\MysqlDataAccess.cs:línea 24
+   en DataLibrary.BusinessLogic.TRDLogic.AuthorizedTRDid(String User_Id, Int32 id_trd) en C:\Users\Owner\source\repos\GestionDocumental\DataLibrary\BusinessLogic\TRDLogic.cs:línea 96
+   en DataLibrary.BusinessLogic.TRDLogic.EliminarRol_trd(Int32 rol_id, String UserId, Int32 version) en C:\Users\Owner\source\repos\GestionDocumental\DataLibrary\BusinessLogic\TRDLogic.cs:línea 36
+   en GestionUI.Controllers.RoleController.Edit(RoleModel Role, Int32[] roles, Int32 id, Int32[] subseries) en C:\Users\Owner\source\repos\GestionDocumental\GestionUI\Controllers\RoleController.cs:línea 144
+2019-09-24 01:30:07,501 [RoleController] ERROR - MySql.Data.MySqlClient.MySqlException (0x80004005): Table 'gestiondocumental.rol_trd' doesn't exist
+   en MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   en MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32& affectedRows, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
+   en MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteNonQuery()
+   en Dapper.SqlMapper.ExecuteCommand(IDbConnection cnn, CommandDefinition& command, Action`2 paramReader) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 2827
+   en Dapper.SqlMapper.ExecuteImpl(IDbConnection cnn, CommandDefinition& command) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 570
+   en Dapper.SqlMapper.Execute(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 443
+   en DataLibrary.DataAccess.MysqlDataAccess.SaveData[T](String sql, T data) en C:\Users\Owner\source\repos\GestionDocumental\DataLibrary\DataAccess\MysqlDataAccess.cs:línea 40
+   en DataLibrary.BusinessLogic.TRDLogic.EliminarRol_trd(Int32 rol_id, String UserId, Int32 version) en C:\Users\Owner\source\repos\GestionDocumental\DataLibrary\BusinessLogic\TRDLogic.cs:línea 40
+   en GestionUI.Controllers.RoleController.Edit(RoleModel Role, Int32[] roles, Int32 id, Int32[] subseries) en C:\Users\Owner\source\repos\GestionDocumental\GestionUI\Controllers\RoleController.cs:línea 144
+2019-09-24 01:31:18,187 [RoleController] ERROR - MySql.Data.MySqlClient.MySqlException (0x80004005): Table 'gestiondocumental.rol_trd' doesn't exist
+   en MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   en MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32& affectedRows, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
+   en MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteNonQuery()
+   en Dapper.SqlMapper.ExecuteCommand(IDbConnection cnn, CommandDefinition& command, Action`2 paramReader) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 2827
+   en Dapper.SqlMapper.ExecuteImpl(IDbConnection cnn, CommandDefinition& command) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 570
+   en Dapper.SqlMapper.Execute(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 443
+   en DataLibrary.DataAccess.MysqlDataAccess.SaveData[T](String sql, T data) en C:\Users\Owner\source\repos\GestionDocumental\DataLibrary\DataAccess\MysqlDataAccess.cs:línea 40
+   en DataLibrary.BusinessLogic.TRDLogic.EliminarRol_trd(Int32 rol_id, String UserId, Int32 version) en C:\Users\Owner\source\repos\GestionDocumental\DataLibrary\BusinessLogic\TRDLogic.cs:línea 40
+   en GestionUI.Controllers.RoleController.Edit(RoleModel Role, Int32[] roles, Int32 id, Int32[] subseries) en C:\Users\Owner\source\repos\GestionDocumental\GestionUI\Controllers\RoleController.cs:línea 144
+2019-09-24 01:33:13,339 [RoleController] ERROR - MySql.Data.MySqlClient.MySqlException (0x80004005): Table 'gestiondocumental.rol_trd' doesn't exist
+   en MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   en MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32& affectedRows, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
+   en MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteNonQuery()
+   en Dapper.SqlMapper.ExecuteCommand(IDbConnection cnn, CommandDefinition& command, Action`2 paramReader) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 2827
+   en Dapper.SqlMapper.ExecuteImpl(IDbConnection cnn, CommandDefinition& command) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 570
+   en Dapper.SqlMapper.Execute(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 443
+   en DataLibrary.DataAccess.MysqlDataAccess.SaveData[T](String sql, T data) en C:\Users\Owner\source\repos\GestionDocumental\DataLibrary\DataAccess\MysqlDataAccess.cs:línea 40
+   en DataLibrary.BusinessLogic.TRDLogic.EliminarRol_trd(Int32 rol_id, String UserId, Int32 version) en C:\Users\Owner\source\repos\GestionDocumental\DataLibrary\BusinessLogic\TRDLogic.cs:línea 40
+   en GestionUI.Controllers.RoleController.Edit(RoleModel Role, Int32[] roles, Int32[] subseries, Int32 id) en C:\Users\Owner\source\repos\GestionDocumental\GestionUI\Controllers\RoleController.cs:línea 144
+2019-09-24 01:36:02,258 [RoleController] ERROR - System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.
+   en GestionUI.Controllers.RoleController.Edit(RoleModel Role, Int32[] roles, Int32[] subseries, Int32 id) en C:\Users\Owner\source\repos\GestionDocumental\GestionUI\Controllers\RoleController.cs:línea 145
+2019-09-24 11:16:03,375 [AccountController] ERROR - System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.
+   en GestionUI.Controllers.AccountController.Edit(String user, Int32[] roles) en C:\Users\Owner\source\repos\GestionDocumental\GestionUI\Controllers\AccountController.cs:línea 99
+2019-09-24 11:19:27,411 [AccountController] ERROR - System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.
+   en GestionUI.Controllers.AccountController.Edit(String user, Int32[] roles) en C:\Users\Owner\source\repos\GestionDocumental\GestionUI\Controllers\AccountController.cs:línea 99
+2019-09-24 11:19:34,512 [AccountController] ERROR - System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.
+   en GestionUI.Controllers.AccountController.Edit(String user, Int32[] roles) en C:\Users\Owner\source\repos\GestionDocumental\GestionUI\Controllers\AccountController.cs:línea 99
+2019-09-24 11:21:48,343 [AccountController] INFO - El usuario davidsoto94 ha cambiado su UserName de davidsoto94 a davidsoto94@hotmail.com.
+2019-12-20 11:06:01,333 [RoleController] ERROR - System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.
+   en GestionUI.Controllers.RoleController.Edit(RoleModel Role, Int32[] roles, Int32[] subseries, Int32 id) en C:\Users\Owner\source\repos\GestionDocumental\GestionUI\Controllers\RoleController.cs:línea 145
+2019-12-20 11:06:20,121 [RoleController] ERROR - System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.
+   en GestionUI.Controllers.RoleController.Edit(RoleModel Role, Int32[] roles, Int32[] subseries, Int32 id) en C:\Users\Owner\source\repos\GestionDocumental\GestionUI\Controllers\RoleController.cs:línea 145
+2019-12-20 11:06:31,275 [RoleController] ERROR - System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.
+   en GestionUI.Controllers.RoleController.Edit(RoleModel Role, Int32[] roles, Int32[] subseries, Int32 id) en C:\Users\Owner\source\repos\GestionDocumental\GestionUI\Controllers\RoleController.cs:línea 145
+2019-12-20 11:06:37,904 [RoleController] INFO - El usuario davidsoto94@hotmail.com Eliminó un Rol
+2019-12-20 11:06:55,401 [RoleController] ERROR - System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.
+   en GestionUI.Controllers.RoleController.Create(RoleModel Role, Int32[] roles, Int32[] subseries) en C:\Users\Owner\source\repos\GestionDocumental\GestionUI\Controllers\RoleController.cs:línea 76
+2019-12-20 11:09:48,499 [RoleController] INFO - El usuario davidsoto94@hotmail.com Eliminó un Rol
+2019-12-20 11:10:05,626 [RoleController] ERROR - System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.
+   en GestionUI.Controllers.RoleController.Create(RoleModel Role, Int32[] roles, Int32[] subseries) en C:\Users\Owner\source\repos\GestionDocumental\GestionUI\Controllers\RoleController.cs:línea 76
+2019-12-20 11:12:14,634 [RoleController] ERROR - System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.
+   en GestionUI.Controllers.RoleController.Edit(RoleModel Role, Int32[] roles, Int32[] subseries, Int32 id) en C:\Users\Owner\source\repos\GestionDocumental\GestionUI\Controllers\RoleController.cs:línea 145
+2019-12-20 11:12:36,130 [RoleController] INFO - El usuario davidsoto94@hotmail.com Eliminó un Rol
+2019-12-20 11:13:59,804 [RoleController] ERROR - System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.
+   en GestionUI.Controllers.RoleController.Create(RoleModel Role, Int32[] roles, Int32[] subseries) en C:\Users\Owner\source\repos\GestionDocumental\GestionUI\Controllers\RoleController.cs:línea 76
+2019-12-20 11:16:21,337 [RoleController] INFO - El usuario davidsoto94@hotmail.com Eliminó un Rol
+2019-12-20 11:39:31,593 [AccountController] ERROR - MySql.Data.MySqlClient.MySqlException (0x80004005): Duplicate entry 'f7cdfab0-622a-424d-b528-628c7c33f7bb-6' for key 'PRIMARY'
+   en MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   en MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32& affectedRows, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
+   en MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteNonQuery()
+   en Dapper.SqlMapper.ExecuteCommand(IDbConnection cnn, CommandDefinition& command, Action`2 paramReader) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 2827
+   en Dapper.SqlMapper.ExecuteImpl(IDbConnection cnn, CommandDefinition& command) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 570
+   en Dapper.SqlMapper.Execute(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 443
+   en DataLibrary.DataAccess.MysqlDataAccess.SaveData[T](String sql, T data) en C:\Users\Owner\source\repos\GestionDocumental\DataLibrary\DataAccess\MysqlDataAccess.cs:línea 40
+   en DataLibrary.BusinessLogic.UserProcessor.AsignarRoles(String UserId, Int32 RoleId) en C:\Users\Owner\source\repos\GestionDocumental\DataLibrary\BusinessLogic\UserProcessor.cs:línea 46
+   en GestionUI.Controllers.AccountController.Edit(String user, Int32[] roles) en C:\Users\Owner\source\repos\GestionDocumental\GestionUI\Controllers\AccountController.cs:línea 115
+2020-09-20 17:05:24,133 [RoleController] INFO - El usuario davidsoto94@hotmail.com Eliminó un Rol
+2020-09-20 22:05:39,542 [DocumentoController] INFO - El usuario f7cdfab0-622a-424d-b528-628c7c33f7bbha creado el radicado: 1202020920010003
+2020-09-21 11:34:45,599 [DocumentoController] INFO - El usuario f7cdfab0-622a-424d-b528-628c7c33f7bbha creado el radicado: 011020200921010004
+2020-09-29 10:39:09,743 [DocumentoController] INFO - El usuario f7cdfab0-622a-424d-b528-628c7c33f7bbha creado el radicado: 011020200929010005
+2020-10-27 17:53:30,314 [DocumentoController] INFO - El usuario f7cdfab0-622a-424d-b528-628c7c33f7bbha creado el radicado: 011020201027110006
+2020-10-27 19:34:38,824 [DocumentoController] INFO - El usuario davidsoto94@hotmail.comha creado el radicado: 021020201027010002
+2020-10-27 19:42:26,975 [AccountController] INFO - El usuario davidsoto94@hotmail.com ha deshabilitado al usuario joma501@hotmail.com
+2020-10-27 20:46:34,033 [BusquedaController] INFO - GestionUI.Models.ExpedienteModel
+2020-10-27 20:46:54,290 [BusquedaController] INFO - GestionUI.Models.ExpedienteModel
+2020-10-27 20:57:55,710 [BusquedaController] INFO - 2
+2020-10-27 20:57:55,721 [BusquedaController] INFO - jonathan
+2020-10-27 20:57:55,726 [BusquedaController] INFO - 0
+2020-10-27 20:57:55,726 [BusquedaController] INFO - System.Collections.Generic.List`1[System.Web.Mvc.SelectListItem]
+2020-10-27 20:57:55,726 [BusquedaController] INFO - 0
+2020-10-27 20:59:38,672 [BusquedaController] INFO - 2
+2020-10-27 20:59:38,681 [BusquedaController] INFO - jonathan
+2020-10-27 20:59:38,686 [BusquedaController] INFO - 0
+2020-10-27 20:59:38,686 [BusquedaController] INFO - System.Web.Mvc.SelectListItem
+2020-10-27 20:59:38,686 [BusquedaController] INFO - 0
+2020-10-27 21:00:26,429 [BusquedaController] INFO - jonathan
+2020-10-27 21:00:26,441 [BusquedaController] INFO - 3
+2020-10-27 21:05:47,445 [BusquedaController] INFO - 3
+2020-10-27 21:36:29,515 [radicacionlogic] INFO - 1por acrta esl el año2020
+2020-10-27 21:36:29,677 [radicado.cshtñ] INFO - 6entro al expediente
+2020-10-27 21:36:29,678 [radicado.cshtñ] INFO -  
+2020-10-27 21:36:29,679 [radicado.cshtñ] INFO - 021020201027010001
+2020-10-27 21:58:42,287 [radicacionlogic] INFO - 1año 2020  27/10/2020 12:00:00 a. m. 021020201027010001
+2020-10-27 21:58:42,303 [radicado.cshtñ] INFO - 6entro al expediente
+2020-10-27 21:58:42,303 [radicado.cshtñ] INFO -  
+2020-10-27 21:59:41,097 [radicacionlogic] INFO - 1año 2020  27/10/2020 12:00:00 a. m. 021020201027010001
+2020-10-27 22:01:47,325 [radicacionlogic] INFO - 1añodavidsoto94@hotmail.com  27/10/2020 12:00:00 a. m. 
+2020-10-27 22:03:24,447 [radicacionlogic] INFO - 1añodavidsoto94@hotmail.com  27/10/2020 12:00:00 a. m. 
+2020-10-27 22:03:24,449 [radicado.cshtñ] INFO - 6entro al expediente
+2020-10-27 22:03:24,449 [radicado.cshtñ] INFO -  
+2020-10-27 22:03:24,450 [radicado.cshtñ] INFO - 021020201027010001
+2020-10-27 22:08:33,865 [dataaccess] INFO - DataLibrary.Models.UserModel
+2020-10-27 22:08:41,323 [dataaccess] INFO - 2
+2020-10-27 22:08:42,373 [dataaccess] INFO - 2
+2020-10-27 22:08:43,355 [dataaccess] INFO - DataLibrary.Models.UserModel
+2020-10-27 22:08:46,358 [dataaccess] INFO - 2
+2020-10-27 22:08:46,381 [radicacionlogic] INFO - 1año2020  27/10/2020 12:00:00 a. m. 
+2020-10-27 22:08:46,389 [radicado.cshtñ] INFO - 6entro al expediente
+2020-10-27 22:08:46,389 [radicado.cshtñ] INFO -  
+2020-10-27 22:08:46,391 [radicado.cshtñ] INFO - 021020201027010001
+2020-10-27 22:08:46,393 [dataaccess] INFO - DataLibrary.Models.UserModel
+2020-10-27 22:10:07,584 [dataaccess] INFO - 2
+2020-10-27 22:12:05,971 [dataaccess] INFO - DataLibrary.Models.UserModel
+2020-10-27 22:12:11,341 [dataaccess] INFO - 2
+2020-10-27 22:12:12,219 [dataaccess] INFO - 2
+2020-10-27 22:12:12,300 [dataaccess] INFO - DataLibrary.Models.UserModel
+2020-10-27 22:12:15,680 [dataaccess] INFO - 2
+2020-10-27 22:12:15,703 [radicacionlogic] INFO - 1año2020  27/10/2020 12:00:00 a. m. 
+2020-10-27 22:12:15,710 [radicado.cshtñ] INFO - 6entro al expediente
+2020-10-27 22:12:15,710 [radicado.cshtñ] INFO -  
+2020-10-27 22:12:15,712 [radicado.cshtñ] INFO - 021020201027010001
+2020-10-27 22:12:15,715 [dataaccess] INFO - DataLibrary.Models.UserModel
+2020-10-27 22:12:32,213 [dataaccess] INFO - 2
+2020-10-27 22:12:32,219 [radicacionlogic] INFO - 1año2020  27/10/2020 12:00:00 a. m. 
+2020-10-27 22:12:32,220 [radicado.cshtñ] INFO - 6entro al expediente
+2020-10-27 22:12:32,220 [radicado.cshtñ] INFO -  
+2020-10-27 22:12:32,221 [radicado.cshtñ] INFO - 021020201027010001
+2020-10-27 22:12:32,223 [dataaccess] INFO - DataLibrary.Models.UserModel
+2020-10-27 22:13:57,993 [radicacionlogic] INFO - 1año2020  27/10/2020 12:00:00 a. m. 
+2020-10-27 22:13:58,007 [radicado.cshtñ] INFO - 6entro al expediente
+2020-10-27 22:13:58,008 [radicado.cshtñ] INFO -  
+2020-10-27 22:13:58,010 [radicado.cshtñ] INFO - 021020201027010001
+2020-10-27 22:15:12,450 [radicacionlogic] INFO - 1año2020  27/10/2020 12:00:00 a. m. 
+2020-10-27 22:15:12,451 [radicado.cshtñ] INFO - 6entro al expediente
+2020-10-27 22:15:12,451 [radicado.cshtñ] INFO -  
+2020-10-27 22:15:12,453 [radicado.cshtñ] INFO - 021020201027010001
+2020-10-27 22:22:53,142 [radicacionlogic] INFO - 1año2020  27/10/2020 12:00:00 a. m. 
+2020-10-27 22:25:29,487 [radicacionlogic] INFO - 1año2020  27/10/2020 12:00:00 a. m. 
+2020-10-27 22:26:25,497 [radicacionlogic] INFO - 1año2020  27/10/2020 12:00:00 a. m. 
+2020-10-27 22:27:24,610 [radicacionlogic] INFO - 1año2020  27/10/2020 12:00:00 a. m. 
+2020-10-27 22:35:41,563 [radicacionlogic] INFO - 1ano2020  27/10/2020 12:00:00 a. m. 
+2020-10-27 22:35:41,581 [radicado.cshtñ] INFO - 6entro al expediente
+2020-10-27 22:35:41,581 [radicado.cshtñ] INFO -  
+2020-10-27 22:35:41,583 [radicado.cshtñ] INFO - 021020201027010001
+2020-10-28 07:43:27,083 [RoleController] INFO - El usuario davidsoto94@hotmail.com ha creado el nuevo rol ventanilla unica
+2020-11-09 16:38:53,244 [DocumentoController] INFO - El usuario davidsoto94@hotmail.comha creado el radicado: 0110020201109010001
+2020-11-09 16:54:25,565 [DocumentoController] INFO - El usuario davidsoto94@hotmail.comha creado el radicado: 0210020201109010002
+2020-11-09 16:57:20,093 [DocumentoController] INFO - El usuario davidsoto94@hotmail.comha creado el radicado: 0210020201109110003
+2020-11-09 17:07:29,301 [DocumentoController] INFO - El usuario davidsoto94@hotmail.comha creado el radicado: 0210020201109010004
+2020-11-09 17:13:17,037 [DocumentoController] INFO - El usuario davidsoto94@hotmail.comha creado el radicado: 0210020201109110005
+2020-11-09 20:46:55,357 [DocumentoController] INFO - El usuario davidsoto94@hotmail.comha creado el radicado: 0110020201109010001
+2020-11-09 20:48:02,012 [DocumentoController] INFO - El usuario davidsoto94@hotmail.comha creado el radicado: 0110020201109110002
+2020-11-09 21:17:46,263 [DocumentoController] INFO - El usuario davidsoto94@hotmail.comha creado el radicado: 0113020201109010003
+2020-11-09 21:18:42,555 [DocumentoController] INFO - El usuario davidsoto94@hotmail.comha creado el radicado: 0113020201109110004
+2020-11-09 21:19:35,591 [DocumentoController] INFO - El usuario davidsoto94@hotmail.comha creado el radicado: 0110020201109010005
+2020-11-09 21:20:12,758 [DocumentoController] INFO - El usuario davidsoto94@hotmail.comha creado el radicado: 0110020201109110006
+2020-11-09 21:21:09,187 [DocumentoController] INFO - El usuario davidsoto94@hotmail.comha creado el radicado: 0110020201109010007
+2020-11-09 21:21:50,898 [DocumentoController] INFO - El usuario davidsoto94@hotmail.comha creado el radicado: 0110020201109110008
+2020-11-12 09:35:30,918 [DocumentoController] INFO - El usuario davidsoto94@hotmail.comha creado el radicado: 0110020201112010009
+2020-11-12 09:47:42,037 [DocumentoController] INFO - El usuario davidsoto94@hotmail.comha creado el radicado: 0110020201112110010
+2020-11-12 09:51:22,351 [AccountController] ERROR - MySql.Data.MySqlClient.MySqlException (0x80004005): Duplicate entry 'f7cdfab0-622a-424d-b528-628c7c33f7bb-1' for key 'PRIMARY'
+   en MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   en MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32& affectedRows, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
+   en MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteNonQuery()
+   en Dapper.SqlMapper.ExecuteCommand(IDbConnection cnn, CommandDefinition& command, Action`2 paramReader) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 2827
+   en Dapper.SqlMapper.ExecuteImpl(IDbConnection cnn, CommandDefinition& command) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 570
+   en Dapper.SqlMapper.Execute(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 443
+   en DataLibrary.DataAccess.MysqlDataAccess.SaveData[T](String sql, T data) en C:\Users\Owner\source\repos\GestionDocumental\DataLibrary\DataAccess\MysqlDataAccess.cs:línea 41
+   en DataLibrary.BusinessLogic.UserProcessor.AsignarRoles(String UserId, Int32 RoleId) en C:\Users\Owner\source\repos\GestionDocumental\DataLibrary\BusinessLogic\UserProcessor.cs:línea 43
+   en GestionUI.Controllers.AccountController.Edit(String user, Int32[] roles) en C:\Users\Owner\source\repos\GestionDocumental\GestionUI\Controllers\AccountController.cs:línea 113

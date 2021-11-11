@@ -1,0 +1,388 @@
+﻿@using DataLibrary.BusinessLogic;
+@using Microsoft.AspNet.Identity;
+@{
+    ViewBag.Title = "Aprobar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Tabla de Retención pendiente de aprobación</h2>
+<br />
+<br />
+<input type="button" value="Imprimir TRD" id="btPrint" onclick="createPDF()" class="btn btn-warning col-md-12" />
+<br />
+<br />
+
+@if (TRDLogic.PendienteDeAprobacion(User.Identity.GetUserId(), (int)TempData["version"]))
+{
+    <input type="button" value="Aprobar Tabla de Retención Documental" id="AprobarTRD" class="btn btn-success col-12 align-content-center" />
+}
+<br />
+<br />
+
+
+
+<div style="max-height:0px; visibility:hidden" id="tab">
+    @{
+        List<int> nof = new List<int>(); List<int> nser = new List<int>(); List<int> nsub = new List<int>();
+        string scod = "", sof = "", sser = "", ssub = "";
+        int x = 0, y = 0, z = 0, cont = 0, csub = 0;
+        nof.Add(1); nser.Add(1); nsub.Add(1);
+        List<GestionUI.Models.TablaDeRetencion> data;
+        data = TempData["List"] as List<GestionUI.Models.TablaDeRetencion>;
+        foreach (GestionUI.Models.TablaDeRetencion TRD1 in data)
+        {
+
+            if (TRD1.NombreOficina != sof)
+            {
+                if (sof != "")
+                {
+                    x++;
+                    nof.Add(1);
+                }
+            }
+            else
+            {
+                nof[x]++;
+            }
+            if (TRD1.NombreSerie != sser)
+            {
+                if (sser != "")
+                {
+                    y++;
+                    nser.Add(1);
+                }
+            }
+            else
+            {
+                nser[y]++;
+            }
+            if (TRD1.NombreSubserie != ssub)
+            {
+                if (ssub != "")
+                {
+                    z++;
+                    nsub.Add(1);
+                }
+            }
+            else
+            {
+                nsub[z]++;
+            }
+            sof = @TRD1.NombreOficina;
+            ssub = @TRD1.NombreSubserie;
+            sser = @TRD1.NombreSerie;
+        }
+    }
+    @for (int o = 0; o < nof.Count; o++)
+    {
+        sser = ""; ssub = "";
+        <p style="page-break-before: always"> </p>
+        <center><h3>FORMATO DE TABLA DE RETENCIÓN DOCUMENTAL</h3></center>
+        <table style="border:0px; text-align:left">
+            <tr>
+                <td style="border:0px; text-align:left"><b>ENTIDAD PRODUCTORA:</b> ALCALDIA DE PALMAS</td>
+            </tr>
+            <tr>
+                <td style="border:0px; text-align:left"><b>OFICINA PRODUCTORA:</b> @data[0].NombreOficina</td>
+            </tr>
+        </table>
+
+        <br />
+        <table class="table table-bordered" id="tabla">
+            <thead>
+                <tr>
+                    <th rowspan="2">CÓDIGO</th>
+                    <th rowspan="2">
+                        SERIES <br />
+                        SUBSERIES<br />
+                        TIPOS DOCUMENTALES
+                    </th>
+                    <th rowspan="2">SOPORTE O FORMATO</th>
+                    <th colspan="2">TIEMPOS DE RETENCION</th>
+                    <th colspan="4">DISPOSICIÓN FINAL</th>
+                    <th rowspan="2">PROCEDIMIENTO</th>
+                </tr>
+                <tr>
+                    <th>ARCHIVO GESTIÓN</th>
+                    <th>ARCHIVO CENTRAL</th>
+                    <th>CT</th>
+                    <th>E</th>
+                    <th>M</th>
+                    <th>S</th>
+                </tr>
+            </thead>
+            <tbody class="tab-content" id="TRD">
+                @for (x = 0; x < nof[o]; x++)
+                {
+                    if (data[cont].NombreSerie != sser)
+                    {
+                        <tr>
+                            <td>@data[cont].CodigoOficina.@data[cont].CodigoSerie</td>
+                            <td>@data[cont].NombreSerie</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+
+                    }
+                    sser = data[cont].NombreSerie;
+                    if (data[cont].NombreSubserie != ssub)
+                    {
+                        int rowspan = nsub[csub] + 1;
+                        <tr>
+                            <td rowspan=@rowspan>@data[cont].CodigoOficina.@data[cont].CodigoSerie.@data[cont].CodigoSubserie</td>
+                            <td>@data[cont].NombreSubserie</td>
+                            <td></td>
+                            <td rowspan=@rowspan>@data[cont].TiempoGestion</td>
+                            <td rowspan=@rowspan>@data[cont].TiempoArchivo</td>
+                            @if (@data[cont].DisposicionFinal.Contains("CT"))
+                            {
+                                <td rowspan=@rowspan>X</td>
+                            }
+                            else
+                            {
+                                <td rowspan=@rowspan></td>
+                            }
+                            @if (@data[cont].DisposicionFinal.Contains("E"))
+                            {
+                                <td rowspan=@rowspan>X</td>
+                            }
+                            else
+                            {
+                                <td rowspan=@rowspan></td>
+                            }
+                            @if (@data[cont].DisposicionFinal.Contains("M"))
+                            {
+                                <td rowspan=@rowspan>X</td>
+                            }
+                            else
+                            {
+                                <td rowspan=@rowspan></td>
+                            }
+                            @if (@data[cont].DisposicionFinal.Contains("S"))
+                            {
+                                <td rowspan=@rowspan>X</td>
+                            }
+                            else
+                            {
+                                <td rowspan=@rowspan></td>
+                            }
+                            <td rowspan=@rowspan>@data[cont].Observaciones</td>
+                        </tr>
+
+                        if (ssub != "")
+                        {
+                            csub++;
+                        }
+                    }
+                    ssub = data[cont].NombreSubserie;
+                    <tr>
+                        <td>@data[cont].NombreTipologia</td>
+                        <td></td>
+                    </tr>
+                    cont++;
+                }
+            </tbody>
+        </table>
+        <br />
+        <table style="border:0px; text-align:left">
+            <tr style="border:0px; text-align:left">
+                <td style="border:0px; text-align:left"><b>CONVENCIONES:</b></td>
+                <td colspan="2" style="border:0px; text-align:left"><b>FIRMAS RESPONSABLES</b></td>
+            </tr>
+            <tr>
+                <td style="border:0px; text-align:left"></td>
+                <td colspan="2" style="border:0px; text-align:left"></td>
+            </tr>
+            <tr>
+                <td style="border:0px; text-align:left"><b>CT:</b> Conservación total</td>
+                <td style="border:0px; text-align:left">Secretario General:</td>
+                <td style="border:0px; text-align:left">______________________________</td>
+            </tr>
+            <tr>
+                <td style="border:0px; text-align:left"><b>E:</b> Eliminación</td>
+                <td style="border:0px; text-align:left">Jefe de archivo y gestión documental:</td>
+                <td style="border:0px; text-align:left">______________________________</td>
+            </tr>
+            <tr>
+                <td style="border:0px; text-align:left"><b>M:</b> Reproducción por medio técnico (microfilmación, digitalización, fotografía)</td>
+                <td style="border:0px; text-align:left">Ciudad y fecha:</td>
+                <td style="border:0px; text-align:left">______________________________</td>
+            </tr>
+            <tr>
+                <td style="border:0px; text-align:left"><b>S:</b> Selección</td>
+                <td style="border:0px; text-align:left"></td>
+                <td style="border:0px; text-align:left"></td>
+            </tr>
+        </table>
+    }
+</div>
+
+<div class="table-responsive">
+
+    <table class="table table-bordered" id="tabla">
+        <thead>
+            <tr>
+                <th>Cod</th>
+                <th>Nombre de Oficina</th>
+                <th>Nombre de Serie</th>
+                <th>Nombre de Subserie</th>
+                <th>Tipología</th>
+                <th>Gestion</th>
+                <th>Archivo</th>
+                <th>Disposición final</th>
+                <th>Organizacion</th>
+                <th>Observaciones</th>
+            </tr>
+        </thead>
+        <tbody class="tab-content" id="TRD">
+
+            @{int i = 0; scod = ""; sof = ""; sser = ""; ssub = "";
+                x = 0; y = 0; z = 0;}
+            @foreach (GestionUI.Models.TablaDeRetencion TRD in data)
+            {
+                string temp = @TRD.CodigoOficina + "." + @TRD.CodigoSerie + "." + @TRD.CodigoSubserie;
+                <tr>
+                    @if (nsub[z] == 0)
+                    {
+                        <td rowspan=@nsub[z+1]>@temp</td>
+                    }
+                    else
+                    {
+                        if (scod == "")
+                        {
+                            <td rowspan=@nsub[z]>@temp</td>
+                        }
+                    }
+                    @if (nof[x] == 0)
+                    {
+                        x++;
+                        <td rowspan=@nof[x]>@TRD.NombreOficina</td>
+                        nof[x]--;
+                    }
+                    else
+                    {
+                        if (sof == "")
+                        {
+                            <td rowspan=@nof[x]>@TRD.NombreOficina</td>
+                        }
+                        nof[x]--;
+                    }
+                    @if (nser[y] == 0)
+                    {
+                        y++;
+                        <td rowspan=@nser[y]>@TRD.NombreSerie</td>
+                        nser[y]--;
+                    }
+                    else
+                    {
+                        if (sser == "")
+                        {
+                            <td rowspan=@nser[y]>@TRD.NombreSerie</td>
+                        }
+                        nser[y]--;
+                    }
+                    @if (nsub[z] == 0)
+                    {
+                        <td rowspan=@nsub[z+1]>@TRD.NombreSubserie</td>
+                    }
+                    else
+                    {
+                        if (ssub == "")
+                        {
+                            <td rowspan=@nsub[z]>@TRD.NombreSubserie</td>
+                        }
+                    }
+                    <td>@TRD.NombreTipologia</td>
+                    @if (nsub[z] == 0)
+                    {
+                        z++;
+                        <td rowspan=@nsub[z]>@TRD.TiempoGestion</td>
+                        <td rowspan=@nsub[z]>@TRD.TiempoArchivo</td>
+                        <td rowspan=@nsub[z]>@TRD.DisposicionFinal</td>
+                        <td rowspan=@nsub[z]>@TRD.Organizacion_text</td>
+                        <td rowspan=@nsub[z]>@TRD.Observaciones</td>
+                        nsub[z]--;
+                    }
+                    else
+                    {
+                        if (ssub == "")
+                        {
+                            <td rowspan=@nsub[z]>@TRD.TiempoGestion</td>
+                            <td rowspan=@nsub[z]>@TRD.TiempoArchivo</td>
+                            <td rowspan=@nsub[z]>@TRD.DisposicionFinal</td>
+                            <td rowspan=@nsub[z]>@TRD.Organizacion_text</td>
+                            <td rowspan=@nsub[z]>@TRD.Observaciones</td>
+                        }
+                        nsub[z]--;
+                    }
+
+
+                </tr>
+                sof = @TRD.NombreOficina;
+                ssub = @TRD.NombreSubserie;
+                sser = @TRD.NombreSerie;
+                scod = temp;
+                i = i + 1;
+
+            }
+
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function createPDF() {
+        var sTable = document.getElementById('tab').innerHTML;
+
+        var style = "<style>";
+        style = style + "table {width: 100%;font: 17px Calibri;border-collapse:collapse}";
+        style = style + "table, th,td {border: solid 1px #DDD;";
+        style = style + "padding: 5px 5px;text-align: center;}";
+        style = style + ".custom-footer-page-number:after {  content: counter(page) ' DE ' counter(pages);}";
+        style = style + "</style>";
+
+        // CREATE A WINDOW OBJECT.
+        var win = window.open('', '', 'height=700,width=700');
+
+        win.document.write('<html><head>');
+        win.document.write(style);          // ADD STYLE INSIDE THE HEAD TAG.
+        win.document.write('</head>');
+        win.document.write('<body>');
+        win.document.write(sTable);         // THE TABLE CONTENTS INSIDE THE BODY TAG.
+        win.document.write('</body></html>');
+
+        win.document.close(); 	// CLOSE THE CURRENT WINDOW.
+
+        win.print();    // PRINT THE CONTENTS.
+    }
+    $(document).ready(function () {
+        $("#AprobarTRD").on("click", function ()
+        {
+            $.ajax({
+                    type: "POST",
+                    url: "/TablaDeRetencion/AprobarTRD",                    
+                    success: function (data) {
+                        if (data != null && data.success) {
+                            alert(data.alert);
+                            window.location.replace("/");
+
+                        } else {
+                            alert(data.error);
+                        }
+                    },
+                    error: function () {
+
+                    }
+                })
+            
+        });
+
+    });
+</script>
+
