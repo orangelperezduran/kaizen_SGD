@@ -60,7 +60,7 @@ from user_details,aspnetusers where aspnetusers.id=user_details.id and aspnetuse
         {
             RoleModel data = new RoleModel() { id = rol };
             string sql = @"select user_details.id,UserName,Email,nombre,apellido,identificacion 
-from user_details,aspnetuserroles,aspnetusers where aspnetusers.Id=user_details.id and UserId=user_details.id and RoleId=@id and (LockoutEndDateUtc is null or LockoutEndDateUtc<'" + DateTime.UtcNow + "')";
+from user_details,aspnetuserroles,aspnetusers where aspnetusers.Id=user_details.id and UserId=user_details.id and RoleId=@id and (LockoutEndDateUtc is null or LockoutEndDateUtc<'" + DateTime.UtcNow.ToString("yyyy-MM-dd hh:mm:s") + "')";
             return MysqlDataAccess.LoadData<UserModel>(sql, data);
         }
 
@@ -74,13 +74,13 @@ from user_details,aspnetusers where aspnetusers.Id=user_details.id  and LockoutE
         public static List<UserModel> CargarSinGrupo()
         {
             string sql = @"select user_details.id,UserName,Email,nombre,apellido,identificacion 
-from user_details,aspnetuserroles,aspnetusers where aspnetusers.Id=user_details.id and  aspnetusers.id not in(select UserId from aspnetuserroles) and (LockoutEndDateUtc is null or LockoutEndDateUtc<'" + DateTime.UtcNow + "') group by id";
+from user_details,aspnetuserroles,aspnetusers where aspnetusers.Id=user_details.id and  aspnetusers.id not in(select UserId from aspnetuserroles) and (LockoutEndDateUtc is null or LockoutEndDateUtc<'" + DateTime.UtcNow.ToString("yyyy-MM-dd hh:mm:s") + "') group by id";
             return MysqlDataAccess.LoadData<UserModel>(sql);
         }
 
         public static List<UserModel> UsuariosAprobadores()
         {
-            string sql = @"select aspnetusers.Id,UserName,Email from aspnetusers,aspnetuserroles,aspnetroles where UserId=aspnetusers.Id and RoleId=aspnetroles.Id and aprobarTRD=1 and (LockoutEndDateUtc is null or LockoutEndDateUtc<='" + DateTime.UtcNow.Add(TimeSpan.FromMinutes(5)) + "');";
+            string sql = @"select aspnetusers.Id,UserName,Email from aspnetusers,aspnetuserroles,aspnetroles where UserId=aspnetusers.Id and RoleId=aspnetroles.Id and aprobarTRD=1 and (LockoutEndDateUtc is null or LockoutEndDateUtc<='" + DateTime.UtcNow.Add(TimeSpan.FromMinutes(5)).ToString("yyyy-MM-dd hh:mm:s") + "');";
             return MysqlDataAccess.LoadData<UserModel>(sql);
         }
 
