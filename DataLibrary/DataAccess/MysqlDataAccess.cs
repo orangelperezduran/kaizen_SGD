@@ -12,6 +12,7 @@ namespace DataLibrary.DataAccess
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger("dataaccess");
         public static string GetConnectionString(string connectionName = "DefaultConnection")
         {
+            
             return ConfigurationManager.ConnectionStrings[connectionName].ConnectionString;
         }
 
