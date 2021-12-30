@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace GestionUI.Models
 {
@@ -30,6 +31,7 @@ namespace GestionUI.Models
         [Required(ErrorMessage = "El nombre es obligatorio")]
         [Display(Name = "Nombre de tipología:")]
         public string NombreTipologia { get; set; }
+        public List<string> Tipologias { get; set; }
         [Required(ErrorMessage = "Digite los anos en gestión")]
         [Range(1, 10, ErrorMessage = "El rango es de 1 a 10")]
         [Display(Name = "Tiempo en gestión:")]

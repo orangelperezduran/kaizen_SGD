@@ -289,28 +289,7 @@
                 @Html.ValidationMessageFor(model => model.CodigoSubserie, "", new { @class = "text-danger" })
             </div>
         </div>
-        <div class="form-group col-lg-2">
-            @Html.LabelFor(model => model.NombreTipologia, "Nombre tipologia:", htmlAttributes: new { @class = "col-form-label" })
-            <div class="col-xs-9">
-                @Html.EditorFor(model => model.NombreTipologia, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NombreTipologia, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group col-lg-2">
-            @Html.LabelFor(model => model.TiempoGestion, "Tiempo en gestion:", htmlAttributes: new { @class = "col-form-label" })
-            <div class="col-xs-9">
-                @Html.EditorFor(model => model.TiempoGestion, new { htmlAttributes = new { @class = "form-control col-lg-7" } })
-                @Html.ValidationMessageFor(model => model.TiempoGestion, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group col-lg-2">
-            @Html.LabelFor(model => model.TiempoArchivo, "Tiempo en archivo:", htmlAttributes: new { @class = "col-form-label" })
-            <div class="col-xs-9">
-                @Html.EditorFor(model => model.TiempoArchivo, new { htmlAttributes = new { @class = "form-control col-lg-7" } })
-                @Html.ValidationMessageFor(model => model.TiempoArchivo, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group col-lg-2">
+        <div class="form-group col-lg-4">
             @Html.LabelFor(model => model.DisposicionFinal, "Disposicion final:", htmlAttributes: new { @class = "col-form-label" })
             <div class="col-xs-9">
                 @Html.DropDownListFor(model => model.DisposicionFinal, new List<SelectListItem>{
@@ -325,13 +304,48 @@
             </div>
         </div>
         
+        <div class="form-group col-lg-2">
+            @Html.LabelFor(model => model.TiempoGestion, "Tiempo en gestion:", htmlAttributes: new { @class = "col-form-label" })
+            <div class="col-12 pl-0">
+                @Html.EditorFor(model => model.TiempoGestion, new { htmlAttributes = new { @class = "form-control col-lg-7" } })
+                @Html.ValidationMessageFor(model => model.TiempoGestion, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group col-lg-2 ">
+            @Html.LabelFor(model => model.TiempoArchivo, "Tiempo en archivo:", htmlAttributes: new { @class = "col-form-label" })
+            <div class="col-xs-9">
+                @Html.EditorFor(model => model.TiempoArchivo, new { htmlAttributes = new { @class = "form-control col-lg-7" } })
+                @Html.ValidationMessageFor(model => model.TiempoArchivo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        
         <div class="form-group col-lg-4">
             @Html.LabelFor(model => model.Observaciones, "Observaciones:", htmlAttributes: new { @class = "col-form-label" })
             <div class="col-xs-9">
-                @Html.EditorFor(model => model.Observaciones, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Observaciones, new { htmlAttributes = new { @class = "form-control col-12" } })
                 @Html.ValidationMessageFor(model => model.Observaciones, "", new { @class = "text-danger" })
             </div>
         </div>
+        
+        <div class="form-group col-lg-4">
+            @Html.LabelFor(model => model.NombreTipologia, "Nombre tipologias:", htmlAttributes: new { @class = "col-form-label" })
+            <div class="col-xs-9">
+                @Html.EditorFor(model => model.NombreTipologia, new { htmlAttributes = new { @class = "form-control col-12" } })
+                @Html.ValidationMessageFor(model => model.NombreTipologia, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+         <div class="form-group col-lg-12">
+             <div id="tipo" class="">
+                 <div class="form-inline" >
+                     <input type="text" name="Tipologias" class="form-control mr-1 col-10 col-lg-4" />
+                     <input type="button" onclick="AddTextBox()" value="+" class="btn btn-primary" style="border-radius:50%;font-family:Tw Cen MT; font-weight:bold">
+                 </div>
+
+                 @Html.ValidationMessageFor(model => model.Tipologias, "", new { @class = "text-danger" })
+             </div>
+        </div>
+
         <hr class="col-12"/>
         <h5 class="col-12 over">Sistema de ordenación</h5>
         <div class="form-group col-lg-4">
@@ -763,8 +777,23 @@
 }
 
 <script type="text/javascript">
-
-
+    var cont = 0;
+    function getDynamicTextbox(value) {
+        return '<div class="form-inline p-1">'+
+            '<input type = "text" name = "Tipologias" class="form-control mr-1 col-10 col-lg-4"/>'+
+                '<input type = "button" onclick = "RemoveTextBox(this)" value = " - " class="btn btn-primary" style = "border-radius:50%;font-family:Tw Cen MT; font-weight:bold" />'+
+                 '</div>'
+    }
+    function AddTextBox() {
+        var div = document.createElement('div');
+        cont = cont + 1;
+        div.innerHTML = getDynamicTextbox(cont);
+        document.getElementById("tipo").appendChild(div);
+    }
+    function RemoveTextBox(div) {
+        cont = cont - 1;
+        document.getElementById("tipo").removeChild(div.parentNode.parentNode);
+    }
 
     function id_requerido(){
         var x = $("#Organizacion").val();

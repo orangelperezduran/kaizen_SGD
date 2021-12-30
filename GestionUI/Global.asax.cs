@@ -36,15 +36,15 @@ namespace GestionUI
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
             //Pregunta si tenemos o no ya una conexion segura(SSL), sino redirige
-            string otro = Request.ServerVariables["HTTP_HOST"];
-            if (HttpContext.Current.Request.IsSecureConnection.Equals(false))
-            {
-                if (Request.ServerVariables["HTTP_HOST"] != "localhost:57792")
-                    // redireccion de HTTP a HTTPS
-                    Response.Redirect("https://" + Request.ServerVariables["HTTP_HOST"] + HttpContext.Current.Request.RawUrl);
-                else
-                    Response.Redirect("https://" + "localhost:44396" + HttpContext.Current.Request.RawUrl);
-            }
+            //string otro = Request.ServerVariables["HTTP_HOST"];
+            //if (HttpContext.Current.Request.IsSecureConnection.Equals(false))
+            //{
+            //    if (Request.ServerVariables["HTTP_HOST"] != "localhost:57792")
+            //        // redireccion de HTTP a HTTPS
+            //        Response.Redirect("https://" + Request.ServerVariables["HTTP_HOST"] + HttpContext.Current.Request.RawUrl);
+            //    else
+            //        Response.Redirect("https://" + "localhost:44396" + HttpContext.Current.Request.RawUrl);
+            //}
         }
     }
 }

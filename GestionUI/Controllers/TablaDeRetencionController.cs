@@ -365,7 +365,16 @@ namespace GestionUI.Controllers
 
                     }
                 }
+
                 modelList.Add(TRD);
+                if (TRD.Tipologias.Count != 0)
+                {
+                    foreach(var tipologia in TRD.Tipologias)
+                    {
+                        TRD.NombreTipologia = tipologia;
+                        modelList.Add(TRD);
+                    }
+                }
                 modelList = modelList.OrderBy(o => o.CodigoOficina).ThenBy(o => o.CodigoSerie).ThenBy(o => o.CodigoSubserie).ThenBy(o => o.NombreTipologia).ToList();
                 RehacerTexto();
 
