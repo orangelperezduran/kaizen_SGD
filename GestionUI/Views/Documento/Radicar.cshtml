@@ -8,11 +8,11 @@
 }
 
 
-@if (TempData["ErrorMessage"] !=null)
+@if (TempData["ErrorMessage"] != null)
 {
     <div class="alert alert-danger"><strong>Alerta! </strong>@TempData["ErrorMessage"].ToString()</div>
 }
-@if (TempData["SuccessMessage"]!=null)
+@if (TempData["SuccessMessage"] != null)
 {
     <div class="alert alert-success"><strong>Correcto! </strong>@TempData["SuccessMessage"].ToString()</div>
     <script>
@@ -108,7 +108,7 @@
         </div>
         <hr />
         <div class="row col-md-12">
-            
+
 
             <div class="form-group col-md-6 ">
                 @Html.LabelFor(model => model.folios, htmlAttributes: new { @class = "control-label" })

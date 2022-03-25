@@ -15,7 +15,7 @@
 }
 @if (TempData["SuccessMessage"] != null)
 {
-    <div class="alert alert-success"><strong>Success! </strong>@TempData["SuccessMessage"].ToString()</div>    
+    <div class="alert alert-success"><strong>Success! </strong>@TempData["SuccessMessage"].ToString()</div>
 }
 <form action="Digitalizar?version=@TempData["version"]" method="post" enctype="multipart/form-data">
 
@@ -97,7 +97,7 @@
                     }
                 }
                 @Html.DropDownListFor(model => model.ano, year,
-            new { @class = "form-control" })
+                 new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.ano, "", new { @class = "text-danger" })
 
             </div>
@@ -109,6 +109,7 @@
             </div>
 
             <div class="form-group col-md-6" id="identificacion_div" style="display:none">
+                
                 @Html.LabelFor(model => model.identificacion, htmlAttributes: new { @class = "control-label", @id = "identificacion_label" })
                 @Html.EditorFor(model => model.identificacion, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.identificacion, "", new { @class = "text-danger" })
@@ -117,7 +118,7 @@
 
         </div>
 
-        
+
         <div class="row col-md-12">
 
             <div class="form-group col-md-6">
@@ -224,7 +225,7 @@
                         });
                         tipologia();
                  });
-                
+
             }
 
         }
@@ -274,7 +275,7 @@
                      if(data.id_organizacion == 1) {
                           $("#identificacion").val("");
                          document.getElementById("identificacion_div").style.display = "none";
-                     }           
+                     }
                  });
         }
         }
@@ -318,7 +319,7 @@
                             }));
                         });
                  });
-            
+
          });
     });
     $(document).ready(function () {
@@ -344,7 +345,7 @@
              $.getJSON("../Documento/GetOrganizacionText", {
                  id: dID
              },
-                 
+
                  function (data) {
                     if (data.id_organizacion == 2 || data.id_organizacion == 4) {
                          document.getElementById("identificacion_div").style.display = "block";
@@ -358,9 +359,9 @@
                      if(data.id_organizacion == 1) {
                           $("#identificacion").val("");
                          document.getElementById("identificacion_div").style.display = "none";
-                     }           
+                     }
                  });
-             
+
          });
     });
 </script>

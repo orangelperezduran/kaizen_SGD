@@ -410,3 +410,4 @@
    en GestionUI.Controllers.DocumentoController.Radicar(radicarModel model, Int32 version) en C:\Users\david\source\repos\GestionDocumental\GestionUI\Controllers\DocumentoController.cs:línea 472
 2022-03-25 13:39:35,460 [DocumentoController] INFO - El usuario davidsoto94@hotmail.comha creado el radicado: 0111120220325010007
 2022-03-25 13:46:19,194 [DocumentoController] INFO - El usuario davidsoto94@hotmail.comha creado el radicado: 0110420220325010008
+2022-03-25 13:56:26,016 [DocumentoController] INFO - El usuario davidsoto94@hotmail.comha creado el radicado: 0111120220325010009
