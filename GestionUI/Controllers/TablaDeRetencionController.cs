@@ -6,12 +6,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using log4net;
 
 namespace GestionUI.Controllers
 {
     [System.Web.Mvc.Authorize]
     public class TablaDeRetencionController : Controller
     {
+        private static readonly ILog log = LogManager.GetLogger("TabladeRetencionController");
         List<TablaDeRetencionParaModelList> modelList = new List<TablaDeRetencionParaModelList>();
         List<TablaDeRetencionParaModelList> aprobacion = new List<TablaDeRetencionParaModelList>();
         private void CargarModelList()
@@ -173,7 +175,14 @@ namespace GestionUI.Controllers
             if (!TRDLogic.IsModificacion(version))
                 return RedirectToRoute(new { controller = "Home", action = "Index" });
             TempData["version"] = version;
-            CargarAprobacion();
+            try
+            {
+                CargarAprobacion();
+            }
+            catch (Exception)
+            {
+                return RedirectToRoute(new { controller = "Home", action = "Index" });
+            }
             TempData["List"] = aprobacion;
             return View(version);
         }
@@ -421,49 +430,58 @@ namespace GestionUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AgregarTRD()
         {
-            CargarModelList();
-            aprobacion = modelList;
-            CrearTRDaprobación();
-            int version = TRDLogic.GetVersion();
-            bool modificacion = true;
-            if (version == 0)
+            try
             {
-                modificacion = false;
-                version = 1;
-            }
-            else
-            {
-                if (!TRDLogic.IsModificacion(version))
+                CargarModelList();
+                aprobacion = modelList;
+                CrearTRDaprobación();
+                int version = TRDLogic.GetVersion();
+                bool modificacion = true;
+                if (version == 0)
+                {
                     modificacion = false;
-            }
+                    version = 1;
+                }
+                else
+                {
+                    if (!TRDLogic.IsModificacion(version))
+                        modificacion = false;
+                }
 
-            if (modificacion)
+                if (modificacion)
+                {
+                    TRDLogic.ModificarVersion(version, User.Identity.GetUserId());
+                    TRDLogic.EliminarAprobacion(version);
+
+                }
+                else
+                    TRDLogic.CrearVersion(User.Identity.GetUserId());
+                var context = GlobalHost.ConnectionManager.GetHubContext<NotificationHub>();
+                List<DataLibrary.Models.UserModel> usuarios = UserProcessor.UsuariosAprobadores();
+                foreach (var user in usuarios)
+                {
+                    TRDLogic.CrearAprobacion(version, user.id);
+                }
+
+                foreach (var user in usuarios)
+                {
+                    List<DataLibrary.Models.NotificacionesModel> notificaciones = new List<DataLibrary.Models.NotificacionesModel>();
+                    NotificacionesLogic.Crearnotificacion(user.id, "Se ha subido una nueva actualización de la TRD para su aprobación", DateTime.Now, false, "../TablaDeRetencion/Aprobar");
+                    notificaciones = NotificacionesLogic.CargarNotificaciones(user.id);
+                    int id = notificaciones[notificaciones.Count - 1].id;
+                    context.Clients.User(user.UserName).broadcastMessage("Se ha subido una nueva actualización de la TRD para su aprobación", DateTime.Now, id, false);
+                    context.Clients.User(user.UserName).contadorNotificaciones(1);
+                }
+
+
+                return Content("<script language='javascript' type='text/javascript'>alert('Se ha agregado la TRD para aprobación'); window.location.replace('/');</script>");
+            }
+            catch (Exception ex)
             {
-                TRDLogic.ModificarVersion(version, User.Identity.GetUserId());
-                TRDLogic.EliminarAprobacion(version);
-
+                log.Error(ex);
+                return Content("<script language='javascript' type='text/javascript'>alert('hubo un error, por favor vuelva a intenartlo'); window.location.replace('/');</script>");
             }
-            else
-                TRDLogic.CrearVersion(User.Identity.GetUserId());
-            var context = GlobalHost.ConnectionManager.GetHubContext<NotificationHub>();
-            List<DataLibrary.Models.UserModel> usuarios = UserProcessor.UsuariosAprobadores();
-            foreach (var user in usuarios)
-            {
-                TRDLogic.CrearAprobacion(version, user.id);
-            }
-
-            foreach (var user in usuarios)
-            {
-                List<DataLibrary.Models.NotificacionesModel> notificaciones = new List<DataLibrary.Models.NotificacionesModel>();
-                NotificacionesLogic.Crearnotificacion(user.id, "Se ha subido una nueva actualización de la TRD para su aprobación", DateTime.Now, false, "../TablaDeRetencion/Aprobar");
-                notificaciones = NotificacionesLogic.CargarNotificaciones(user.id);
-                int id = notificaciones[notificaciones.Count - 1].id;
-                context.Clients.User(user.UserName).broadcastMessage("Se ha subido una nueva actualización de la TRD para su aprobación", DateTime.Now, id, false);
-                context.Clients.User(user.UserName).contadorNotificaciones(1);
-            }
-
-
-            return Content("<script language='javascript' type='text/javascript'>alert('Se ha agregado la TRD para aprobación'); window.location.replace('/');</script>");
+            
         }
 
         // GET: TablaDeRetencion/Edit/5

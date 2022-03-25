@@ -369,3 +369,44 @@
 2022-03-25 11:53:04,816 [RoleController] INFO - El usuario davidsoto94@hotmail.com ha editado el rol Prueba
 2022-03-25 11:53:15,013 [RoleController] INFO - El usuario davidsoto94@hotmail.com ha editado el rol prueba 2
 2022-03-25 11:53:19,385 [RoleController] INFO - El usuario davidsoto94@hotmail.com Eliminó un rol 
+2022-03-25 12:54:31,270 [DocumentoController] ERROR - MySql.Data.MySqlClient.MySqlException (0x80004005): Field 'consecutivo' doesn't have a default value
+   en MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   en MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
+   en MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteNonQuery()
+   en Dapper.SqlMapper.ExecuteCommand(IDbConnection cnn, CommandDefinition& command, Action`2 paramReader) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 2827
+   en Dapper.SqlMapper.ExecuteImpl(IDbConnection cnn, CommandDefinition& command) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 570
+   en Dapper.SqlMapper.Execute(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 443
+   en DataLibrary.DataAccess.MysqlDataAccess.SaveData[T](String sql, T data) en C:\Users\david\source\repos\GestionDocumental\DataLibrary\DataAccess\MysqlDataAccess.cs:línea 42
+   en DataLibrary.BusinessLogic.RadicacionLogic.CrearRadicado(Int32 ano, String nombre, String email, Nullable`1 identificacion, DateTime fecha, Boolean entrada, Boolean interno, Nullable`1 f_limite, String observaciones, Boolean respondido) en C:\Users\david\source\repos\GestionDocumental\DataLibrary\BusinessLogic\RadicacionLogic.cs:línea 95
+   en GestionUI.Controllers.DocumentoController.Radicar(radicarModel model, Int32 version) en C:\Users\david\source\repos\GestionDocumental\GestionUI\Controllers\DocumentoController.cs:línea 403
+2022-03-25 13:04:18,369 [DocumentoController] ERROR - iTextSharp.text.exceptions.BadPasswordException: PdfReader not opened with owner password
+   en iTextSharp.text.pdf.PdfStamperImp..ctor(PdfReader reader, Stream os, Char pdfVersion, Boolean append)
+   en iTextSharp.text.pdf.PdfStamper..ctor(PdfReader reader, Stream os)
+   en GestionUI.Controllers.DocumentoController.CrearStamp(HttpPostedFileBase file, String direccion, String radicado, String tipologia) en C:\Users\david\source\repos\GestionDocumental\GestionUI\Controllers\DocumentoController.cs:línea 802
+   en GestionUI.Controllers.DocumentoController.Radicar(radicarModel model, Int32 version) en C:\Users\david\source\repos\GestionDocumental\GestionUI\Controllers\DocumentoController.cs:línea 472
+2022-03-25 13:04:36,004 [DocumentoController] ERROR - iTextSharp.text.exceptions.BadPasswordException: PdfReader not opened with owner password
+   en iTextSharp.text.pdf.PdfStamperImp..ctor(PdfReader reader, Stream os, Char pdfVersion, Boolean append)
+   en iTextSharp.text.pdf.PdfStamper..ctor(PdfReader reader, Stream os)
+   en GestionUI.Controllers.DocumentoController.CrearStamp(HttpPostedFileBase file, String direccion, String radicado, String tipologia) en C:\Users\david\source\repos\GestionDocumental\GestionUI\Controllers\DocumentoController.cs:línea 802
+   en GestionUI.Controllers.DocumentoController.Radicar(radicarModel model, Int32 version) en C:\Users\david\source\repos\GestionDocumental\GestionUI\Controllers\DocumentoController.cs:línea 472
+2022-03-25 13:05:23,002 [DocumentoController] ERROR - iTextSharp.text.exceptions.BadPasswordException: PdfReader not opened with owner password
+   en iTextSharp.text.pdf.PdfStamperImp..ctor(PdfReader reader, Stream os, Char pdfVersion, Boolean append)
+   en iTextSharp.text.pdf.PdfStamper..ctor(PdfReader reader, Stream os)
+   en GestionUI.Controllers.DocumentoController.CrearStamp(HttpPostedFileBase file, String direccion, String radicado, String tipologia) en C:\Users\david\source\repos\GestionDocumental\GestionUI\Controllers\DocumentoController.cs:línea 802
+   en GestionUI.Controllers.DocumentoController.Radicar(radicarModel model, Int32 version) en C:\Users\david\source\repos\GestionDocumental\GestionUI\Controllers\DocumentoController.cs:línea 472
+2022-03-25 13:11:55,509 [DocumentoController] INFO - El usuario davidsoto94@hotmail.comha creado el radicado: 0111120220325010004
+2022-03-25 13:20:46,500 [DocumentoController] INFO - El usuario davidsoto94@hotmail.comha creado el radicado: 0110420220325010001
+2022-03-25 13:22:49,401 [DocumentoController] INFO - El usuario davidsoto94@hotmail.comha creado el radicado: 0111020220325010002
+2022-03-25 13:28:24,046 [DocumentoController] INFO - El usuario davidsoto94@hotmail.comha creado el radicado: 0111020220325010003
+2022-03-25 13:31:30,786 [DocumentoController] INFO - El usuario davidsoto94@hotmail.comha creado el radicado: 0117020220325010004
+2022-03-25 13:36:06,889 [DocumentoController] INFO - El usuario davidsoto94@hotmail.comha creado el radicado: 0112020220325010005
+2022-03-25 13:39:04,790 [DocumentoController] ERROR - iTextSharp.text.exceptions.BadPasswordException: PdfReader not opened with owner password
+   en iTextSharp.text.pdf.PdfStamperImp..ctor(PdfReader reader, Stream os, Char pdfVersion, Boolean append)
+   en iTextSharp.text.pdf.PdfStamper..ctor(PdfReader reader, Stream os)
+   en GestionUI.Controllers.DocumentoController.CrearStamp(HttpPostedFileBase file, String direccion, String radicado, String tipologia) en C:\Users\david\source\repos\GestionDocumental\GestionUI\Controllers\DocumentoController.cs:línea 802
+   en GestionUI.Controllers.DocumentoController.Radicar(radicarModel model, Int32 version) en C:\Users\david\source\repos\GestionDocumental\GestionUI\Controllers\DocumentoController.cs:línea 472
+2022-03-25 13:39:35,460 [DocumentoController] INFO - El usuario davidsoto94@hotmail.comha creado el radicado: 0111120220325010007
+2022-03-25 13:46:19,194 [DocumentoController] INFO - El usuario davidsoto94@hotmail.comha creado el radicado: 0110420220325010008

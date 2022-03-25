@@ -751,6 +751,8 @@ namespace GestionUI.Controllers
             }
             catch (Exception e)
             {
+                log.Error(e);
+                TempData["version"] = version;
                 return View();
             }
         }
