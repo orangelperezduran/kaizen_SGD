@@ -107,7 +107,7 @@ from user_details,aspnetuserroles,aspnetusers where aspnetusers.Id=user_details.
         {
             TRDModel data = new TRDModel() { id_oficina = oficina, id_serie = serie, id_subserie = subserie };
             string sql = @"select aspnetusers.email from aspnetusers,aspnetuserroles,aspnetroles,role_trd,trd 
-where aspnetusers.EmailConfirmed=1 and (LockoutEndDateUtc is null or LockoutEndDateUtc<utc_timestamp()) and
+where aspnetusers.EmailConfirmed=1 and not(aspnetroles.Id=1) and (LockoutEndDateUtc is null or LockoutEndDateUtc<utc_timestamp()) and
 aspnetusers.Id=aspnetuserroles.UserId and aspnetuserroles.RoleId=aspnetroles.Id and
 aspnetroles.Id=role_trd.role_id and role_trd.trd_id=trd.id and trd.id_oficina=@id_oficina and
 trd.id_serie=@id_serie and trd.id_subserie=@id_subserie;";

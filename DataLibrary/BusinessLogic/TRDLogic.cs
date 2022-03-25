@@ -345,7 +345,7 @@ archivo=@archivo,d_final=@d_final,gestion=@gestion,observaciones=@observaciones,
 
         public static List<int> GetAllVersiones()
         {
-            string sql = @"select version from versiontrd group by version desc;";
+            string sql = @"select version from versiontrd order by version desc;";
             return MysqlDataAccess.LoadData<int>(sql);
         }
 

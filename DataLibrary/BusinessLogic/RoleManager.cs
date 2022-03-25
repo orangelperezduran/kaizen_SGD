@@ -137,6 +137,18 @@ namespace DataLibrary.BusinessLogic
                     MysqlDataAccess.SaveData(temsql, rol);
                 }
             }
+            else
+            {
+                string temsql = @"select id from aspnetroles where aprobarTRD=true;";
+                List<int> i = MysqlDataAccess.LoadData<int>(temsql);
+                if (i.Count == 0 || id==i[0])
+                {
+                    RoleModel rol = new RoleModel() { id = 1 };
+                    temsql = @"update aspnetroles set AprobarTRD=1 where id=@id";
+                    MysqlDataAccess.SaveData(temsql, rol);
+                }
+
+            }
             string sql;
             if (isUserManager)
             {

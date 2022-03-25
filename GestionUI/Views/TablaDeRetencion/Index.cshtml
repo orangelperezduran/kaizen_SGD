@@ -36,9 +36,9 @@
         string scod = "", sof = "", sser = "", ssub = "";
         int x = 0, y = 0, z = 0, cont = 0, csub = 0;
         nof.Add(1); nser.Add(1); nsub.Add(1);
-        List<GestionUI.Models.TablaDeRetencion> data;
-        data = TempData["List"] as List<GestionUI.Models.TablaDeRetencion>;
-        foreach (GestionUI.Models.TablaDeRetencion TRD1 in data)
+        List<GestionUI.Models.TablaDeRetencionParaModelList> data;
+        data = TempData["List"] as List<GestionUI.Models.TablaDeRetencionParaModelList>;
+        foreach (GestionUI.Models.TablaDeRetencionParaModelList TRD1 in data)
         {
 
             if (TRD1.NombreOficina != sof)
@@ -241,8 +241,8 @@
         scod = ""; sof = ""; sser = ""; ssub = "";
         x = 0; y = 0; z = 0;
         nof.Add(1); nser.Add(1); nsub.Add(1);
-        data = TempData["List"] as List<GestionUI.Models.TablaDeRetencion>;
-        foreach (GestionUI.Models.TablaDeRetencion TRD1 in data)
+        data = TempData["List"] as List<GestionUI.Models.TablaDeRetencionParaModelList>;
+        foreach (GestionUI.Models.TablaDeRetencionParaModelList TRD1 in data)
         {
 
             if (TRD1.NombreOficina != sof)
@@ -306,7 +306,7 @@
 
             @{int i = 0; scod = ""; sof = ""; sser = ""; ssub = "";
                 x = 0; y = 0; z = 0;}
-            @foreach (GestionUI.Models.TablaDeRetencion TRD in data)
+            @foreach (GestionUI.Models.TablaDeRetencionParaModelList TRD in data)
             {
                 string temp = @TRD.CodigoOficina + "." + @TRD.CodigoSerie + "." + @TRD.CodigoSubserie;
                 <tr>

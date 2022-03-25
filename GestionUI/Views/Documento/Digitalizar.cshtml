@@ -87,40 +87,17 @@
         <div class="row col-md-12">
 
             <div class="form-group col-md-6">
+
                 @Html.LabelFor(model => model.ano, htmlAttributes: new { @class = "control-label col-md-2" })
-                @Html.DropDownListFor(model => model.ano, new List<SelectListItem>() {new SelectListItem() { Text = "Año" },
-               new SelectListItem() { Text = "2000",Value="2000" },
-               new SelectListItem() { Text = "2001",Value="2001" },
-               new SelectListItem() { Text = "2002",Value="2002" },
-               new SelectListItem() { Text = "2003",Value="2003" },
-               new SelectListItem() { Text = "2004",Value="2004" },
-               new SelectListItem() { Text = "2005",Value="2005" },
-               new SelectListItem() { Text = "2006",Value="2006" },
-               new SelectListItem() { Text = "2007",Value="2007" },
-               new SelectListItem() { Text = "2008",Value="2008" },
-               new SelectListItem() { Text = "2009",Value="2009" },
-               new SelectListItem() { Text = "2010",Value="2010" },
-               new SelectListItem() { Text = "2011",Value="2011" },
-               new SelectListItem() { Text = "2012",Value="2012" },
-               new SelectListItem() { Text = "2013",Value="2013" },
-               new SelectListItem() { Text = "2014",Value="2014" },
-               new SelectListItem() { Text = "2015",Value="2015" },
-               new SelectListItem() { Text = "2016",Value="2016" },
-               new SelectListItem() { Text = "2017",Value="2017" },
-               new SelectListItem() { Text = "2018",Value="2018" },
-            new SelectListItem() { Text = "2019",Value="2019" },
-            new SelectListItem() { Text = "2020",Value="2020" },
-               new SelectListItem() { Text = "2021",Value="2021" },
-            new SelectListItem() { Text = "2022",Value="2022" },
-            new SelectListItem() { Text = "2023",Value="2023" },
-            new SelectListItem() { Text = "2024",Value="2024" },
-            new SelectListItem() { Text = "2025",Value="2025" },
-            new SelectListItem() { Text = "2026",Value="2026" },
-            new SelectListItem() { Text = "2027",Value="2027" },
-            new SelectListItem() { Text = "2028",Value="2028" },
-            new SelectListItem() { Text = "2029",Value="2029" },
-            new SelectListItem() { Text = "2030",Value="2030" }},
-new { @class = "form-control" })
+                @{List<SelectListItem> year = new List<SelectListItem>();
+                    year.Add(new SelectListItem() { Text = "Año" });
+                    for (int yearr = 1900; yearr < 2100; yearr++)
+                    {
+                        year.Add(new SelectListItem() { Text = yearr.ToString(), Value = yearr.ToString() });
+                    }
+                }
+                @Html.DropDownListFor(model => model.ano, year,
+            new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.ano, "", new { @class = "text-danger" })
 
             </div>

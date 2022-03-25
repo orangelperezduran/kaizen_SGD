@@ -122,6 +122,7 @@ namespace GestionUI.Models
         public int id_tipologia { get; set; }
 
         [Display(Name = "Año:")]
+        [DataType(DataType.Custom)]
         [Range(2000, 2030, ErrorMessage = "Por favor ponga una fecha válida")]
         public int ano { get; set; }
         [Display(Name = "Número de folios:")]

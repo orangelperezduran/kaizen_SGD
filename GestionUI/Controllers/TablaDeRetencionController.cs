@@ -12,8 +12,8 @@ namespace GestionUI.Controllers
     [System.Web.Mvc.Authorize]
     public class TablaDeRetencionController : Controller
     {
-        List<TablaDeRetencion> modelList = new List<TablaDeRetencion>();
-        List<TablaDeRetencion> aprobacion = new List<TablaDeRetencion>();
+        List<TablaDeRetencionParaModelList> modelList = new List<TablaDeRetencionParaModelList>();
+        List<TablaDeRetencionParaModelList> aprobacion = new List<TablaDeRetencionParaModelList>();
         private void CargarModelList()
         {
             if (System.IO.File.ReadAllBytes(Server.MapPath("/TRDList.txt")).Length != 0)
@@ -22,7 +22,7 @@ namespace GestionUI.Controllers
                 foreach (string line in lines)
                 {
                     string[] TRDList = line.Split(';');
-                    modelList.Add(new TablaDeRetencion
+                    modelList.Add(new TablaDeRetencionParaModelList
                     {
                         CodigoOficina = int.Parse(TRDList[0]),
                         CodigoSerie = int.Parse(TRDList[1]),
@@ -48,7 +48,7 @@ namespace GestionUI.Controllers
             var x = TRDLogic.MostrarTRD(version);
             foreach (var line in TRDLogic.MostrarTRD(version))
             {
-                modelList.Add(new TablaDeRetencion
+                modelList.Add(new TablaDeRetencionParaModelList
                 {
                     CodigoOficina = line.CodigoOficina,
                     CodigoSerie = line.CodigoSerie,
@@ -65,7 +65,7 @@ namespace GestionUI.Controllers
                     Organizacion_text = TRDLogic.GetOrganizaciontext(line.id_organizacion)
                 });
             }
-            modelList = modelList.OrderBy(o => o.CodigoOficina).ThenBy(o => o.CodigoSerie).ThenBy(o => o.CodigoSubserie).ThenBy(o => o.NombreTipologia).ToList();
+            modelList = modelList.OrderBy(o => o.CodigoOficina).ThenBy(o => o.CodigoSerie).ThenBy(o => o.CodigoSubserie).ToList();
 
         }
 
@@ -77,7 +77,7 @@ namespace GestionUI.Controllers
                 foreach (string line in lines)
                 {
                     string[] TRDList = line.Split(';');
-                    aprobacion.Add(new TablaDeRetencion
+                    aprobacion.Add(new TablaDeRetencionParaModelList
                     {
                         CodigoOficina = int.Parse(TRDList[0]),
                         CodigoSerie = int.Parse(TRDList[1]),
@@ -361,27 +361,60 @@ namespace GestionUI.Controllers
                                 return View(TRD);
                             }
                         }
-
+                        TRD.Observaciones = TRD.Observaciones.Replace(Environment.NewLine, " ").Trim();
+                        TRD.Observaciones = TRD.Observaciones.Replace(";", ".");
+                        TRD.NombreOficina = TRD.NombreOficina.Trim();
+                        TRD.NombreSerie=TRD.NombreSerie.Trim();
+                        TRD.NombreSubserie=TRD.NombreSubserie.Trim();
+                        TRD.NombreTipologia=TRD.NombreTipologia.Trim();                       
 
                     }
                 }
-
-                modelList.Add(TRD);
+                
+                modelList.Add(mapper(TRD));
+                modelList = modelList.OrderBy(o => o.CodigoOficina).ThenBy(o => o.CodigoSerie).ThenBy(o => o.CodigoSubserie).ToList();
+                RehacerTexto();
                 if (TRD.Tipologias.Count != 0)
                 {
                     foreach(var tipologia in TRD.Tipologias)
                     {
-                        TRD.NombreTipologia = tipologia;
-                        modelList.Add(TRD);
+                        if (!string.IsNullOrEmpty(tipologia))
+                        {
+                            TablaDeRetencionParaModelList trd2 = new TablaDeRetencionParaModelList();
+                            trd2 = mapper(TRD);
+                            trd2.NombreTipologia = tipologia.Trim();
+                            modelList.Add(trd2);
+                        }                        
+                        
                     }
                 }
-                modelList = modelList.OrderBy(o => o.CodigoOficina).ThenBy(o => o.CodigoSerie).ThenBy(o => o.CodigoSubserie).ThenBy(o => o.NombreTipologia).ToList();
+                modelList = modelList.OrderBy(o => o.CodigoOficina).ThenBy(o => o.CodigoSerie).ThenBy(o => o.CodigoSubserie).ToList();
                 RehacerTexto();
 
                 TempData["List"] = modelList;
                 return RedirectToAction("Create");
             }
 
+        }
+        public TablaDeRetencionParaModelList mapper(TablaDeRetencion var)
+        {
+            TablaDeRetencionParaModelList x = new TablaDeRetencionParaModelList();
+            x.CodigoOficina = var.CodigoOficina;
+            x.CodigoSerie = var.CodigoSerie;
+            x.CodigoSubserie = var.CodigoSubserie;
+            x.DisposicionFinal=var.DisposicionFinal;
+            x.Identificacion = var.Identificacion;
+            x.NombreOficina = var.NombreOficina;
+            x.NombreSerie = var.NombreSerie;
+            x.NombreSubserie = var.NombreSubserie;
+            x.NombreTipologia = var.NombreTipologia;
+            x.Observaciones = var.Observaciones;
+            x.Organizacion = var.Organizacion;
+            x.Organizacion_text=var.Organizacion_text;
+            x.TiempoArchivo = var.TiempoArchivo;
+            x.TiempoGestion = var.TiempoGestion;
+            x.version = var.version;
+            return x;
         }
 
         [HttpPost]
@@ -462,7 +495,7 @@ namespace GestionUI.Controllers
         public ActionResult Edit(TablaDeRetencion TRD, int id)
         {
             CargarModelList();
-            TablaDeRetencion model = modelList[id];
+            TablaDeRetencionParaModelList model = modelList[id];
 
             if (ModelState.IsValid == false)
             {

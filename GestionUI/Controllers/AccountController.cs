@@ -110,7 +110,15 @@ namespace GestionUI.Controllers
                 if (roles != null)
                     foreach (int item in roles)
                     {
-                        UserProcessor.AsignarRoles(UserManager.FindByName(user).Id, item);
+                        try
+                        {
+                            UserProcessor.AsignarRoles(UserManager.FindByName(user).Id, item);
+                        }
+                        catch (Exception)
+                        {
+
+                        }
+                        
                         if (RoleManager.IsAprobador(item))
                         {
                             if (x == 1)

@@ -331,3 +331,41 @@
    en DataLibrary.DataAccess.MysqlDataAccess.SaveData[T](String sql, T data) en C:\Users\Owner\source\repos\GestionDocumental\DataLibrary\DataAccess\MysqlDataAccess.cs:línea 41
    en DataLibrary.BusinessLogic.UserProcessor.AsignarRoles(String UserId, Int32 RoleId) en C:\Users\Owner\source\repos\GestionDocumental\DataLibrary\BusinessLogic\UserProcessor.cs:línea 43
    en GestionUI.Controllers.AccountController.Edit(String user, Int32[] roles) en C:\Users\Owner\source\repos\GestionDocumental\GestionUI\Controllers\AccountController.cs:línea 113
+2022-03-25 11:16:10,414 [RoleController] INFO - El usuario davidsoto94@hotmail.com ha creado el nuevo rol Prueba
+2022-03-25 11:17:00,184 [AccountController] ERROR - MySql.Data.MySqlClient.MySqlException (0x80004005): Duplicate entry 'f7cdfab0-622a-424d-b528-628c7c33f7bb-1' for key 'aspnetuserroles.PRIMARY'
+   en MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   en MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
+   en MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteNonQuery()
+   en Dapper.SqlMapper.ExecuteCommand(IDbConnection cnn, CommandDefinition& command, Action`2 paramReader) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 2827
+   en Dapper.SqlMapper.ExecuteImpl(IDbConnection cnn, CommandDefinition& command) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 570
+   en Dapper.SqlMapper.Execute(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 443
+   en DataLibrary.DataAccess.MysqlDataAccess.SaveData[T](String sql, T data) en C:\Users\david\source\repos\GestionDocumental\DataLibrary\DataAccess\MysqlDataAccess.cs:línea 42
+   en DataLibrary.BusinessLogic.UserProcessor.AsignarRoles(String UserId, Int32 RoleId) en C:\Users\david\source\repos\GestionDocumental\DataLibrary\BusinessLogic\UserProcessor.cs:línea 43
+   en GestionUI.Controllers.AccountController.Edit(String user, Int32[] roles) en C:\Users\david\source\repos\GestionDocumental\GestionUI\Controllers\AccountController.cs:línea 113
+2022-03-25 11:17:08,034 [AccountController] ERROR - MySql.Data.MySqlClient.MySqlException (0x80004005): Duplicate entry 'f7cdfab0-622a-424d-b528-628c7c33f7bb-1' for key 'aspnetuserroles.PRIMARY'
+   en MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   en MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
+   en MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteNonQuery()
+   en Dapper.SqlMapper.ExecuteCommand(IDbConnection cnn, CommandDefinition& command, Action`2 paramReader) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 2827
+   en Dapper.SqlMapper.ExecuteImpl(IDbConnection cnn, CommandDefinition& command) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 570
+   en Dapper.SqlMapper.Execute(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 443
+   en DataLibrary.DataAccess.MysqlDataAccess.SaveData[T](String sql, T data) en C:\Users\david\source\repos\GestionDocumental\DataLibrary\DataAccess\MysqlDataAccess.cs:línea 42
+   en DataLibrary.BusinessLogic.UserProcessor.AsignarRoles(String UserId, Int32 RoleId) en C:\Users\david\source\repos\GestionDocumental\DataLibrary\BusinessLogic\UserProcessor.cs:línea 43
+   en GestionUI.Controllers.AccountController.Edit(String user, Int32[] roles) en C:\Users\david\source\repos\GestionDocumental\GestionUI\Controllers\AccountController.cs:línea 113
+2022-03-25 11:38:15,597 [RoleController] INFO - El usuario davidsoto94@hotmail.com ha editado el rol Prueba
+2022-03-25 11:38:32,466 [AccountController] INFO - El usuario davidsoto94@hotmail.com ha cambiado al usuario de rol a davidsoto94@hotmail.com
+2022-03-25 11:39:03,127 [AccountController] INFO - El usuario davidsoto94@hotmail.com ha cambiado al usuario de rol a davidsoto94@hotmail.com
+2022-03-25 11:39:46,684 [RoleController] INFO - El usuario davidsoto94@hotmail.com ha editado el rol Prueba
+2022-03-25 11:45:52,839 [RoleController] INFO - El usuario davidsoto94@hotmail.com ha editado el rol Prueba
+2022-03-25 11:52:19,949 [RoleController] INFO - El usuario davidsoto94@hotmail.com ha editado el rol Prueba
+2022-03-25 11:52:33,321 [RoleController] INFO - El usuario davidsoto94@hotmail.com ha editado el rol Prueba
+2022-03-25 11:52:50,652 [RoleController] INFO - El usuario davidsoto94@hotmail.com ha creado el nuevo rol prueba 2
+2022-03-25 11:53:04,816 [RoleController] INFO - El usuario davidsoto94@hotmail.com ha editado el rol Prueba
+2022-03-25 11:53:15,013 [RoleController] INFO - El usuario davidsoto94@hotmail.com ha editado el rol prueba 2
+2022-03-25 11:53:19,385 [RoleController] INFO - El usuario davidsoto94@hotmail.com Eliminó un rol 

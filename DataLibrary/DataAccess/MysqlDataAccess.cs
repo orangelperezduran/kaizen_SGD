@@ -9,7 +9,7 @@ namespace DataLibrary.DataAccess
 {
     class MysqlDataAccess
     {
-        private static readonly log4net.ILog log = log4net.LogManager.GetLogger("dataaccess");
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger("dataAccess");
         public static string GetConnectionString(string connectionName = "DefaultConnection")
         {
             
