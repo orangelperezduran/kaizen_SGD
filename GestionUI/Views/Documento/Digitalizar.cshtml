@@ -11,11 +11,11 @@
 
 @if (TempData["ErrorMessage"] != null)
 {
-    <div class="alert alert-danger"><strong>Alert! </strong>@TempData["ErrorMessage"].ToString()</div>
+    <div class="alert alert-danger"><strong>¡Alerta! </strong>@TempData["ErrorMessage"].ToString()</div>
 }
 @if (TempData["SuccessMessage"] != null)
 {
-    <div class="alert alert-success"><strong>Success! </strong>@TempData["SuccessMessage"].ToString()</div>
+    <div class="alert alert-success"><strong>¡Correcto! </strong>@TempData["SuccessMessage"].ToString()</div>
 }
 <form action="Digitalizar?version=@TempData["version"]" method="post" enctype="multipart/form-data">
 
@@ -109,10 +109,12 @@
             </div>
 
             <div class="form-group col-md-6" id="identificacion_div" style="display:none">
-                
+
                 @Html.LabelFor(model => model.identificacion, htmlAttributes: new { @class = "control-label", @id = "identificacion_label" })
                 @Html.EditorFor(model => model.identificacion, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.identificacion, "", new { @class = "text-danger" })
+                <label id="cantidad_documentos"><strong>Esta subserie tiene xxx documentos</strong></label><br />
+                <label id="ultimo_consecutivo"><strong>El último consecutivo subido fue: xxx</strong></label>
             </div>
 
 
@@ -157,213 +159,243 @@
 
 <script>
     function CambiarVersion() {
-        var el = document.getElementById('VersionTRD');
-        var text = el.options[el.selectedIndex].innerHTML;
+                    var el = document.getElementById('VersionTRD');
+                    var text = el.options[el.selectedIndex].innerHTML;
 
-        window.location.replace('/Documeto/Digitalizar?ver=' + text);
+                    window.location.replace('/Documeto/Digitalizar?ver=' + text);
 
-    }
+                }
     //iniciando
     $(document).ready(function () {
-        var dID = $("#oficina").val();
+                    var dID = $("#oficina").val();
 
         @{int serie = 0; }
-        @try
+                    @try
         {
-            if (Model != null)
-            {
-                serie = Model.serie;
-            }
-        }
+                        if (Model != null)
+                        {
+                            serie = Model.serie;
+                        }
+                    }
         catch (Exception) { }
         $.getJSON("../Documento/GetSeries", { id: dID, version:@TempData["version"], serie:@serie },
             function (data) {
-                var select = $("#serie");
-                select.empty();
-                select.append($('<option/>', {
-                    text: "Seleccione una serie"
-                }));
-                $.each(data, function (index, itemData) {
-                    select.append($('<option/>', {
-                        value: itemData.Value,
-                        text: itemData.Text,
-                        selected: itemData.Selected
-                    }));
-
-                });
-                subserie();
-            });
-
-        function subserie() {
-            dID = $("#serie").val();
-            @{int subserie = 0; }
-        @try
-        {
-            if (Model != null)
-            {
-                subserie = Model.subserie;
-            }
-        }
-        catch (Exception) { }
-            if (dID != "Seleccione una serie") {
-             $.getJSON("../Documento/GetSubseries", {
-                 id: dID, version:@TempData["version"],oficina: $("#oficina").val(),subserie:@subserie
-             },
-                    function (data) {
-                        var select = $("#subserie");
+                        var select = $("#serie");
                         select.empty();
                         select.append($('<option/>', {
-                            text: "Seleccione una subserie"
+                        text: "Seleccione una serie"
                         }));
+                $.each(data, function (index, itemData) {
+                            select.append($('<option/>', {
+                            value: itemData.Value,
+                        text: itemData.Text,
+                        selected: itemData.Selected
+                            }));
+
+                        });
+                        subserie();
+                    });
+
+                    function subserie() {
+                        dID = $("#serie").val();
+            @{int subserie = 0; }
+                        @try
+                    {
+                            if (Model != null)
+                            {
+                                subserie = Model.subserie;
+                            }
+                        }
+        catch (Exception) { }
+                        if (dID != "Seleccione una serie") {
+             $.getJSON("../Documento/GetSubseries", {
+                            id: dID, version:@TempData["version"],oficina: $("#oficina").val(),subserie:@subserie
+             },
+                    function (data) {
+                                var select = $("#subserie");
+                                select.empty();
+                                select.append($('<option/>', {
+                                text: "Seleccione una subserie"
+                                }));
                         $.each(data, function (index, itemData) {
 
-                            select.append($('<option/>', {
-                                value: itemData.Value,
+                        select.append($('<option/>', {
+                        value: itemData.Value,
                                 text: itemData.Text,
                                 selected: itemData.Selected
                             }));
-                        });
-                        tipologia();
-                 });
+                    });
+                    tipologia();
+                });
 
             }
 
         }
 
         function tipologia() {
-            dID = $("#subserie").val();
+                    dID = $("#subserie").val();
             @{int tipo = 0; }
-            @try
+                    @try
             {
-                if (Model != null)
-                {
-                    tipo = Model.id_tipologia;
-                }
-            }
+                        if (Model != null)
+                        {
+                            tipo = Model.id_tipologia;
+                        }
+                    }
             catch (Exception) { }
-        if (dID != "Seleccione una subserie") {
+                    if (dID != "Seleccione una subserie") {
             $.getJSON("../Documento/GetTipologias", {
-                id: dID, version:@TempData["version"], oficina: $("#oficina").val(), serie: $("#serie").val(), tipologia:@tipo
+                        id: dID, version:@TempData["version"], oficina: $("#oficina").val(), serie: $("#serie").val(), tipologia:@tipo
              },
                     function (data) {
-                        var select = $("#id_tipologia");
-                        select.empty();
-                        select.append($('<option/>', {
-                            text: "Seleccione una tipologia"
-                        }));
-                        $.each(data, function (index, itemData) {
+                            var select = $("#id_tipologia");
+                            select.empty();
                             select.append($('<option/>', {
-                                value: itemData.Value,
+                            text: "Seleccione una tipologia"
+                            }));
+                        $.each(data, function (index, itemData) {
+                    select.append($('<option/>', {
+                    value: itemData.Value,
                                 text: itemData.Text,
                                 selected: itemData.Selected
                             }));
-                        });
+                });
                 });
             $.getJSON("../Documento/GetOrganizacionText", {
-                 id: dID
+                id: dID, oficina: $("#oficina").val(), serie: $("#serie").val(), version:@TempData["version"], ano: $("#ano").val()
              },
                  function (data) {
                     if (data.id_organizacion == 2 || data.id_organizacion == 4) {
-                         document.getElementById("identificacion_div").style.display = "block";
-                         document.getElementById("identificacion_label").innerHTML = data.identificacion+":";
-                     }
-                     if (data.id_organizacion == 3) {
-                         document.getElementById("identificacion_div").style.display = "block";
-                         document.getElementById("identificacion_label").innerHTML = "Radicado:";
-                     }
+                        document.getElementById("identificacion_div").style.display = "block";
+                        document.getElementById("identificacion_label").innerHTML = data.identificacion + ":";
+                        document.getElementById("cantidad_documentos").innerHTML = "<strong>Esta subserie tiene " + data.archivo + " documentos</strong>";
+                        document.getElementById("ultimo_consecutivo").innerHTML = "<strong>El consecutivo más alto subido es: " + data.gestion + "</strong>";
+                    }
+                    if (data.id_organizacion == 3) {
+                        document.getElementById("identificacion_div").style.display = "block";
+                        document.getElementById("identificacion_label").innerHTML = "Radicado:";
+                    }
 
-                     if(data.id_organizacion == 1) {
+                    if(data.id_organizacion == 1) {
                           $("#identificacion").val("");
-                         document.getElementById("identificacion_div").style.display = "none";
-                     }
-                 });
+                        document.getElementById("identificacion_div").style.display = "none";
+                    }
+                });
         }
         }
     });
     //on the run
     $(document).ready(function () {
          $("#oficina").change(function () {
-             var dID= $(this).val();
+                        var dID= $(this).val();
              $.getJSON("../Documento/GetSeries", { id: dID,version:@TempData["version"] },
                     function (data) {
-                        var select = $("#serie");
-                        select.empty();
-                        select.append($('<option/>', {
-                            text: "Seleccione una serie"
-                        }));
-                        $.each(data, function (index, itemData) {
+                            var select = $("#serie");
+                            select.empty();
                             select.append($('<option/>', {
+                            text: "Seleccione una serie"
+                            }));
+                        $.each(data, function (index, itemData) {
+                                select.append($('<option/>', {
                                 value: itemData.Value,
                                 text: itemData.Text
-                            }));
+                                }));
+                            });
                         });
-                 });
-         });
-    });
+                    });
+                });
     $(document).ready(function () {
          $("#serie").change(function () {
-             var dID = $(this).val();
+                        var dID = $(this).val();
              $.getJSON("../Documento/GetSubseries", {
-                 id: dID, version:@TempData["version"],oficina: $("#oficina").val()
+                        id: dID, version:@TempData["version"],oficina: $("#oficina").val()
              },
                     function (data) {
-                        var select = $("#subserie");
-                        select.empty();
-                        select.append($('<option/>', {
-                            text: "Seleccione una subserie"
-                        }));
-                        $.each(data, function (index, itemData) {
+                            var select = $("#subserie");
+                            select.empty();
                             select.append($('<option/>', {
+                            text: "Seleccione una subserie"
+                            }));
+                        $.each(data, function (index, itemData) {
+                                select.append($('<option/>', {
                                 value: itemData.Value,
                                 text: itemData.Text
-                            }));
+                                }));
+                            });
                         });
-                 });
 
-         });
-    });
+                    });
+                });
     $(document).ready(function () {
          $("#subserie").change(function () {
-             var dID = $(this).val();
+                        var dID = $(this).val();
              $.getJSON("../Documento/GetTipologias", {
-                 id: dID, version:@TempData["version"],oficina: $("#oficina").val(),serie: $("#serie").val()
+                        id: dID, version:@TempData["version"],oficina: $("#oficina").val(),serie: $("#serie").val()
              },
                     function (data) {
-                        var select = $("#id_tipologia");
-                        select.empty();
-                        select.append($('<option/>', {
-                            text: "Seleccione una tipologia"
-                        }));
-                        $.each(data, function (index, itemData) {
+                            var select = $("#id_tipologia");
+                            select.empty();
                             select.append($('<option/>', {
+                            text: "Seleccione una tipologia"
+                            }));
+                        $.each(data, function (index, itemData) {
+                                select.append($('<option/>', {
                                 value: itemData.Value,
                                 text: itemData.Text
-                            }));
+                                }));
+                            });
                         });
-                 });
-             console.log(dID);
+                        console.log($("#ano").val());
              $.getJSON("../Documento/GetOrganizacionText", {
-                 id: dID
+                        id: dID, oficina: $("#oficina").val(), serie: $("#serie").val(), version:@TempData["version"], ano: $("#ano").val()
              },
 
                  function (data) {
-                    if (data.id_organizacion == 2 || data.id_organizacion == 4) {
-                         document.getElementById("identificacion_div").style.display = "block";
-                         document.getElementById("identificacion_label").innerHTML = data.identificacion+":";
-                     }
-                     if (data.id_organizacion == 3) {
-                         document.getElementById("identificacion_div").style.display = "block";
-                         document.getElementById("identificacion_label").innerHTML = "Radicado:";
-                     }
+                            if (data.id_organizacion == 2 || data.id_organizacion == 4) {
+                                document.getElementById("identificacion_div").style.display = "block";
+                                document.getElementById("identificacion_label").innerHTML = data.identificacion + ":";
+                                document.getElementById("cantidad_documentos").innerHTML = "<strong>Esta subserie tiene " + data.archivo + " documentos</strong>";
+                                document.getElementById("ultimo_consecutivo").innerHTML = "<strong>El consecutivo más alto subido es: " + data.gestion + "</strong>";
+                            }
+                            if (data.id_organizacion == 3) {
+                                document.getElementById("identificacion_div").style.display = "block";
+                                document.getElementById("identificacion_label").innerHTML = "Radicado:";
+                            }
 
-                     if(data.id_organizacion == 1) {
+                            if(data.id_organizacion == 1) {
                           $("#identificacion").val("");
-                         document.getElementById("identificacion_div").style.display = "none";
-                     }
-                 });
+                                document.getElementById("identificacion_div").style.display = "none";
+                            }
+                        });
 
-         });
+                    });
     });
+    $(document).ready(function () {
+         $("#ano").change(function () {                        
+             $.getJSON("../Documento/GetOrganizacionText", {
+                        id: $("#subserie").val(), oficina: $("#oficina").val(), serie: $("#serie").val(), version:@TempData["version"], ano: $("#ano").val()
+             },
+
+                 function (data) {
+                            if (data.id_organizacion == 2 || data.id_organizacion == 4) {
+                                document.getElementById("identificacion_div").style.display = "block";
+                                document.getElementById("identificacion_label").innerHTML = data.identificacion + ":";
+                                document.getElementById("cantidad_documentos").innerHTML = "<strong>Esta subserie tiene " + data.archivo + " documentos</strong>";
+                                document.getElementById("ultimo_consecutivo").innerHTML = "<strong>El consecutivo más alto subido es: " + data.gestion + "</strong>";
+                            }
+                            if (data.id_organizacion == 3) {
+                                document.getElementById("identificacion_div").style.display = "block";
+                                document.getElementById("identificacion_label").innerHTML = "Radicado:";
+                            }
+
+                            if(data.id_organizacion == 1) {
+                          $("#identificacion").val("");
+                                document.getElementById("identificacion_div").style.display = "none";
+                            }
+                        });
+
+                    });
+                });
 </script>
 @*//bootstrapt script*@
 <script>

@@ -191,7 +191,7 @@ public class DocumentoLogic
     public static List<documentoModel> GetDocumentos(int exp_id)
     {
         documentoModel data = new documentoModel { id_expediente = exp_id };
-        string sql = @"select documento.id,tipologia.nombre as tipologia, ano_rad as ano,cons_radicado,respuesta,observaciones,folios,direccion,f_subida,UserName 
+        string sql = @"select documento.id,tipologia.nombre as tipologia, ano_rad as ano,cons_radicado,respuesta,observaciones,folios,direccion,f_subida,UserName as usuarioID
 from documento,tipologia,aspnetusers where id_expediente=@id_expediente and usuarioID=aspnetusers.ID and id_tipologia=tipologia.id group by documento.id;";
         return MysqlDataAccess.LoadData<documentoModel>(sql, data);
     }

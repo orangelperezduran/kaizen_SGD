@@ -70,7 +70,7 @@
                     radicado = rad.numero_radicado.ToString();
                 }
                 <td class="font-weight-bold">
-                    Consecutivo de radicado: @radicado  &nbsp;
+                    Radicado: @radicado  &nbsp;
                 </td>
 
                 <td>
@@ -137,8 +137,8 @@
             <tr>
                 <th>Tipologia</th>
                 <th>Año</th>
-                <th>Consecutivo radicado</th>
-                <th>Consecutivo al cual se le responde</th>
+                <th>Radicado</th>
+                <th>Respuesta a radicado</th>
                 <th>Folios</th>
                 <th>Fecha de subida</th>
                 <th>Usuario</th>
@@ -168,7 +168,7 @@
                         @radicado
                     </td>
                     <td>
-                        @if (doc.respuesta == null)
+                        @if (doc.respuesta == null&& !string.IsNullOrEmpty(radicado))
                         {
                         <a href="/Documento/Radicar?radicado=@radicado" target="_blank">
                             responder radicado

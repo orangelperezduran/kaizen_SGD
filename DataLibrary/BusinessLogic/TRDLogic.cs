@@ -186,6 +186,36 @@ and trd.id_oficina=@id_oficina and trd.id_serie=@id_serie and subserie.id=trd.id
             return resultado;
         }
 
+        public static int GetCantidadDocumentos(int serie,int subserie, int oficina,int version,int ano)
+        {
+            GetTRDModel data = new GetTRDModel() { version = version, id_oficina = oficina, id_serie = serie, id_subserie = subserie };
+            string sql = @"select trd.id as id from trd 
+where trd.version=@version and trd.id_oficina=@id_oficina and trd.id_serie=@id_serie and trd.id_subserie=@id_subserie group by id;";
+            int trd_id= MysqlDataAccess.LoadData<GetTRDModel>(sql, data)[0].id;
+            data.id = trd_id;
+            data.version = ano;
+            sql = @"select count(id) as id from expediente 
+where id_trd=@id and ano=@version;";
+            trd_id = MysqlDataAccess.LoadData<GetTRDModel>(sql, data)[0].id;
+            return trd_id;
+        }
+        public static int GetUltimoConsecutivo(int serie, int subserie, int oficina, int version,int ano)
+        {
+            
+            GetTRDModel data = new GetTRDModel() { version = version, id_oficina = oficina, id_serie = serie, id_subserie = subserie };
+            string sql = @"select trd.id as id from trd 
+where trd.version=@version and trd.id_oficina=@id_oficina and trd.id_serie=@id_serie and trd.id_subserie=@id_subserie group by id;";
+            int trd_id = MysqlDataAccess.LoadData<GetTRDModel>(sql, data)[0].id;
+            data.id = trd_id;
+            data.version = ano;
+            sql = @"select identificacion as id from expediente 
+where id_trd=@id and ano=@version order by identificacion desc;";
+            if (MysqlDataAccess.LoadData<GetTRDModel>(sql, data).Count != 0)
+                trd_id = MysqlDataAccess.LoadData<GetTRDModel>(sql, data)[0].id;
+            else
+                trd_id = 0;
+            return trd_id;
+        }
         public static List<SubserieModel> GetSubserie(int subserie)
         {
             GetTRDModel data = new GetTRDModel() { id_subserie = subserie };

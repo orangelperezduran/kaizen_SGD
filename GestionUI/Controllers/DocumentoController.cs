@@ -871,9 +871,15 @@ namespace GestionUI.Controllers
             }
             return Json(temp, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult GetOrganizacionText(int id)
+        public JsonResult GetOrganizacionText(int id, int serie, int oficina,int version, string ano)
         {
             var temp = TRDLogic.GetSubserie(id)[0];
+            if (!int.TryParse(ano, out int year))
+            {
+                year = 0;
+            }
+            temp.archivo = TRDLogic.GetCantidadDocumentos(serie,id,oficina,version,year);
+            temp.gestion = TRDLogic.GetUltimoConsecutivo(serie, id, oficina, version,year);
             return Json(temp, JsonRequestBehavior.AllowGet);
         }
 
