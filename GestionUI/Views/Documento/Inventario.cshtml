@@ -15,7 +15,14 @@
         {
             if (!TRDLogic.IsModificacion(item))
             {
-                <option class="list-group-item" value="@item">@item</option>
+                if (item == (int)@TempData["version"])
+                {
+                    <option class="list-group-item" value="@item" selected="selected">@item</option>
+                }
+                else
+                {
+                    <option class="list-group-item" value="@item">@item</option>
+                }
             }
         }
     </select>
@@ -160,7 +167,7 @@
     function CambiarVersion() {
         var el = document.getElementById('VersionTRD');
         var text = el.options[el.selectedIndex].innerHTML;
-        window.location.replace('/Documento/Inventario/' + text);
+        window.location.replace('/Documento/Inventario?ver=' + text);
     }
 
     function createPDF(id,nombre) {

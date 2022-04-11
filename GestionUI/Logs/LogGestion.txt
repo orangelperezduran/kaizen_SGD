@@ -411,3 +411,21 @@
 2022-03-25 13:39:35,460 [DocumentoController] INFO - El usuario davidsoto94@hotmail.comha creado el radicado: 0111120220325010007
 2022-03-25 13:46:19,194 [DocumentoController] INFO - El usuario davidsoto94@hotmail.comha creado el radicado: 0110420220325010008
 2022-03-25 13:56:26,016 [DocumentoController] INFO - El usuario davidsoto94@hotmail.comha creado el radicado: 0111120220325010009
+2022-03-29 15:39:07,688 [RoleController] INFO - El usuario davidsoto94@hotmail.com ha creado el nuevo rol Prueba
+2022-03-29 15:39:42,629 [AccountController] INFO - El usuario davidsoto94@hotmail.com ha agregado al usuario davidsoto940317@gmail.com
+2022-03-29 16:01:02,821 [TabladeRetencionController] ERROR - MySql.Data.MySqlClient.MySqlException (0x80004005): Duplicate entry '1-f7cdfab0-622a-424d-b528-628c7c33f7bb' for key 'aprobacion_trd.PRIMARY'
+   en MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   en MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
+   en MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
+   en MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   en MySql.Data.MySqlClient.MySqlCommand.ExecuteNonQuery()
+   en Dapper.SqlMapper.ExecuteCommand(IDbConnection cnn, CommandDefinition& command, Action`2 paramReader) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 2827
+   en Dapper.SqlMapper.ExecuteImpl(IDbConnection cnn, CommandDefinition& command) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 570
+   en Dapper.SqlMapper.Execute(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType) en C:\projects\dapper\Dapper\SqlMapper.cs:línea 443
+   en DataLibrary.DataAccess.MysqlDataAccess.SaveData[T](String sql, T data) en C:\Users\david\source\repos\GestionDocumental\DataLibrary\DataAccess\MysqlDataAccess.cs:línea 42
+   en DataLibrary.BusinessLogic.TRDLogic.CrearAprobacion(Int32 version, String userID) en C:\Users\david\source\repos\GestionDocumental\DataLibrary\BusinessLogic\TRDLogic.cs:línea 455
+   en GestionUI.Controllers.TablaDeRetencionController.AgregarTRD() en C:\Users\david\source\repos\GestionDocumental\GestionUI\Controllers\TablaDeRetencionController.cs:línea 463
+2022-03-29 16:04:04,586 [AccountController] INFO - El usuario davidsoto94@hotmail.com ha cambiado al usuario de rol a davidsoto940317@gmail.com
+2022-03-29 16:36:26,822 [DocumentoController] INFO - El usuario davidsoto94@hotmail.comha creado el radicado: 0210420220329010010
+2022-03-29 16:39:49,965 [DocumentoController] INFO - El usuario davidsoto94@hotmail.comha creado el radicado: 0210420220329110011

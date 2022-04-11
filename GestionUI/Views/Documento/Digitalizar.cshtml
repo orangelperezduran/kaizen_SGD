@@ -32,7 +32,14 @@
             {
                 if (!TRDLogic.IsModificacion(item))
                 {
-                    <option class="list-group-item" value="@item">@item</option>
+                    if (item == (int)@TempData["version"])
+                    {
+                        <option class="list-group-item" value="@item" selected="selected">@item</option>
+                    }
+                    else
+                    {
+                        <option class="list-group-item" value="@item">@item</option>
+                    }
                 }
             }
         </select>
@@ -160,9 +167,8 @@
 <script>
     function CambiarVersion() {
                     var el = document.getElementById('VersionTRD');
-                    var text = el.options[el.selectedIndex].innerHTML;
-
-                    window.location.replace('/Documeto/Digitalizar?ver=' + text);
+        var text = el.options[el.selectedIndex].innerHTML;
+        window.location.replace('/Documento/Digitalizar?id=' + text);
 
                 }
     //iniciando
