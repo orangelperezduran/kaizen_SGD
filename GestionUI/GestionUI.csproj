@@ -2259,6 +2259,13 @@
     <Content Include="Views\Busqueda\IndexCentral.cshtml" />
     <Content Include="Views\Busqueda\Radicado.cshtml" />
     <Content Include="Views\Documento\Digitalizar.cshtml" />
+    <None Include="Web.config.example" />
+    <None Include="Web.config.Debug.example">
+      <DependentUpon>Web.config.example</DependentUpon>
+    </None>
+    <None Include="Web.config.Release.example">
+      <DependentUpon>Web.config.example</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
