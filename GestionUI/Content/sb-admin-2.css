@@ -2053,22 +2053,22 @@ pre code {
 }
 
 .form-control::-webkit-input-placeholder {
-  color: white;
+  color: gray;
   opacity: 1;
 }
 
 .form-control:-ms-input-placeholder {
-    color: white;
+    color: gray;
     opacity: 1;
 }
 
 .form-control::-ms-input-placeholder {
-    color: white;
+    color: gray;
     opacity: 1;
 }
 
 .form-control::placeholder {
-    color: white;
+    color: gray;
     opacity: 1;
 }
 
@@ -11614,12 +11614,11 @@ form.user .custom-checkbox.small label {
 }
 
 form.user .form-control-user {
-    color:black;
+  color:black;
   font-size: 0.8rem;
   border-radius: 10rem;
   padding: 1.5rem 1rem;
 }
-
 
 
 form.user .btn-user {
