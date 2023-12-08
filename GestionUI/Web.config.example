@@ -29,7 +29,7 @@
   </log4net>
   
   <connectionStrings>
-    <add name="DefaultConnection" connectionString="server=localhost;SslMode = required ;Port=3306;;Database=gestiondocumental;    UserId=root;Pwd=universidad" providerName="MySql.Data" />
+    <add name="DefaultConnection" connectionString="server=localhost;SslMode = required ;Port=3306;Database=gestiondocumental;UserId=admin;Pwd=passowrd" providerName="MySql.Data" />
   </connectionStrings>
   <system.net>
     <mailSettings> 
